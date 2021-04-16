@@ -9,7 +9,9 @@
 const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
+const SerialPort = require('serialport');
+const ByteLength = require('@serialport/parser-byte-length');
+
 
 class Eltako extends utils.Adapter {
 
@@ -33,6 +35,28 @@ class Eltako extends utils.Adapter {
 	 */
 	async onReady() {
 		// Initialize your adapter here
+		const port = new SerialPort('/dev/ttyUSB0', {
+			baudRate: 57600
+		});
+
+		const parser = port.pipe(new ByteLength({length: 14}));
+
+		port.on('error', (err) => {
+			this.log.info('Eltako serial port error ' + err);	
+		});
+
+		port.on('open', () => {
+			this.log.info('Eltako serial port open...');	
+		});
+
+		port.on('close', () => {
+			this.log.info('Eltako serial port closed...');	
+		});
+
+		port.on('data', (data) => {
+			this.log.info('Eltako serial reads ' + data);	
+		});
+
 
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
