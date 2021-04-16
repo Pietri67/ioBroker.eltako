@@ -1,0 +1,75 @@
+{
+	"common": {
+		"name": "eltako",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"titleLang": {
+			"en": "Eltako FGW14 RS485 ",
+			"de": "Eltako FGW14 RS485",
+			"ru": "Элтако FGW14 RS485",
+			"pt": "Eltako FGW14 RS485",
+			"nl": "Eltako FGW14 RS485",
+			"fr": "Eltako FGW14 RS485",
+			"it": "Eltako FGW14 RS485",
+			"es": "Eltako FGW14 RS485",
+			"pl": "Eltako FGW14 RS485",
+			"zh-cn": "埃尔塔科FGW14 RS485"
+		},
+		"desc": {
+			"en": "Connect Eltako devices over FGW14 on ioBroker",
+			"de": "Verbinden Sie Eltako-Geräte über FGW14 auf ioBroker",
+			"ru": "Подключите устройства Eltako через FGW14 на ioBroker",
+			"pt": "Conecte dispositivos Eltako sobre FGW14 no ioBroker",
+			"nl": "Verbind Eltako-apparaten via FGW14 op ioBroker",
+			"fr": "Connectez les appareils Eltako via FGW14 sur ioBroker",
+			"it": "Collega i dispositivi Eltako tramite FGW14 su ioBroker",
+			"es": "Conecte dispositivos Eltako a través de FGW14 en ioBroker",
+			"pl": "Podłącz urządzenia Eltako przez FGW14 na ioBroker",
+			"zh-cn": "通过ioBroker上的FGW14连接Eltako设备"
+		},
+		"authors": [
+			"Pietri67 <torsten.voigt@nobibum.de>"
+		],
+		"keywords": [
+			"Eltako",
+			"FGW14 RS485"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"icon": "eltako.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Pietri67/ioBroker.eltako/master/admin/eltako.png",
+		"readme": "https://github.com/Pietri67/ioBroker.eltako/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "iot-systems",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "push",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"option1": true,
+		"option2": "42"
+	},
+	"objects": [],
+	"instanceObjects": []
+}

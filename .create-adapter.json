@@ -1,0 +1,38 @@
+{
+	"cli": true,
+	"adapterName": "eltako",
+	"title": "Eltako FGW14 RS485 ",
+	"description": "Connect Eltako devices over FGW14 on ioBroker",
+	"keywords": [
+		"Eltako",
+		"FGW14 RS485"
+	],
+	"expert": "no",
+	"features": [
+		"adapter"
+	],
+	"adminFeatures": [],
+	"type": "iot-systems",
+	"startMode": "daemon",
+	"connectionType": "local",
+	"dataSource": "push",
+	"connectionIndicator": "no",
+	"language": "JavaScript",
+	"adminReact": "no",
+	"tools": [
+		"ESLint",
+		"type checking"
+	],
+	"indentation": "Tab",
+	"quotes": "single",
+	"es6class": "yes",
+	"authorName": "Pietri67",
+	"authorGithub": "Pietri67",
+	"authorEmail": "torsten.voigt@nobibum.de",
+	"gitRemoteProtocol": "HTTPS",
+	"gitCommit": "no",
+	"license": "MIT License",
+	"ci": "gh-actions",
+	"dependabot": "no",
+	"creatorVersion": "1.33.0"
+}
