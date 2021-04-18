@@ -67,9 +67,45 @@
 		]
 	},
 	"native": {
-		"option1": true,
-		"option2": "42"
+		"usbport": "/dev/ttyUSB0",
+		"baudrate": 57600
 	},
 	"objects": [],
-	"instanceObjects": []
+	"instanceObjects": [
+		{
+		  "_id": "info",
+		  "type": "channel",
+		  "common": {
+			"name": "Information"
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.connection",
+		  "type": "state",
+		  "common": {
+			"role": "indicator.connected",
+			"name": "If connected to Eltako",
+			"type": "boolean",
+			"read": true,
+			"write": false,
+			"def": false
+		  },
+		  "native": {}
+		},
+		{
+			"_id": "info.lastmsg",
+			"type": "state",
+			"common": {
+			  "role": "text",
+			  "name": "last received eltako message",
+			  "type": "string",
+			  "read": true,
+			  "write": false,
+			  "def": ""
+			},
+			"native": {}
+		  }
+  
+	]	
 }

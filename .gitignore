@@ -8,6 +8,7 @@ nbproject
 iobroker.*.tgz
 
 Thumbs.db
+test.js
 
 # i18n intermediate files
 admin/i18n/flat.txt

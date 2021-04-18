@@ -1,0 +1,181 @@
+{
+    "Lights": {
+        "1": {
+            "Name": "An1",
+            "Desc": "Ankleide Schrank",
+            "Adr": 59,
+            "Type": "FSR14",
+            "Channel": 1,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000017
+            }
+        },
+        "2": {
+            "Name": "An2",
+            "Desc": "Ankleide Fussboden",
+            "Adr": 60,
+            "Type": "FSR14",
+            "Channel": 2,
+            "Id": 1100000022,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000017
+            }
+        }
+
+    }, 
+
+    "Dimmer": {
+        "1": {
+            "Name": "An1",
+            "Desc": "Ankleide",
+            "Adr": 15,
+            "Type": "FUD14",
+            "Values": {
+                "State": false,
+                "Brightness": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1100000017
+            }
+        },
+        "2": {
+            "Name": "An2",
+            "Desc": "Ankleide Fussboden",
+            "Adr": 16,
+            "Type": "FUD14",
+            "Values": {
+                "State": false,
+                "Brightness": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1100000017
+            }
+        }
+
+    }, 
+
+    "Blinds": {
+        "1": {
+            "Name": "Wz",
+            "Desc": "Wohnzimmer",
+            "Adr": 15,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 1100000017,
+                "UpDown": 64,
+                "Angle": 11
+            }
+        },
+
+        "2": {
+            "Name": "Ez",
+            "Desc": "Esszimmer",
+            "Adr": 15,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 1100000017,
+                "UpDown": 64,
+                "Angle": 11
+            }
+        }
+    },
+
+    "Sockets": {
+        "1": {
+            "Name": "Sz",
+            "Desc": "Schlafzimmer",
+            "Adr": 63,
+            "Type": "FSR14",
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000017
+            }
+        },
+
+        "2": {
+            "Name": "An",
+            "Desc": "Ankleide",
+            "Adr": 63,
+            "Type": "FSR14",
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000017
+            }
+        }
+
+    },
+   
+    "CentralOff": {
+        "1": {
+            "Name": "Coff1",
+            "Desc": "Schlafzimmer",
+            "Values": {
+                "Trigger": false
+            },
+            "Options": {                
+                "Id": 1100000017,
+                "Mode": 48
+            }
+        },
+
+        "2": {
+            "Name": "Coff2",
+            "Desc": "Ankleide",
+            "Values": {
+                "Trigger": false
+            },
+           "Options": {                
+                "Id": 1100000017,
+                "Mode": 48
+            }
+        }
+    }, 
+
+    "CentralOn": {
+        "1": {
+            "Name": "Con1",
+            "Desc": "Schlafzimmer",
+            "Values": {
+                "Trigger": false
+            },
+           "Options": {                
+                "Id": 1100000017,
+                "Mode": 48
+            }
+        },
+
+        "2": {
+            "Name": "Con2",
+            "Desc": "Ankleide",
+            "Values": {
+                "Trigger": false
+            },
+           "Options": {                
+                "Id": 1100000017,
+                "Mode": 48
+            }
+        }
+    } 
+   
+
+}
