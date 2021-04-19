@@ -115,21 +115,21 @@ class Eltako extends utils.Adapter {
 
 									// default
 									let mode = 0x08;
-	
+
 									// Light off
 									if 	(state.val == false) {
 										mode = 0x08;
 									}
-	
+
 									// Light on
 									if 	(state.val == true) {
 										mode = 0x09;
 									}
-	
+
 									// send Telegramm
 									this.sendEltakoTlg(DeviceList.Lights[i].Options.Id, 0x07, 1, 0, 0, mode);
-								}	
-							}	
+								}
+							}
 						}
 					}
 				}
@@ -142,17 +142,17 @@ class Eltako extends utils.Adapter {
 
 									// default
 									let mode = 0x08;
-	
+
 									// socket off
 									if 	(state.val == false) {
 										mode = 0x08;
 									}
-	
+
 									// socket on
 									if 	(state.val == true) {
 										mode = 0x09;
 									}
-	
+
 									// send Telegramm
 									this.sendEltakoTlg(DeviceList.Sockets[i].Options.Id, 0x07, 1, 0, 0, mode);
 								}
@@ -164,7 +164,7 @@ class Eltako extends utils.Adapter {
 				if (typStr == 'dimmer') {
 					for (const i in DeviceList.Dimmer) {
 						if (DeviceList.Dimmer[i].Name == devStr) {
-							if (DeviceList.Dimmer[i].Type == 'FUD14') {	
+							if (DeviceList.Dimmer[i].Type == 'FUD14') {
 								// ask all current dimmer values
 								const light = this.getStateAsync(DeviceList.Dimmer[i].Name + '.state');
 								const bright = this.getStateAsync(DeviceList.Dimmer[i].Name + '.brightness');
@@ -193,7 +193,8 @@ class Eltako extends utils.Adapter {
 				if (typStr == 'blinds') {
 					for (const i in DeviceList.Blinds) {
 						if (DeviceList.Blinds[i].Name == devStr) {
-							if (DeviceList.Blinds[i].Type == 'FSB14') {	
+							if (DeviceList.Blinds[i].Type == 'FSB14') {
+							}
 						}
 					}
 				}
