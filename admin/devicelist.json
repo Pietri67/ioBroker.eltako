@@ -1,30 +1,107 @@
 {
     "Lights": {
         "1": {
-            "Name": "An1",
-            "Desc": "Ankleide Schrank",
-            "Adr": 59,
+            "Name": "kitwindow",
+            "Desc": "Küche Fenster",
+            "Adr": 27,
             "Type": "FSR14",
             "Channel": 1,
             "Values": {
                 "State": false
             },
             "Options": {                
-                "Id": 1100000017
+                "Id": 1100000001
             }
         },
         "2": {
-            "Name": "An2",
-            "Desc": "Ankleide Fussboden",
-            "Adr": 60,
+            "Name": "kitsink",
+            "Desc": "Küche Arbeitsplatte",
+            "Adr": 28,
             "Type": "FSR14",
             "Channel": 2,
-            "Id": 1100000022,
             "Values": {
                 "State": false
             },
             "Options": {                
-                "Id": 1100000017
+                "Id": 1100000002
+            }
+        },
+        "3": {
+            "Name": "droplight",
+            "Desc": "Hängelampe",
+            "Adr": 37,
+            "Type": "FSR14",
+            "Channel": 1,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000003
+            }
+        },
+        "4": {
+            "Name": "stairlight",
+            "Desc": "Notbeleuchtung",
+            "Adr": 47,
+            "Type": "FSR14",
+            "Channel": 1,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000004
+            }
+        },
+         "5": {
+            "Name": "floor4",
+            "Desc": "Flurlicht Galerie",
+            "Adr": 29,
+            "Type": "FSR14",
+            "Channel": 1,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000008
+            }
+        },
+        "6": {
+            "Name": "floor3",
+            "Desc": "Flurlicht Gäste",
+            "Adr": 30,
+            "Type": "FSR14",
+            "Channel": 2,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000007
+            }
+        },
+        "7": {
+            "Name": "floor2",
+            "Desc": "Flurlicht Küche",
+            "Adr": 31,
+            "Type": "FSR14",
+            "Channel": 3,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000006
+            }
+        },
+        "8": {
+            "Name": "floor1",
+            "Desc": "Flurlicht Eingang",
+            "Adr": 32,
+            "Type": "FSR14",
+            "Channel": 4,
+            "Values": {
+                "State": false
+            },
+            "Options": {                
+                "Id": 1100000005
             }
         }
 
