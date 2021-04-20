@@ -85,119 +85,69 @@ class Eltako extends utils.Adapter {
 	 * @param {string} id
 	 * @param {ioBroker.State | null | undefined} state
 	 */
-	onStateChange(id, state) {
+	async onStateChange(id, state) {
 		if (state) {
-			// state eltako.0.lights.floor3.state changed: true (ack = false) from: system.adapter.admin.0
-			// state eltako.0.lights.floor2.state changed: true (ack = false) from: system.adapter.socketio.0
-			// state eltako.0.lights.floor3.state changed: false (ack = true) from: system.adapter.eltako.0
-
-
 			// The state was changed
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack}) from: ${state.from}`);
 
-			// example: system.adapter.eltako.0.lights.floor3.state or
+			// state.from
+			// example: system.adapter.eltako.0.
 			const adaptTmp = state.from.split('.');
 			const adaptFrom = adaptTmp.slice(0,3).join('.');
 
-			if (adaptFrom != 'system.adapter.eltako') {
+			if (adaptFrom !== 'system.adapter.eltako') {
 
-				// which type and device - lights, dimmer - floor3, floor4...
-				const tmp = id.from.split('.');
-				const typStr = tmp.slice(2,3);
-				const devStr = tmp.slice(3,4);
-				const staStr = tmp.slice(4,5);
+				// id
+				// state eltako.0.lights.floor3.state changed: true (ack = false) from: system.adapter.admin.0
+				// state eltako.0.lights.floor2.state changed: true (ack = false) from: system.adapter.socketio.0
+				// state eltako.0.lights.floor3.state changed: false (ack = true) from: system.adapter.eltako.0
 
-				if (typStr == 'lights') {
+				// which category and device - lights, dimmer - floor3, floor4...
+				const tmp = id.split('.');
+				const catStr = tmp.slice(2,3);	// Category
+				const devStr = tmp.slice(3,4);	// Device
+				const varStr = tmp.slice(4,5);	// Variable
+
+
+				if (catStr == 'lights') {
 					for (const i in DeviceList.Lights) {
-						if (DeviceList.Lights[i].Name == devStr) {
-							if (staStr == 'state' ) {
-								if (DeviceList.Lights[i].Type == 'FSR14') {
+						if ((DeviceList.Lights[i].Name == devStr) && (varStr == 'state' )) {
+							if (DeviceList.Lights[i].Type == 'FSR14') {
 
-									// default
-									let mode = 0x08;
-
-									// Light off
-									if 	(state.val == false) {
-										mode = 0x08;
-									}
-
-									// Light on
-									if 	(state.val == true) {
-										mode = 0x09;
-									}
-
-									// send Telegramm
-									this.sendEltakoTlg(DeviceList.Lights[i].Options.Id, 0x07, 1, 0, 0, mode);
-								}
-							}
-						}
-					}
-				}
-
-				if (typStr == 'sockets') {
-					for (const i in DeviceList.Sockets) {
-						if ((DeviceList.Sockets[i].Name) == devStr) {
-							if (staStr == 'state' ) {
-								if (DeviceList.Sockets[i].Type == 'FSR14') {
-
-									// default
-									let mode = 0x08;
-
-									// socket off
-									if 	(state.val == false) {
-										mode = 0x08;
-									}
-
-									// socket on
-									if 	(state.val == true) {
-										mode = 0x09;
-									}
-
-									// send Telegramm
-									this.sendEltakoTlg(DeviceList.Sockets[i].Options.Id, 0x07, 1, 0, 0, mode);
-								}
-							}
-						}
-					}
-				}
-
-				if (typStr == 'dimmer') {
-					for (const i in DeviceList.Dimmer) {
-						if (DeviceList.Dimmer[i].Name == devStr) {
-							if (DeviceList.Dimmer[i].Type == 'FUD14') {
-								// ask all current dimmer values
-								const light = this.getStateAsync(DeviceList.Dimmer[i].Name + '.state');
-								const bright = this.getStateAsync(DeviceList.Dimmer[i].Name + '.brightness');
-								const speed = this.getStateAsync(DeviceList.Dimmer[i].Name + '.speed');
-
-								// default
-								let mode = 0x08;
-
-								// dimmer off
-								if 	(light.val == false) {
-									mode = 0x08;
-								}
-
-								// dimmer on
-								if 	(light.val == true) {
-									mode = 0x09;
-								}
+								// Light on 0x09, off 0x08
+								const value = state.val;
+								const mode = ((value == 1) ? 0x09 : 0x08);
 
 								// send Telegramm
-								this.sendEltakoTlg(DeviceList.Sockets[i].Options.Id, 0x07, 2, bright.val, speed.val, mode);
+								this.sendEltakoTlg(DeviceList.Lights[i].Options.Id, 0x07, 1, 0, 0, mode);
+								return;
 							}
 						}
 					}
 				}
 
-				if (typStr == 'blinds') {
-					for (const i in DeviceList.Blinds) {
-						if (DeviceList.Blinds[i].Name == devStr) {
-							if (DeviceList.Blinds[i].Type == 'FSB14') {
+				if (catStr == 'sockets') {
+					for (const i in DeviceList.Sockets) {
+						if ((DeviceList.Sockets[i].Name == devStr) && (varStr == 'state' )) {
+							if (DeviceList.Sockets[i].Type == 'FSR14') {
+
+								// Socket on 0x09, off 0x08
+								const value = state.val;
+								const mode = ((value == 1) ? 0x09 : 0x08);
+
+								// send Telegramm
+								this.sendEltakoTlg(DeviceList.Sockets[i].Options.Id, 0x07, 1, 0, 0, mode);
+								return;
 							}
 						}
 					}
 				}
+
+
+
+
+
+
 			}
 
 		} else {
@@ -268,16 +218,16 @@ class Eltako extends utils.Adapter {
 		END_STRUCT
 	*/
 		// Logfile
-		this.log.info('Eltako Tlg: ' + EltakoTools.TelegramToString(data));
+		this.log.info('Eltako telegram: ' + EltakoTools.telegramToString(data));
 
 		// update info.lastmsg
-		this.setState('info.lastmsg', EltakoTools.TelegramToString(data), true);
+		this.setState('info.lastmsg', EltakoTools.telegramToString(data), true);
 
 		// Telegramm
-		const tlg = EltakoTools.Telegram(data);
+		const tlg = EltakoTools.telegram(data);
 
 		// check CRC sum
-		if (EltakoTools.CalcTelegramCRC(data) == tlg.CRC)  {
+		if (EltakoTools.calcTelegramCRC(data) == tlg.CRC)  {
 
 			// CRC pass -> sender ID
 			const senderID = EltakoTools.senderID(data);
@@ -290,11 +240,13 @@ class Eltako extends utils.Adapter {
 
 						// ok, update state to off
 						if (tlg.Data3 == 0x50) {
-							this.setState('lights.' + DeviceList.Lights[i].Name + '.state', false, true);
+							this.setState('lights.' + DeviceList.Lights[i].Name + '.state', 0, true);
+							this.log.info('Set lights.' + DeviceList.Lights[i].Name + ' to state 0');
 						}
 						// ok, update state to on
 						if (tlg.Data3 == 0x70) {
-							this.setState('lights.' + DeviceList.Lights[i].Name + '.state', true, true);
+							this.setState('lights.' + DeviceList.Lights[i].Name + '.state', 1, true);
+							this.log.info('Set lights.' + DeviceList.Lights[i].Name + ' to state 1');
 						}
 					}
 				}
@@ -307,47 +259,18 @@ class Eltako extends utils.Adapter {
 
 						// ok, update state to off
 						if (tlg.Data3 == 0x50) {
-							this.setState('sockets.' + DeviceList.Sockets[i].Name + '.state', false, true);
+							this.setState('sockets.' + DeviceList.Sockets[i].Name + '.state', 0, true);
+							this.log.info('Set sockets.' + DeviceList.Sockets[i].Name + ' to state 0');
 						}
 						// ok, update state to on
 						if (tlg.Data3 == 0x70) {
-							this.setState('sockets.' + DeviceList.Sockets[i].Name + '.state', true, true);
+							this.setState('sockets.' + DeviceList.Sockets[i].Name + '.state', 1, true);
+							this.log.info('Set sockets.' + DeviceList.Sockets[i].Name + ' to state 1');
 						}
 					}
 				}
 			}
 
-			// search id, in dimmer
-			for (const i in DeviceList.Dimmer) {
-				if (DeviceList.Dimmer[i].Adr == senderID) {
-					if (DeviceList.Dimmer[i].Type == 'FSR14') {
-
-						if (tlg.ORG == 0x05) {
-							// ok, update state to off
-							if (tlg.Data3 == 0x50) {
-								this.setState('dimmer.' + DeviceList.Dimmer[i].Name + '.state', false, true);
-							}
-							// ok, update state to on
-							if (tlg.Data3 == 0x70) {
-								this.setState('dimmer.' + DeviceList.Dimmer[i].Name + '.state', true, true);
-							}
-						}
-
-						if (tlg.ORG == 0x07) {
-							// ok, update state to off
-							if (tlg.Data0 == 0x08) {
-								this.setState('dimmer.' + DeviceList.Dimmer[i].Name + '.state', false, true);
-							}
-
-							// ok, update state to on
-							if (tlg.Data0 == 0x09) {
-								this.setState('dimmer.' + DeviceList.Dimmer[i].Name + '.state', true, true);
-								this.setState('dimmer.' + DeviceList.Dimmer[i].Name + '.brightness', tlg.Data2, true);
-							}
-						}
-					}
-				}
-			}
 
 		} else {
 			this.log.info('Eltako telegram CRC error');
@@ -373,24 +296,30 @@ class Eltako extends utils.Adapter {
 			tlg[6]  = data1;
 			tlg[7]  = data0;
 
-			const arrID = EltakoTools.SenderIDtoBytes(id);
+			const arrID = EltakoTools.senderIDtoBytes(id);
 
-			tlg[8]  = arrID[3];
-			tlg[9]  = arrID[2];
-			tlg[10] = arrID[1];
-			tlg[11] = arrID[0];
+			tlg[8]  = arrID.ID3;
+			tlg[9]  = arrID.ID2;
+			tlg[10] = arrID.ID1;
+			tlg[11] = arrID.ID0;
 
 			tlg[12] = 0;		// State 0
 
-			tlg[13] = EltakoTools.CalcTelegramCRC(tlg);
+			tlg[13] = EltakoTools.calcTelegramCRC(tlg);
 
 			// send Eltako telegram
-			commPort.write(tlg);
-			this.log.info('Eltako telegram sent: ' + EltakoTools.TelegramToString(tlg));
+			commPort.write(tlg, (err) => {
+				if (err) {
+					this.log.warn('Eltako telegram error sending data: ' + err);
+					return;
+				}
+			});
+
+			this.log.info('Eltako telegram sent: ' + EltakoTools.telegramToString(tlg));
 
 		} catch (e) {
 			// Logfile
-			this.log.info('Eltako telegram sent error: ' + e);
+			this.log.error('Eltako telegram sent error: ' + e);
 		}
 
 	}
@@ -427,11 +356,11 @@ class Eltako extends utils.Adapter {
 			this.setObjectNotExistsAsync(subpath, {
 				type: 'device',
 				common: {
-					name: DeviceList.Lights[i].Desc
+					name: DeviceList.Lights[i].Desc,
+					read:  true,
+					write: false
 				},
-				native: {
-					id: DeviceList.Lights[i].Options.Id
-				}
+				native: {}
 			});
 
 			this.setObjectNotExistsAsync(subpath + '.adr', {
@@ -440,6 +369,8 @@ class Eltako extends utils.Adapter {
 					name: 'device address',
 					type: 'number',
 					role: 'value',
+					read:  true,
+					write: false,
 					def:  DeviceList.Lights[i].Adr
 				},
 				native: {}
@@ -451,6 +382,8 @@ class Eltako extends utils.Adapter {
 					name: 'device type',
 					type: 'string',
 					role: 'value',
+					read:  true,
+					write: false,
 					def:  DeviceList.Lights[i].Type
 				},
 				native: {}
@@ -461,8 +394,10 @@ class Eltako extends utils.Adapter {
 				common:
 				{
 					name: 'light state',
-					type: 'boolean',
-					role: 'indicator',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
 					def: DeviceList.Lights[i].Values.State
 				},
 				native: {}
@@ -470,6 +405,77 @@ class Eltako extends utils.Adapter {
 
 			this.subscribeStates(subpath + '.state');
 		}
+
+
+
+
+		// Sockets
+		path = 'sockets';
+		this.setObjectNotExistsAsync(path, {
+			type: 'meta',
+			common: {
+				name: 'sockets'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Sockets) {
+
+			const subpath = path + '.' + DeviceList.Sockets[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'device',
+				common: {
+					name: DeviceList.Sockets[i].Desc
+				},
+				native: {}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.adr', {
+				type: 'state',
+				common: {
+					name: 'device address',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: false,
+					def:  DeviceList.Sockets[i].Adr
+				},
+				native: {}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.type', {
+				type: 'state',
+				common: {
+					name: 'device type',
+					type: 'string',
+					role: 'value',
+					read:  true,
+					write: false,
+					def:  DeviceList.Sockets[i].Type
+				},
+				native: {}
+			});
+
+
+			this.setObjectNotExistsAsync(subpath + '.state', {
+				type: 'state',
+				common: {
+					name: 'socket state',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Sockets[i].Values.State
+				},
+				native: {}
+			});
+
+			this.subscribeStates(subpath + '.state');
+		}
+
+
+
+
 
 
 
@@ -492,7 +498,6 @@ class Eltako extends utils.Adapter {
 					name: DeviceList.Dimmer[i].Desc
 				},
 				native: {
-					id: DeviceList.Dimmer[i].Options.Id
 				}
 			});
 
@@ -632,63 +637,6 @@ class Eltako extends utils.Adapter {
 		}
 
 
-		// Sockets
-		path = 'sockets';
-		this.setObjectNotExistsAsync(path, {
-			type: 'meta',
-			common: {
-				name: 'sockets'
-			},
-			native: {}
-		});
-
-		for (const i in DeviceList.Sockets) {
-
-			const subpath = path + '.' + DeviceList.Sockets[i].Name;
-			this.setObjectNotExistsAsync(subpath, {
-				type: 'device',
-				common: {
-					name: DeviceList.Sockets[i].Desc
-				},
-				native: {
-					id: DeviceList.Sockets[i].Options.Id
-				}
-			});
-
-			this.setObjectNotExistsAsync(subpath + '.adr', {
-				type: 'state',
-				common: {
-					name: 'device address',
-					type: 'number',
-					role: 'value',
-					def:  DeviceList.Sockets[i].Adr
-				},
-				native: {}
-			});
-
-			this.setObjectNotExistsAsync(subpath + '.type', {
-				type: 'state',
-				common: {
-					name: 'device type',
-					type: 'string',
-					role: 'value',
-					def:  DeviceList.Sockets[i].Type
-				},
-				native: {}
-			});
-
-
-			this.setObjectNotExistsAsync(subpath + '.state', {
-				type: 'state',
-				common: {
-					name: 'socket state',
-					type: 'boolean',
-					role: 'indicator',
-					def: DeviceList.Sockets[i].Values.State
-				},
-				native: {}
-			});
-		}
 
 
 		// Central off
