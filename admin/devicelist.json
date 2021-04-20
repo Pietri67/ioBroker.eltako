@@ -1,26 +1,24 @@
 {
     "Lights": {
         "1": {
-            "Name": "kitwindow",
+            "Name": "kittchen1",
             "Desc": "Küche Fenster",
-            "Adr": 27,
+            "Adr": 28,
             "Type": "FSR14",
-            "Channel": 1,
             "Values": {
-                "State": false
+                "State": 0
             },
             "Options": {                
                 "Id": 1100000001
             }
         },
         "2": {
-            "Name": "kitsink",
-            "Desc": "Küche Arbeitsplatte",
-            "Adr": 28,
+            "Name": "kittchen2",
+            "Desc": "Küche Spüle",
+            "Adr": 27,
             "Type": "FSR14",
-            "Channel": 2,
             "Values": {
-                "State": false
+                "State": 0
             },
             "Options": {                
                 "Id": 1100000002
@@ -28,85 +26,510 @@
         },
         "3": {
             "Name": "droplight",
-            "Desc": "Hängelampe",
+            "Desc": "Hängeleuchte",
             "Adr": 37,
             "Type": "FSR14",
-            "Channel": 1,
             "Values": {
-                "State": false
+                "State": 0
             },
             "Options": {                
                 "Id": 1100000003
             }
         },
         "4": {
-            "Name": "stairlight",
-            "Desc": "Notbeleuchtung",
+            "Name": "staircase",
+            "Desc": "Notlicht Treppe",
             "Adr": 47,
             "Type": "FSR14",
-            "Channel": 1,
             "Values": {
-                "State": false
+                "State": 0
             },
             "Options": {                
                 "Id": 1100000004
             }
         },
-         "5": {
-            "Name": "floor4",
-            "Desc": "Flurlicht Galerie",
-            "Adr": 29,
+        "5": {
+            "Name": "flentrance",
+            "Desc": "Flur Eingang",
+            "Adr": 32,
             "Type": "FSR14",
-            "Channel": 1,
             "Values": {
-                "State": false
+                "State": 0
             },
             "Options": {                
-                "Id": 1100000008
+                "Id": 1100000005
             }
         },
         "6": {
-            "Name": "floor3",
-            "Desc": "Flurlicht Gäste",
-            "Adr": 30,
-            "Type": "FSR14",
-            "Channel": 2,
-            "Values": {
-                "State": false
-            },
-            "Options": {                
-                "Id": 1100000007
-            }
-        },
-        "7": {
-            "Name": "floor2",
-            "Desc": "Flurlicht Küche",
+            "Name": "flkittchen",
+            "Desc": "Flur Küche",
             "Adr": 31,
             "Type": "FSR14",
-            "Channel": 3,
             "Values": {
-                "State": false
+                "State": 0
             },
             "Options": {                
                 "Id": 1100000006
             }
         },
-        "8": {
-            "Name": "floor1",
-            "Desc": "Flurlicht Eingang",
-            "Adr": 32,
+        "7": {
+            "Name": "flguest",
+            "Desc": "Flur Gäste",
+            "Adr": 30,
             "Type": "FSR14",
-            "Channel": 4,
             "Values": {
-                "State": false
+                "State": 0
             },
             "Options": {                
-                "Id": 1100000005
+                "Id": 1100000007
+            }
+        },
+        "8": {
+            "Name": "flgalerie",
+            "Desc": "Flur Galerie",
+            "Adr": 29,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000008
+            }
+        },
+        "9": {
+            "Name": "flbasement",
+            "Desc": "Flur Keller",
+            "Adr": 41,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000009
+            }
+        },
+        "10": {
+            "Name": "baseventil",
+            "Desc": "Keller Lüftung",
+            "Adr": 55,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000010
+            }
+        },
+        "11": {
+            "Name": "baseheat",
+            "Desc": "Keller Heizung",
+            "Adr": 57,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000011
+            }
+        },
+        "12": {
+            "Name": "basesmall",
+            "Desc": "kleiner Keller",
+            "Adr": 53,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000012
+            }
+        },
+        "13": {
+            "Name": "basebig",
+            "Desc": "großer Keller",
+            "Adr": 51,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000013
+            }
+        },
+        "14": {
+            "Name": "toilette",
+            "Desc": "Toilette",
+            "Adr": 43,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000014
+            }
+        },
+        "15": {
+            "Name": "bathsmall",
+            "Desc": "kleines Bad",
+            "Adr": 44,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000015
+            }
+        },
+        "16": {
+            "Name": "bathbig",
+            "Desc": "großes Bad",
+            "Adr": 33,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000016
+            }
+        },
+        "17": {
+            "Name": "dresscabinet",
+            "Desc": "Ankleide Schrank",
+            "Adr": 59,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000017
+            }
+        },
+        "18": {
+            "Name": "entrance",
+            "Desc": "Eingang aussen",
+            "Adr": 45,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000018
+            }
+        },
+        "19": {
+            "Name": "garage",
+            "Desc": "Garage",
+            "Adr": 46,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000019
+            }
+        },
+        "20": {
+            "Name": "balcon",
+            "Desc": "Balkon",
+            "Adr": 39,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000020
+            }
+        },
+        "21": {
+            "Name": "terace",
+            "Desc": "Terrasse",
+            "Adr": 40,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000021
+            }
+        },
+        "22": {
+            "Name": "dressfloor",
+            "Desc": "Ankleide Fussboden",
+            "Adr": 60,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100000022
             }
         }
-
     }, 
 
+
+
+    "Sockets": {
+        "1": {
+            "Name": "sleep",
+            "Desc": "Schlafzimmer",
+            "Adr": 63,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110001
+            }
+        },
+        "2": {
+            "Name": "valentin",
+            "Desc": "Valentin",
+            "Adr": 65,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110002
+            }
+        },
+        "3": {
+            "Name": "cornelius",
+            "Desc": "Cornelius",
+            "Adr": 66,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110003
+            }
+        },
+        "4": {
+            "Name": "guest",
+            "Desc": "Gästezimmer",
+            "Adr": 67,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110004
+            }
+        },
+        "5": {
+            "Name": "bath1",
+            "Desc": "Bad/Waschtisch",
+            "Adr": 71,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110005
+            }
+        },
+        "6": {
+            "Name": "bath2",
+            "Desc": "Bad/Heizung",
+            "Adr": 72,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110006
+            }
+        },
+        "7": {
+            "Name": "sitting",
+            "Desc": "Wohnzimmer",
+            "Adr": 61,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110007
+            }
+        },
+        "8": {
+            "Name": "dress",
+            "Desc": "Ankleide",
+            "Adr": 64,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110008
+            }
+        },
+        "9": {
+            "Name": "tank",
+            "Desc": "Fussbodentank",
+            "Adr": 68,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110009
+            }
+        },
+        "10": {
+            "Name": "galerie",
+            "Desc": "Galerie",
+            "Adr": 69,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110010
+            }
+        },
+        "11": {
+            "Name": "floor",
+            "Desc": "Flur",
+            "Adr": 70,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110011
+            }
+        },
+        "12": {
+            "Name": "terace",
+            "Desc": "Terasse",
+            "Adr": 75,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100110012
+            }
+        },
+       "13": {
+            "Name": "imow",
+            "Desc": "Rasenmäher",
+            "Adr": 76,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110013
+            }
+        },
+        "14": {
+            "Name": "garden1",
+            "Desc": "Garten 1",
+            "Adr": 77,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100110014
+            }
+        },
+        "15": {
+            "Name": "garden2",
+            "Desc": "Garten 2",
+            "Adr": 78,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1100110015
+            }
+        },
+        "16": {
+            "Name": "kittchen1",
+            "Desc": "Küche 1",
+            "Adr": 73,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110016
+            }
+        },
+        "17": {
+            "Name": "kittchen2",
+            "Desc": "Küche 2",
+            "Adr": 74,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110017
+            }
+        },
+        "18": {
+            "Name": "basesmall",
+            "Desc": "kleiner Keller",
+            "Adr": 79,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110018
+            }
+        },
+        "19": {
+            "Name": "basebig",
+            "Desc": "großer Keller",
+            "Adr": 80,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110019
+            }
+        },
+        "20": {
+            "Name": "garage",
+            "Desc": "Garage",
+            "Adr": 622,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 1100110020
+            }
+        },
+        "21": {
+            "Name": "wandrobe",
+            "Desc": "Garderobe",
+            "Adr": 4629,
+            "Type": "FSR14",
+            "Values": {
+                "State": 1
+            },
+            "Options": {                
+                "Id": 4629
+            }
+        }
+    },
+
+
+
+
+
+
+
+    
     "Dimmer": {
         "1": {
             "Name": "An1",
@@ -173,34 +596,7 @@
         }
     },
 
-    "Sockets": {
-        "1": {
-            "Name": "Sz",
-            "Desc": "Schlafzimmer",
-            "Adr": 63,
-            "Type": "FSR14",
-            "Values": {
-                "State": false
-            },
-            "Options": {                
-                "Id": 1100000017
-            }
-        },
-
-        "2": {
-            "Name": "An",
-            "Desc": "Ankleide",
-            "Adr": 63,
-            "Type": "FSR14",
-            "Values": {
-                "State": false
-            },
-            "Options": {                
-                "Id": 1100000017
-            }
-        }
-
-    },
+ 
    
     "CentralOff": {
         "1": {
