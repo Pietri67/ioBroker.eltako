@@ -524,48 +524,170 @@
     },
 
 
-
-
-
-
-
     
     "Dimmer": {
         "1": {
-            "Name": "An1",
-            "Desc": "Ankleide",
-            "Adr": 15,
+            "Name": "sleep",
+            "Desc": "Schlafzimmer Deckenlicht",
+            "Adr": 9,
             "Type": "FUD14",
             "Values": {
-                "State": false,
-                "Brightness": 100,   
+                "State": 0,
+                "Bright": 100,   
                 "Speed": 100
             },
             "Options": {                
-                "Id": 1100000017
+                "Id": 1110000001
             }
         },
         "2": {
-            "Name": "An2",
-            "Desc": "Ankleide Fussboden",
-            "Adr": 16,
+            "Name": "valentin",
+            "Desc": "Valentin Deckenlicht",
+            "Adr": 5,
             "Type": "FUD14",
             "Values": {
-                "State": false,
-                "Brightness": 100,   
+                "State": 0,
+                "Bright": 100,   
                 "Speed": 100
             },
             "Options": {                
-                "Id": 1100000017
+                "Id": 1110000002
+            }
+        },
+        "3": {
+            "Name": "cornelius",
+            "Desc": "Cornelius Deckenlicht",
+            "Adr": 4,
+            "Type": "FUD14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000003
+            }
+        },
+        "4": {
+            "Name": "guest",
+            "Desc": "Gästezimmer Deckenlicht",
+            "Adr": 10,
+            "Type": "FUD14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000004
+            }
+        },
+        "5": {
+            "Name": "dinning1",
+            "Desc": "Esszimmertisch",
+            "Adr": 7,
+            "Type": "FUD14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000005
+            }
+        },
+        "6": {
+            "Name": "bigbath",
+            "Desc": "grosses Bad Deckenlicht",
+            "Adr": 8,
+            "Type": "FUD14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000006
+            }
+        },
+        "7": {
+            "Name": "sitting1",
+            "Desc": "Vouten Wohnzimmer",
+            "Adr": 86,
+            "Type": "FSG14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000007
+            }
+        },
+        "8": {
+            "Name": "sitting2",
+            "Desc": "Spot Eingang",
+            "Adr": 12,
+            "Type": "FSG14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000008
+            }
+        },
+        "9": {
+            "Name": "sitting3",
+            "Desc": "Spot Fenster",
+            "Adr": 11,
+            "Type": "FSG14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000009
+            }
+        },
+        "10": {
+            "Name": "dinning2",
+            "Desc": "Vouten Esszimmer",
+            "Adr": 7,
+            "Type": "FSG14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000010
+            }
+        },
+        "11": {
+            "Name": "dress",
+            "Desc": "Ankleide Deckenlicht",
+            "Adr": 84,
+            "Type": "FSG14",
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 100
+            },
+            "Options": {                
+                "Id": 1110000011
             }
         }
-
     }, 
+
+
 
     "Blinds": {
         "1": {
-            "Name": "Wz",
-            "Desc": "Wohnzimmer",
+            "Name": "sitting",
+            "Desc": "Jalousie Wohnzimmer",
             "Adr": 15,
             "Type": "FSB14",
             "Values": {
@@ -573,82 +695,345 @@
                 "Angle": 0
             },
             "Options": {                
-                "Id": 1100000017,
-                "UpDown": 64,
-                "Angle": 11
+                "Id": 2000000013,
+                "UpDown": 64000,
+                "Angle": 11000
             }
         },
 
         "2": {
-            "Name": "Ez",
-            "Desc": "Esszimmer",
-            "Adr": 15,
+            "Name": "dinning",
+            "Desc": "Jalousie Esszimmer",
+            "Adr": 13,
             "Type": "FSB14",
             "Values": {
                 "Position": 0,
                 "Angle": 0
             },
             "Options": {                
-                "Id": 1100000017,
-                "UpDown": 64,
-                "Angle": 11
+                "Id": 2000000011,
+                "UpDown": 64000,
+                "Angle": 11000
+            }
+        },
+        "3": {
+            "Name": "kittchen",
+            "Desc": "Jalousie Küche",
+            "Adr": 13,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 2000000012,
+                "UpDown": 64000,
+                "Angle": 11000
+            }
+        },
+        "4": {
+            "Name": "cornelius",
+            "Desc": "Jalousie Cornelius",
+            "Adr": 14,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 2000000014,
+                "UpDown": 45000,
+                "Angle": 11000
+            }
+        },
+        "5": {
+            "Name": "valentin1",
+            "Desc": "Jalousie Valentin",
+            "Adr": 19,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 2000000015,
+                "UpDown": 56000,
+                "Angle": 11000
+            }
+        },
+        "6": {
+            "Name": "valentin2",
+            "Desc": "Jalousie Valentin",
+            "Adr": 20,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 2000000016,
+                "UpDown": 45000,
+                "Angle": 11000
+            }
+        },
+        "7": {
+            "Name": "sleep1",
+            "Desc": "Jalousie Schlafzimmer",
+            "Adr": 21,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 2000000017,
+                "UpDown": 56000,
+                "Angle": 11000
+            }
+        },
+        "8": {
+            "Name": "sleep2",
+            "Desc": "Jalousie Schlafzimmer",
+            "Adr": 22,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 2000000018,
+                "UpDown": 45000,
+                "Angle": 11000
+            }
+        },
+        "9": {
+            "Name": "bath",
+            "Desc": "Jalousie Bad",
+            "Adr": 23,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "Id": 2000000019,
+                "UpDown": 45000,
+                "Angle": 11000
             }
         }
-    },
+     },
 
- 
+
    
     "CentralOff": {
         "1": {
             "Name": "Coff1",
             "Desc": "Schlafzimmer",
             "Values": {
-                "Trigger": false
+                "Trigger": 0
             },
             "Options": {                
-                "Id": 1100000017,
+                "Id": 1010000001,
                 "Mode": 48
             }
         },
-
         "2": {
             "Name": "Coff2",
-            "Desc": "Ankleide",
+            "Desc": "Valentin",
             "Values": {
-                "Trigger": false
+                "Trigger": 0
             },
            "Options": {                
-                "Id": 1100000017,
+                "Id": 1010000002,
                 "Mode": 48
+            }
+        },
+        "3": {
+            "Name": "Coff3",
+            "Desc": "Cornelius",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000003,
+                "Mode": 48
+            }
+        },
+        "4": {
+            "Name": "Coff4",
+            "Desc": "Gästezimmer",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000004,
+                "Mode": 48
+            }
+        },
+        "5": {
+            "Name": "Coff5",
+            "Desc": "Esszimmer",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000005,
+                "Mode": 48
+            }
+        },
+        "6": {
+            "Name": "Coff6",
+            "Desc": "grosses Bad",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000006,
+                "Mode": 48
+            }
+        },
+        "7": {
+            "Name": "Coff7",
+            "Desc": "Wohnzimmer",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000007,
+                "Mode": 48
+            }
+        },
+        "8": {
+            "Name": "Coff8",
+            "Desc": "kleines Bad",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000008,
+                "Mode": 48
+            }
+        },
+        "9": {
+            "Name": "Coff9",
+            "Desc": "Keller",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000009,
+                "Mode": 48
+            }
+        },
+        "10": {
+            "Name": "Coff10",
+            "Desc": "Flure",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000010,
+                "Mode": 48
+            }
+        },
+        "11": {
+            "Name": "Coff11",
+            "Desc": "Aussenbereich",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000011,
+                "Mode": 48
+            }
+        },
+        "12": {
+            "Name": "Coff12",
+            "Desc": "Ankleide",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000012,
+                "Mode": 48
+            }
+        },
+        "13": {
+            "Name": "Coff13",
+            "Desc": "Garage",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000013,
+                "Mode": 48
+            }
+        },
+        "14": {
+            "Name": "coff14",
+            "Desc": "Steckdosen Flur",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 1010000014,
+                "Mode": 48
+            }
+        },
+        "15": {
+            "Name": "jalclose",
+            "Desc": "alle Jalousien ZU",
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Id": 2000000001,
+                "Mode": 80
             }
         }
     }, 
 
+
+
     "CentralOn": {
         "1": {
-            "Name": "Con1",
-            "Desc": "Schlafzimmer",
+            "Name": "jalopen",
+            "Desc": "alle Jalousien AUF",
             "Values": {
-                "Trigger": false
+                "Trigger": 0
             },
            "Options": {                
-                "Id": 1100000017,
-                "Mode": 48
-            }
-        },
-
-        "2": {
-            "Name": "Con2",
-            "Desc": "Ankleide",
-            "Values": {
-                "Trigger": false
-            },
-           "Options": {                
-                "Id": 1100000017,
+                "Id": 2000000000,
                 "Mode": 48
             }
         }
-    } 
-   
-
+     },
+    
+    
+    "Sensors": {
+        "1": {
+            "Name": "ms",
+            "Desc": "Wetterstation Dach",
+            "Adr": 6144,
+            "Type": "FWG14MS",
+            "Values": {
+                "sun_west" : 0,
+                "sun_east" : 0,
+                "sun_south": 0,
+                "dusk" : 0,
+                "temp" : 0,
+                "wind" : 0,
+                "rain" : 0
+            }
+        },
+        "2": {
+            "Name": "bright",
+            "Desc": "Helligkeitssensor Nord",
+            "Adr": 16804305,
+            "Type": "FAH60",
+            "Values": {
+                "brightness" : 0
+            }
+        }
+    }
 }
