@@ -67,7 +67,7 @@
 		]
 	},
 	"native": {
-		"usbport": "/dev/ttyUSB0",
+		"usbport": "/dev/ttyUSB1",
 		"baudrate": 57600
 	},
 	"objects": [],

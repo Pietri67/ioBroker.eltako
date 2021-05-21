@@ -696,8 +696,8 @@
             },
             "Options": {                
                 "Id": 2000000013,
-                "UpDown": 64000,
-                "Angle": 11000
+                "UpDown": 60500,
+                "Angle": 1000
             }
         },
 
@@ -712,28 +712,13 @@
             },
             "Options": {                
                 "Id": 2000000011,
-                "UpDown": 64000,
-                "Angle": 11000
+                "UpDown": 60500,
+                "Angle": 1000
             }
         },
         "3": {
             "Name": "kittchen",
             "Desc": "Jalousie Küche",
-            "Adr": 13,
-            "Type": "FSB14",
-            "Values": {
-                "Position": 0,
-                "Angle": 0
-            },
-            "Options": {                
-                "Id": 2000000012,
-                "UpDown": 64000,
-                "Angle": 11000
-            }
-        },
-        "4": {
-            "Name": "cornelius",
-            "Desc": "Jalousie Cornelius",
             "Adr": 14,
             "Type": "FSB14",
             "Values": {
@@ -741,9 +726,24 @@
                 "Angle": 0
             },
             "Options": {                
+                "Id": 2000000012,
+                "UpDown": 60500,
+                "Angle": 1000
+            }
+        },
+        "4": {
+            "Name": "cornelius",
+            "Desc": "Jalousie Cornelius",
+            "Adr": 17,
+            "Type": "FSB14",
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
                 "Id": 2000000014,
-                "UpDown": 45000,
-                "Angle": 11000
+                "UpDown": 43700,
+                "Angle": 1000
             }
         },
         "5": {
@@ -757,8 +757,8 @@
             },
             "Options": {                
                 "Id": 2000000015,
-                "UpDown": 56000,
-                "Angle": 11000
+                "UpDown": 54000,
+                "Angle": 1000
             }
         },
         "6": {
@@ -772,8 +772,8 @@
             },
             "Options": {                
                 "Id": 2000000016,
-                "UpDown": 45000,
-                "Angle": 11000
+                "UpDown": 43700,
+                "Angle": 1000
             }
         },
         "7": {
@@ -787,8 +787,8 @@
             },
             "Options": {                
                 "Id": 2000000017,
-                "UpDown": 56000,
-                "Angle": 11000
+                "UpDown": 54000,
+                "Angle": 1000
             }
         },
         "8": {
@@ -802,8 +802,8 @@
             },
             "Options": {                
                 "Id": 2000000018,
-                "UpDown": 45000,
-                "Angle": 11000
+                "UpDown": 43700,
+                "Angle": 1000
             }
         },
         "9": {
@@ -817,8 +817,8 @@
             },
             "Options": {                
                 "Id": 2000000019,
-                "UpDown": 45000,
-                "Angle": 11000
+                "UpDown": 43700,
+                "Angle": 1000
             }
         }
      },
@@ -1015,14 +1015,14 @@
             "Name": "ms",
             "Desc": "Wetterstation Dach",
             "Adr": 6144,
-            "Type": "FWG14MS",
+            "Type": "FWS61",
             "Values": {
-                "sun_west" : 0,
-                "sun_east" : 0,
-                "sun_south": 0,
-                "dusk" : 0,
-                "temp" : 0,
-                "wind" : 0,
+                "sunwest" : 0,
+                "suneast" : 0,
+                "sunsouth": 0,
+                "brightness" : 0,
+                "temperature" : 0,
+                "windspeed" : 0,
                 "rain" : 0
             }
         },
@@ -1034,6 +1034,610 @@
             "Values": {
                 "brightness" : 0
             }
+        },
+        "3": {
+            "Name": "temp",
+            "Desc": "Temperatursensor Nord",
+            "Adr": 8453338,
+            "Type": "FAFT60",
+            "Values": {
+                "temperature" : 0,
+                "humidity" : 0
+            }
+        }
+    },
+
+    "Keys": {
+        "1": {
+            "Desc": "Flur Keller rechts",
+            "Adr": 4504,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "2": {
+            "Desc": "Flur 2. Ebene Taster 6/6",
+            "Adr": 4503,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "3": {
+            "Desc": "Flur 2. Ebene Taster 5/6",
+            "Adr": 4502,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "4": {
+            "Desc": "Flur Keller links",
+            "Adr": 4501,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "5": {
+            "Desc": "Flur 2. Ebene Taster 4/6",
+            "Adr": 4500,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "6": {
+            "Desc": "Flur 2. Ebene Taster  3/6",
+            "Adr": 4499,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "7": {
+            "Desc": "Flur 2. Ebene Taster  2/6",
+            "Adr": 4498,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "8": {
+            "Desc": "Flur 2. Ebene Taster  1/6",
+            "Adr": 4497,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "9": {
+            "Desc": "Flur 3. Ebene Taster 4/6",
+            "Adr": 4489,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "10": {
+            "Desc": "Flur 3. Ebene Taster  3/6",
+            "Adr": 4488,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "11": {
+            "Desc": "Flur 3. Ebene Taster  1/6",
+            "Adr": 4487,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "12": {
+            "Desc": "Flur 3. Ebene Taster  2/6",
+            "Adr": 4486,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },        
+        "13": {
+            "Desc": "Bad klein links",
+            "Adr": 4484,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },        
+        "14": {
+            "Desc": "Bad klein rechts",
+            "Adr": 4483,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "15": {
+            "Desc": "Garage",
+            "Adr": 4482,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "16": {
+            "Desc": "Keller Lüftung",
+            "Adr": 4481,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "17": {
+            "Desc": "Flur 3. Ebene Taster 6/6",
+            "Adr": 4480,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "18": {
+            "Desc": "Keller klein",
+            "Adr": 4467,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "19": {
+            "Desc": "Keller Heizung",
+            "Adr": 4466,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "20": {
+            "Desc": "Keller groß",
+            "Adr": 4465,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "21": {
+            "Desc": "Gästetoilette rechts",
+            "Adr": 4473,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "22": {
+            "Desc": "Gästetoilette links",
+            "Adr": 4472,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },              
+        "23": {
+            "Desc": "Ankleide rechts",
+            "Adr": 4470,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "24": {
+            "Desc": "Ankleide links",
+            "Adr": 4471,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "25": {
+            "Desc": "Flur 3. Ebene Taster 5/6",
+            "Adr": 4469,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "26": {
+            "Desc": "Flur 4. Ebene Taster 6/6",
+            "Adr": 4464,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "27": {
+            "Desc": "Flur 4. Ebene Taster 4/6",
+            "Adr": 4457,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "28": {
+            "Desc": "Flur 4. Ebene Taster  3/6",
+            "Adr": 4456,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "29": {
+            "Desc": "Flur 4. Ebene Taster  1/6",
+            "Adr": 4455,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "30": {
+            "Desc": "Flur 4. Ebene Taster  2/6",
+            "Adr": 4454,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "31": {
+            "Desc": "Flur 4. Ebene Taster 5/6",
+            "Adr": 4453,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },          
+        "32": {
+            "Desc": "Flur 1. Ebene Taster  2/6",
+            "Adr": 4448,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "33": {
+            "Desc": "Küche Taster oben  6/6",
+            "Adr": 4441,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "34": {
+            "Desc": "Küche Taster oben  5/6",
+            "Adr": 4440,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "35": {
+            "Desc": "Flur 1. Ebene Taster  6/6",
+            "Adr": 4439,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "36": {
+            "Desc": "Valentin Taster  1+2/6",
+            "Adr": 4438,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "37": {
+            "Desc": "Flur 1. Ebene Taster  1/6",
+            "Adr": 4437,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "38": {
+            "Desc": "Flur 1. Ebene Taster  5/6",
+            "Adr": 4436,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "39": {
+            "Desc": "Flur 1. Ebene Taster  3/6",
+            "Adr": 4435,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "40": {
+            "Desc": "Bad groß Taster 6/6",
+            "Adr": 4434,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "41": {
+            "Desc": "Bad groß Taster 5/6",
+            "Adr": 4433,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "42": {
+            "Desc": "Valentin Taster 6/6",
+            "Adr": 4432,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "43": {
+            "Desc": "Bad groß Taster  4/6",
+            "Adr": 4425,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "44": {
+            "Desc": "Bad groß Taster  3/6",
+            "Adr": 4424,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "45": {
+            "Desc": "Küche Taster oben  4/6",
+            "Adr": 4423,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "46": {
+            "Desc": "Küche Taster oben  3/6",
+            "Adr": 4422,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "47": {
+            "Desc": "Valentin Taster 5/6",
+            "Adr": 4421,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "48": {
+            "Desc": "Valentin Taster 4/6",
+            "Adr": 4420,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "49": {
+            "Desc": "Valentin Taster  3/6",
+            "Adr": 4419,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },    
+        "50": {
+            "Desc": "Küche Taster oben  2/6",
+            "Adr": 4418,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "51": {
+            "Desc": "Küche Taster oben  1/6",
+            "Adr": 4417,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "52": {
+            "Desc": "Cornelius Taster 6/6",
+            "Adr": 4416,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "53": {
+            "Desc": "Cornelius Taster 5/6",
+            "Adr": 4409,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },           
+        "54": {
+            "Desc": "Cornelius Taster 4/6",
+            "Adr": 4408,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "55": {
+            "Desc": "Cornelius Taster  3/6",
+            "Adr": 4407,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "56": {
+            "Desc": "Wohnzimmer Taster 4/6",
+            "Adr": 4404,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },      
+        "57": {
+            "Desc": "Wohnzimmer Taster 3/6",
+            "Adr": 4403,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },      
+        "58": {
+            "Desc": "Wohnzimmer Taster  1/6",
+            "Adr": 4402,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "59": {
+            "Desc": "Wohnzimmer Taster  2/6",
+            "Adr": 4401,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "60": {
+            "Desc": "Cornelius Taster  1+2/6",
+            "Adr": 4400,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "61": {
+            "Desc": "Gästezimmer",
+            "Adr": 4392,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "62": {
+            "Desc": "Bad groß Taster  1+2/6",
+            "Adr": 4390,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "63": {
+            "Desc": "Schlafzimmer Taster  1+2/6",
+            "Adr": 4386,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },           
+        "64": {
+            "Desc": "Wohnzimmer Taster 5+6",
+            "Adr": 4376,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                        
+        "65": {
+            "Desc": "Schlafzimmer Taster 6/6",
+            "Adr": 4368,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "66": {
+            "Desc": "Küche Taster unten  4/6",
+            "Adr": 4361,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "67": {
+            "Desc": "Küche Taster unten  3/6",
+            "Adr": 4360,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "68": {
+            "Desc": "Küche Taster unten  1/6",
+            "Adr": 4358,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                      
+        "69": {
+            "Desc": "Schlafzimmer Taster 5/6",
+            "Adr": 4357,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "70": {
+            "Desc": "Schlafzimmer Taster  4/6",
+            "Adr": 4356,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "71": {
+            "Desc": "Schlafzimmer Taster  3/6",
+            "Adr": 4355,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "72": {
+            "Desc": "Küche Taster unten  5/6",
+            "Adr": 4354,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "73": {
+            "Desc": "Küche Taster unten  6/6",
+            "Adr": 4353,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
         }
     }
 }
+
+
+
+
+
+
+

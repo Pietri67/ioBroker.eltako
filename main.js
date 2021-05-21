@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // @ts-nocheck
 'use strict';
 
@@ -14,6 +15,7 @@ const SerialPort = require('serialport');
 const ByteLength = require('@serialport/parser-byte-length');
 const EltakoTools = require('./lib/eltako-tools');
 const DeviceList = require('./lib/devicelist.json');
+const SunCalc2 = require('suncalc2');
 
 // Communication Port/Parser
 let commPort = null;
@@ -22,7 +24,11 @@ let commParser = null;
 // Eltako Data
 let EltakoData = null;
 
+// SunLights
+let sunLight = null;
 
+// Events
+let blindEvents = [];
 
 class Eltako extends utils.Adapter {
 
@@ -34,6 +40,10 @@ class Eltako extends utils.Adapter {
 			...options,
 			name: 'eltako',
 		});
+
+		// Initialize...
+		blindEvents = [];
+
 		this.on('ready', this.onReady.bind(this));
 		this.on('unload', this.onUnload.bind(this));
 		this.on('stateChange', this.onStateChange.bind(this));
@@ -67,6 +77,12 @@ class Eltako extends utils.Adapter {
 
 		// create eltako devices
 		this.createDeviceList();
+
+		// start suncalc function
+		this.calcSunTimes();
+
+		// start event check...
+		this.checkUZSUEvents();
 	}
 
 	/**
@@ -75,6 +91,10 @@ class Eltako extends utils.Adapter {
 	 */
 	onUnload(callback) {
 		try {
+			// Stop USZU Event
+			clearTimeout(this.timeoutUSZU);
+			this.timeoutUSZU = null;
+
 			// stop communication
 			if (commPort != null) {
 				commPort.close();
@@ -121,8 +141,10 @@ class Eltako extends utils.Adapter {
 
 					switch (obj.native.Type) {
 						case 'FSR14':	// Light, Sockets
-							// Light on 0x09, off 0x08
-							this.sendEltakoTlg(obj.native.Id, 0x07, 1, 0, 0, ((state.val == 1) ? 0x09 : 0x08));
+							if (idType == 'state') {
+								// Light on 0x09, off 0x08
+								this.sendEltakoTlg(obj.native.Id, 0x07, 1, 0, 0, ((state.val == 1) ? 0x09 : 0x08));
+							}
 							break;
 
 						case 'FSG14':
@@ -136,6 +158,104 @@ class Eltako extends utils.Adapter {
 								const speed = await this.getStateAsync(idFrom + '.speed');
 								const mode = await this.getStateAsync(idFrom + '.state');
 								this.sendEltakoTlg(obj.native.Id, 0x07, 2, state.val, speed.val, ((mode.val == 1) ? 0x09 : 0x08));
+							}
+							break;
+
+						case 'FSB14':
+							if (idType == 'angle') {
+								//this.sendEltakoTlg(obj.native.Id, 0x07, dir, 0, 0, 0);
+							}
+
+							if (idType == 'position') {
+								// 100 - geschlossen, 0 - offen
+								// Fahrtrichtung -> 1 auf/nach oben, -> 0 zu/nach unten
+								// const dir = (tlg.Data1 == 1 ? 1 : 0);
+								if (state.val === 100) {
+									//
+								}
+								if (state.val === 0) {
+									//
+								}
+							}
+
+							if (idType == 'cmd') {
+								if (state.val === 0) {
+									// Stop
+									this.sendEltakoTlg(obj.native.Id, 0x07, 0, 0, 0, 8);
+								}
+								if (state.val === 1) {
+									// Auf
+									this.sendEltakoTlg(obj.native.Id, 0x07, 0, 66, 1, 8);
+								}
+								if (state.val === 2) {
+									// Ab
+									this.sendEltakoTlg(obj.native.Id, 0x07, 0, 66, 2, 8);
+								}
+							}
+
+							if (idType == 'uzsu') {
+
+								//					 0     1     2     3     4     5     6
+								const  weekDays = [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'  ];
+
+								const uszu = state.val;
+								const objJSON = JSON.parse(uszu);
+
+								const Events = [];
+
+								let idx = 0;
+								objJSON.list.forEach(function(item) {
+
+									Events[idx] = {};
+									Events[idx].days = [];
+
+									// Event aktiv
+									Events[idx].fired = 0;
+									Events[idx].active = item.active;
+
+									// Type
+									switch (item.event) {
+										case 'time':
+											Events[idx].type = 0;
+											break;
+										case 'sunrise':
+											Events[idx].type = 1;
+											break;
+										case 'sunset':
+											Events[idx].type = 2;
+											break;
+										default:
+											Events[idx].type = 0;
+											break;
+									}
+
+									// Zeit
+									Events[idx].pot = item.timeCron;
+									Events[idx].min = item.timeMin;
+									Events[idx].max = item.timeMax;
+
+									// Offset -> in ms
+									try {
+										let offset = parseInt(item.timeOffset);
+										offset = offset * 60000;
+										Events[idx].offset = offset;
+									} catch (error) {
+										Events[idx].offset = 0;
+									}
+
+									// Value == STRING
+									Events[idx].value = item.value;
+
+									// Wochentage
+									for (let numberOfDay = 0; numberOfDay < 7; numberOfDay++) {
+										Events[idx].days[numberOfDay] = (item.rrule.indexOf(weekDays[numberOfDay]) != -1 ? true : false);
+									}
+
+									idx++;
+								});
+
+								// assign
+								blindEvents[obj.native.Index] = Events;
 							}
 							break;
 					}
@@ -254,6 +374,172 @@ class Eltako extends utils.Adapter {
 					}
 				}
 
+				if (obj.native.Type === 'FSB14') {
+					if (tlg.ORG == 5) {
+
+						if (tlg.Data3 == 0x50) {
+							// 100 - geschlossen, 0x50 Endlage unten
+							this.setState(obj._id + '.position', 100, true);
+							this.setState(obj._id + '.angle', 100, true);
+							this.setState(obj._id + '.cmd', 0, true);
+							this.log.info('Eltako Endlage unten');
+						}
+						if (tlg.Data3 == 0x70) {
+							// 0 - offen, 0x70 Endlage oben
+							this.setState(obj._id + '.position', 0, true);
+							this.setState(obj._id + '.angle', 0, true);
+							this.setState(obj._id + '.cmd', 0, true);
+							this.log.info('Eltako Endlage oben');
+						}
+
+						if (tlg.Data3 == 0x01) {
+							this.log.info('Eltako start öffnen');
+							this.setState(obj._id + '.cmd', 1, true);
+						}
+						if (tlg.Data3 == 0x02) {
+							this.log.info('Eltako start schließen');
+							this.setState(obj._id + '.cmd', 2, true);
+						}
+					}
+
+					if (tlg.ORG == 7) {
+						// Fahrtrichtung -> 1 auf/nach oben, -> 0 zu/nach unten
+						const dir = (tlg.Data1 == 1 ? 1 : 0);
+						this.log.info('Eltako Fahrtrichtung ' + dir);
+
+						// Laufzeit in 100ms
+						const runningtime = Number((tlg.Data3 * 256) + tlg.Data2);
+						this.log.info('Fahrzeit ' + runningtime);
+
+						// falls cmd aktiv rücksetzen
+						this.setState(obj._id + '.cmd', 0, true);
+
+						// Motor steht...
+						// Ablauf Jalousie ist immer, zuerst Angle drehen, dann Position einnehmen
+						// aktuelle Position holen und max. Verfahrzeit
+						const tmpMaxAngleTime = Number(obj.native.Angle)/100;
+						const tmpAngle = await this.getStateAsync(obj._id + '.angle');
+						if (tmpAngle === null) {
+							this.log.info('obj angle NULL');
+						}
+						else {
+							this.log.info('obj: ' + JSON.stringify(tmpAngle));
+						}
+
+						this.log.info('tmpMaxAngleTime: ' + tmpMaxAngleTime);
+
+						const tmpPosition = await this.getStateAsync(obj._id + '.position');
+						if (tmpPosition === null) {
+							this.log.info('obj angle NULL');
+						}
+						else {
+							this.log.info('obj: ' + JSON.stringify(tmpPosition));
+						}
+
+
+						const tmpMaxPositionTime = Number(obj.native.UpDown)/100;
+						this.log.info('tmpMaxPositionTime: ' + tmpMaxPositionTime);
+
+
+						// in 100ms rechnet FSB
+						if (dir == 0) {
+
+							// zu fahren
+							const tmpAngleTime = (100 - Number(tmpAngle.val)) * tmpMaxAngleTime / 100 ;
+							this.log.info('AngleTime: ' +  tmpAngleTime.toString() + ' runtime: ' + runningtime);
+
+							// wurde nur der Winkel verändert
+							if (tmpAngleTime > runningtime) {
+								const diffAngle = runningtime * 100/tmpMaxAngleTime;
+								const newAngle = Number(tmpAngle.val) + diffAngle;
+								obj.native.LastAngle = (newAngle > 100) ? 100 : newAngle;
+								this.setState(obj._id + '.angle', obj.native.LastAngle, true);
+							} else {
+								// Lamelle zu
+								obj.native.LastAngle = 100;
+								this.setState(obj._id + '.angle', 100, true);
+
+								// Position berechnen
+								const restPositionTime = runningtime - tmpAngleTime;
+								const diffPosition = restPositionTime * 100/tmpMaxPositionTime;
+								const newPosition = tmpPosition.val + diffPosition;
+
+								this.log.info('NewPos: ' + newPosition + ' diffPos: ' + diffPosition + ' restPos: ' + restPositionTime);
+								obj.native.LastPosition = (newPosition > 100) ? 100 : newPosition;
+								this.setState(obj._id + '.position', obj.native.LastPosition, true);
+							}
+
+						} else {
+							// auf fahren
+							const tmpAngleTime = Number(tmpAngle.val) * tmpMaxAngleTime / 100;
+							this.log.info('AngleTime: ' +  tmpAngleTime + ' runtime: ' + runningtime);
+
+							// wurde nur der Winkel verändert
+							if (tmpAngleTime > runningtime) {
+								const diffAngle = runningtime * 100/tmpMaxAngleTime;
+								const newAngle = tmpAngle.val - diffAngle;
+								obj.native.LastAngle = (newAngle < 0) ? 0 : newAngle;
+								this.setState(obj._id + '.angle', obj.native.LastAngle, true);
+							} else {
+								// Lamelle auf
+								obj.native.LastAngle = 0;
+								this.setState(obj._id + '.angle', 0, true);
+
+								// Position berechnen
+								const restPositionTime = runningtime - tmpAngleTime;
+								const diffPosition = restPositionTime * 100/tmpMaxPositionTime;
+								const newPosition = Number(tmpPosition.val) - diffPosition;
+
+								this.log.info('NewPos: ' + newPosition.toString() + ' diffPos: ' + diffPosition.toString() + ' restPos: ' + restPositionTime.toString());
+								obj.native.LastPosition = (newPosition < 0) ? 0 : newPosition;
+								this.setState(obj._id + '.position', obj.native.LastPosition, true);
+							}
+
+						}
+					}
+				}
+
+				if (obj.native.Type === 'FWS61') {
+					if (tlg.Data0 == 40) {
+						this.setState(obj._id + '.sunwest', (tlg.Data3 * 150/255 * 1000), true);
+						this.setState(obj._id + '.sunsouth', (tlg.Data2 * 150/255 * 1000), true);
+						this.setState(obj._id + '.suneast', (tlg.Data1 * 150/255 * 1000), true);
+					} else {
+						this.setState(obj._id + '.brightness', tlg.Data3 * 1000/255, true);
+
+						if ((tlg.ata2 * 120/255) < 40) {
+							this.setState(obj._id + '.temperature', (-40 + tlg.Data2 * 120/255), true);
+						} else {
+							this.setState(obj._id + '.temperature', (tlg.Data2 * 120/255 - 40), true);
+						}
+
+						this.setState(obj._id + '.windspeed', (tlg.Data1 * 70/255), true);
+						this.setState(obj._id + '.rain', ((tlg.Data0 == 26) ? 1 : 0), true);
+					}
+				}
+
+				if (obj.native.Type === 'FAH60') {
+					if (tlg.Data2 == 0) {
+						this.setState(obj._id + '.brightness', ((tlg.Data3 * 100)/255), true);
+					} else {
+						this.setState(obj._id + '.brightness', (300 + (tlg.Data2 * 29700)/255), true);
+					}
+
+				}
+
+				if (obj.native.Type === 'FAFT60') {
+					this.setState(obj._id + '.temperature', (-20.0 + (tlg.Data1 * 80.0)/250.0), true);
+					this.setState(obj._id + '.humidity', (tlg.Data2 * 100.0/250.0), true);
+				}
+
+				if (obj.native.Type === 'FTS14EM') {
+					if (tlg.ORG == 5) {
+						this.setState(obj._id, (tlg.Data3 !== 0 ? 1 : 0), true);
+					} else {
+						this.log.warn('Eltako FTS14EM error, id ' + senderID);
+					}
+				}
+
 			} else {
 				this.log.warn('Eltako unknown ID ' + senderID);
 			}
@@ -310,8 +596,90 @@ class Eltako extends utils.Adapter {
 
 	}
 
+	/*
+	 * Check all UZSU events
+	*/
+	checkUZSUEvents() {
+		this.timeoutUSZU = setTimeout(this.checkUZSUEvents.bind(this), 5000);
+
+		const self = this;
+		self.log.info('Check UZSU Events');
+
+		// current day,  at 00.00.00 clock
+		const d = new Date();
+		d.setHours(0);
+		d.setMinutes(0);
+		d.setSeconds(0);
+		d.setMilliseconds(0);
+
+		// current time
+		const current = new Date();
+		// time in ms
+		const currentMS = current.getTime();
+
+		// time between current an midnight in ms
+		const diffTime = currentMS - d.getTime();
+
+		// day number
+		const day = current.getDay();
 
 
+		// check all blind devices uzsu
+		blindEvents.forEach(function(event) {
+			event.forEach(function(item) {
+				if ((item.active === true) && ((diffTime < item.fired) || (item.fired == 0))) {
+
+					// debug message
+					self.log.info('UZSU daten: diff: ' + diffTime + ' fired: '  + item.fired + ' event: ' + item.type);
+
+					// POT prüfen
+					if (item.type === 0) {
+						if (item.days[day] === true) {
+							const pot = EltakoTools.parseTime(item.pot);
+							if (pot.getTime() < currentMS) {
+								// Fired
+								item.fired = diffTime;
+								self.log.info('Event Fire');
+							}
+						}
+					}
+
+					// Sunrise
+					if (item.type === 1) {
+						if (item.days[day] === true) {
+							let sunrise = sunLight.sunrise.getTime();
+							sunrise += item.offset;
+
+
+						}
+					}
+
+					// Sunset
+					if (item.type === 2) {
+						if (item.days[day] === true) {
+							let sunset = sunLight.sunset.getTime();
+							sunset += item.offset;
+
+
+						}
+					}
+
+				}
+			});
+		});
+	}
+
+	/*
+	 *  Calc SunTimes, Positions....
+	*/
+	calcSunTimes() {
+		this.timeoutSUN = setTimeout(this.calcSunTimes.bind(this), 3600000);
+
+		const self = this;
+		self.log.info('Calc sun time, position...');
+
+		sunLight = SunCalc2.getTimes(new Date(), 51.02, 13.71);
+	}
 
 	/*
 	* Create Eltako Devicelist
@@ -372,6 +740,25 @@ class Eltako extends utils.Adapter {
 
 			// subscribe
 			this.subscribeStates(subpath + '.state');
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'light timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Lights[i].Type,
+					'Adr': DeviceList.Lights[i].Adr,
+					'Id': DeviceList.Lights[i].Options.Id
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
 		}
 
 
@@ -386,7 +773,6 @@ class Eltako extends utils.Adapter {
 			native: {}
 		});
 
-		/*
 		for (const i in DeviceList.Sockets) {
 
 			const subpath = path + '.' + DeviceList.Sockets[i].Name;
@@ -423,8 +809,27 @@ class Eltako extends utils.Adapter {
 
 			// subscribe
 			this.subscribeStates(subpath + '.state');
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'socket timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Sockets[i].Type,
+					'Adr': DeviceList.Sockets[i].Adr,
+					'Id': DeviceList.Sockets[i].Options.Id
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
 		}
-		*/
+
 
 		// Dimmer
 		path = 'dimmer';
@@ -512,6 +917,25 @@ class Eltako extends utils.Adapter {
 
 			// subscribe
 			this.subscribeStates(subpath + '.brightness');
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'dimmer timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Dimmer[i].Type,
+					'Adr': DeviceList.Dimmer[i].Adr,
+					'Id': DeviceList.Dimmer[i].Options.Id
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
 		}
 
 		// Blinds
@@ -534,7 +958,11 @@ class Eltako extends utils.Adapter {
 				},
 				native: {
 					'Type': DeviceList.Blinds[i].Type,
-					'Adr': DeviceList.Blinds[i].Adr
+					'Adr': DeviceList.Blinds[i].Adr,
+					'UpDown': DeviceList.Blinds[i].Options.UpDown,
+					'Angle': DeviceList.Blinds[i].Options.Angle,
+					'LastAngle': 0,
+					'LastPosition': 0
 				}
 			});
 
@@ -549,7 +977,7 @@ class Eltako extends utils.Adapter {
 					role: 'value',
 					read:  true,
 					write: true,
-					def: DeviceList.Blinds[i].Values.Position,
+					def: DeviceList.Blinds[i].Values.Position
 				},
 				native: {
 					'Type': DeviceList.Blinds[i].Type,
@@ -569,7 +997,7 @@ class Eltako extends utils.Adapter {
 					role: 'value',
 					read:  true,
 					write: true,
-					def: DeviceList.Blinds[i].Values.Speed,
+					def: DeviceList.Blinds[i].Values.Angle
 				},
 				native: {
 					'Type': DeviceList.Blinds[i].Type,
@@ -580,8 +1008,122 @@ class Eltako extends utils.Adapter {
 
 			// subscribe
 			this.subscribeStates(subpath + '.angle');
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'blind timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Index': i,
+					'Type': DeviceList.Blinds[i].Type,
+					'Adr': DeviceList.Blinds[i].Adr,
+					'Id': DeviceList.Blinds[i].Options.Id
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
+
+			this.setObjectNotExistsAsync(subpath + '.cmd', {
+				type: 'state',
+				common: {
+					name: 'blind cmd',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Blinds[i].Type,
+					'Adr': DeviceList.Blinds[i].Adr,
+					'Id': DeviceList.Blinds[i].Options.Id
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.cmd');
 		}
 
+
+		// Sensoren
+		path = 'sensors';
+		this.setObjectNotExistsAsync(path, {
+			type: 'meta',
+			common: {
+				name: 'sensors'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Sensors) {
+
+			const subpath = path + '.' + DeviceList.Sensors[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'device',
+				common: {
+					name: DeviceList.Sensors[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Sensors[i].Type,
+					'Adr': DeviceList.Sensors[i].Adr
+				}
+			});
+
+			// remember
+			EltakoData.set(DeviceList.Sensors[i].Adr, subpath);
+
+			for (const [key, value] of Object.entries(DeviceList.Sensors[i].Values)) {
+				this.setObjectNotExistsAsync(subpath + '.' + key, {
+					type: 'state',
+					common: {
+						name: key,
+						type: 'number',
+						role: 'value',
+						read:  true,
+						write: false,
+						def: value
+					},
+					native: {
+					}
+				});
+			}
+		}
+
+		// Keys
+		path = 'keys';
+		this.setObjectNotExistsAsync(path, {
+			type: 'meta',
+			common: {
+				name: 'keys'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Keys) {
+			const subpath = path + '.key_' + DeviceList.Keys[i].Adr;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'state',
+				common: {
+					name: DeviceList.Keys[i].Desc,
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+				},
+				native: {
+					'Type': DeviceList.Keys[i].Type,
+					'Adr': DeviceList.Keys[i].Adr,
+				}
+			});
+
+			// remember
+			EltakoData.set(DeviceList.Keys[i].Adr, subpath);
+		}
 	}
 }
 
