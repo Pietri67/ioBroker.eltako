@@ -194,68 +194,7 @@ class Eltako extends utils.Adapter {
 							}
 
 							if (idType == 'uzsu') {
-
-								//					 0     1     2     3     4     5     6
-								const  weekDays = [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'  ];
-
-								const uszu = state.val;
-								const objJSON = JSON.parse(uszu);
-
-								const Events = [];
-
-								let idx = 0;
-								objJSON.list.forEach(function(item) {
-
-									Events[idx] = {};
-									Events[idx].days = [];
-
-									// Event aktiv
-									Events[idx].fired = 0;
-									Events[idx].active = item.active;
-
-									// Type
-									switch (item.event) {
-										case 'time':
-											Events[idx].type = 0;
-											break;
-										case 'sunrise':
-											Events[idx].type = 1;
-											break;
-										case 'sunset':
-											Events[idx].type = 2;
-											break;
-										default:
-											Events[idx].type = 0;
-											break;
-									}
-
-									// Zeit
-									Events[idx].pot = item.timeCron;
-									Events[idx].min = item.timeMin;
-									Events[idx].max = item.timeMax;
-
-									// Offset -> in ms
-									try {
-										let offset = parseInt(item.timeOffset);
-										offset = offset * 60000;
-										Events[idx].offset = offset;
-									} catch (error) {
-										Events[idx].offset = 0;
-									}
-
-									// Value == STRING
-									Events[idx].value = item.value;
-
-									// Wochentage
-									for (let numberOfDay = 0; numberOfDay < 7; numberOfDay++) {
-										Events[idx].days[numberOfDay] = (item.rrule.indexOf(weekDays[numberOfDay]) != -1 ? true : false);
-									}
-
-									idx++;
-								});
-
-								// assign
-								blindEvents[obj.native.Index] = Events;
+								this.parseUZSUEvents(obj.native.Index, obj.native.Id, state);
 							}
 							break;
 					}
@@ -329,7 +268,7 @@ class Eltako extends utils.Adapter {
 		END_STRUCT
 	*/
 		// Logfile
-		this.log.info('Eltako telegram: ' + EltakoTools.telegramToString(data));
+		// this.log.info('Eltako telegram: ' + EltakoTools.telegramToString(data));
 
 		// update info.lastmsg
 		this.setState('info.lastmsg', EltakoTools.telegramToString(data), true);
@@ -382,22 +321,22 @@ class Eltako extends utils.Adapter {
 							this.setState(obj._id + '.position', 100, true);
 							this.setState(obj._id + '.angle', 100, true);
 							this.setState(obj._id + '.cmd', 0, true);
-							this.log.info('Eltako Endlage unten');
+							//this.log.info('Eltako Endlage unten');
 						}
 						if (tlg.Data3 == 0x70) {
 							// 0 - offen, 0x70 Endlage oben
 							this.setState(obj._id + '.position', 0, true);
 							this.setState(obj._id + '.angle', 0, true);
 							this.setState(obj._id + '.cmd', 0, true);
-							this.log.info('Eltako Endlage oben');
+							//this.log.info('Eltako Endlage oben');
 						}
 
 						if (tlg.Data3 == 0x01) {
-							this.log.info('Eltako start öffnen');
+							//this.log.info('Eltako start öffnen');
 							this.setState(obj._id + '.cmd', 1, true);
 						}
 						if (tlg.Data3 == 0x02) {
-							this.log.info('Eltako start schließen');
+							//this.log.info('Eltako start schließen');
 							this.setState(obj._id + '.cmd', 2, true);
 						}
 					}
@@ -405,11 +344,11 @@ class Eltako extends utils.Adapter {
 					if (tlg.ORG == 7) {
 						// Fahrtrichtung -> 1 auf/nach oben, -> 0 zu/nach unten
 						const dir = (tlg.Data1 == 1 ? 1 : 0);
-						this.log.info('Eltako Fahrtrichtung ' + dir);
+						//this.log.info('Eltako Fahrtrichtung ' + dir);
 
 						// Laufzeit in 100ms
 						const runningtime = Number((tlg.Data3 * 256) + tlg.Data2);
-						this.log.info('Fahrzeit ' + runningtime);
+						//this.log.info('Fahrzeit ' + runningtime);
 
 						// falls cmd aktiv rücksetzen
 						this.setState(obj._id + '.cmd', 0, true);
@@ -423,22 +362,22 @@ class Eltako extends utils.Adapter {
 							this.log.info('obj angle NULL');
 						}
 						else {
-							this.log.info('obj: ' + JSON.stringify(tmpAngle));
+							//this.log.info('obj: ' + JSON.stringify(tmpAngle));
 						}
 
-						this.log.info('tmpMaxAngleTime: ' + tmpMaxAngleTime);
+						//this.log.info('tmpMaxAngleTime: ' + tmpMaxAngleTime);
 
 						const tmpPosition = await this.getStateAsync(obj._id + '.position');
 						if (tmpPosition === null) {
-							this.log.info('obj angle NULL');
+							this.log.info('obj position NULL');
 						}
 						else {
-							this.log.info('obj: ' + JSON.stringify(tmpPosition));
+							//this.log.info('obj: ' + JSON.stringify(tmpPosition));
 						}
 
 
 						const tmpMaxPositionTime = Number(obj.native.UpDown)/100;
-						this.log.info('tmpMaxPositionTime: ' + tmpMaxPositionTime);
+						//this.log.info('tmpMaxPositionTime: ' + tmpMaxPositionTime);
 
 
 						// in 100ms rechnet FSB
@@ -446,7 +385,7 @@ class Eltako extends utils.Adapter {
 
 							// zu fahren
 							const tmpAngleTime = (100 - Number(tmpAngle.val)) * tmpMaxAngleTime / 100 ;
-							this.log.info('AngleTime: ' +  tmpAngleTime.toString() + ' runtime: ' + runningtime);
+							//this.log.info('AngleTime: ' +  tmpAngleTime.toString() + ' runtime: ' + runningtime);
 
 							// wurde nur der Winkel verändert
 							if (tmpAngleTime > runningtime) {
@@ -464,7 +403,7 @@ class Eltako extends utils.Adapter {
 								const diffPosition = restPositionTime * 100/tmpMaxPositionTime;
 								const newPosition = tmpPosition.val + diffPosition;
 
-								this.log.info('NewPos: ' + newPosition + ' diffPos: ' + diffPosition + ' restPos: ' + restPositionTime);
+								//this.log.info('NewPos: ' + newPosition + ' diffPos: ' + diffPosition + ' restPos: ' + restPositionTime);
 								obj.native.LastPosition = (newPosition > 100) ? 100 : newPosition;
 								this.setState(obj._id + '.position', obj.native.LastPosition, true);
 							}
@@ -472,7 +411,7 @@ class Eltako extends utils.Adapter {
 						} else {
 							// auf fahren
 							const tmpAngleTime = Number(tmpAngle.val) * tmpMaxAngleTime / 100;
-							this.log.info('AngleTime: ' +  tmpAngleTime + ' runtime: ' + runningtime);
+							//this.log.info('AngleTime: ' +  tmpAngleTime + ' runtime: ' + runningtime);
 
 							// wurde nur der Winkel verändert
 							if (tmpAngleTime > runningtime) {
@@ -490,7 +429,7 @@ class Eltako extends utils.Adapter {
 								const diffPosition = restPositionTime * 100/tmpMaxPositionTime;
 								const newPosition = Number(tmpPosition.val) - diffPosition;
 
-								this.log.info('NewPos: ' + newPosition.toString() + ' diffPos: ' + diffPosition.toString() + ' restPos: ' + restPositionTime.toString());
+								//this.log.info('NewPos: ' + newPosition.toString() + ' diffPos: ' + diffPosition.toString() + ' restPos: ' + restPositionTime.toString());
 								obj.native.LastPosition = (newPosition < 0) ? 0 : newPosition;
 								this.setState(obj._id + '.position', obj.native.LastPosition, true);
 							}
@@ -601,9 +540,7 @@ class Eltako extends utils.Adapter {
 	*/
 	checkUZSUEvents() {
 		this.timeoutUSZU = setTimeout(this.checkUZSUEvents.bind(this), 5000);
-
 		const self = this;
-		self.log.info('Check UZSU Events');
 
 		// current day,  at 00.00.00 clock
 		const d = new Date();
@@ -618,49 +555,184 @@ class Eltako extends utils.Adapter {
 		const currentMS = current.getTime();
 
 		// time between current an midnight in ms
-		const diffTime = currentMS - d.getTime();
+		const midnightTime = d.getTime();
+		const diffTime = currentMS - midnightTime;
 
-		// day number
+		// day number 0-Sunday, 1-Monday ...
 		const day = current.getDay();
 
 
 		// check all blind devices uzsu
-		blindEvents.forEach(function(event) {
-			event.forEach(function(item) {
-				if ((item.active === true) && ((diffTime < item.fired) || (item.fired == 0))) {
+		blindEvents.forEach(function(device) {
+			device.forEach(function(event) {
 
-					// debug message
-					self.log.info('UZSU daten: diff: ' + diffTime + ' fired: '  + item.fired + ' event: ' + item.type);
+				//self.log.info('id: ' + item.Id + ' active: ' + item.active + ' fired: ' + item.fired);
+
+				if ((event.active === true) && ((diffTime < event.fired) || (event.fired == 0))) {
+
+					//self.log.info('type: ' + item.type + ' day: ' + day + ' val: ' + item.value);
 
 					// POT prüfen
-					if (item.type === 0) {
-						if (item.days[day] === true) {
-							const pot = EltakoTools.parseTime(item.pot);
-							if (pot.getTime() < currentMS) {
+					if (event.type === 0) {
+						if (event.days[day] === true) {
+							const pot = (EltakoTools.parseTime(event.pot)).getTime();
+							if (pot < currentMS) {
 								// Fired
-								item.fired = diffTime;
-								self.log.info('Event Fire');
+								event.fired = diffTime;
+
+								if (event.value == 0) { // Auf
+									self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+								}
+								if (event.value == 1) { // Zu
+									self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+								}
 							}
 						}
 					}
 
 					// Sunrise
-					if (item.type === 1) {
-						if (item.days[day] === true) {
+					if (event.type === 1) {
+						if (event.days[day] === true) {
 							let sunrise = sunLight.sunrise.getTime();
-							sunrise += item.offset;
+							sunrise += event.offset;
 
+							let timeMax = 0;
+							try {
+								timeMax = (EltakoTools.parseTime(event.timeMax)).getTime();
+							} catch (error) {
+								timeMax = midnightTime;
+							}
 
+							let timeMin = 0;
+							try {
+								timeMin = (EltakoTools.parseTime(event.timeMin)).getTime();
+							} catch (error) {
+								timeMin = midnightTime;
+							}
+
+							//self.log.info('sunrise: ' + sunrise  + ' midnight: ' + midnightTime);
+							//self.log.info('min: ' + timeMin + ' max: ' + timeMax + ' currentMS: ' + currentMS);
+
+							if ((timeMax < currentMS) && (midnightTime != timeMax)) {
+								event.fired = diffTime;
+
+								if (event.value == 0) { // Auf
+									self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+								}
+								if (event.value == 1) { // Zu
+									self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+								}
+
+							} else {
+								if (midnightTime != timeMin) {
+									if ((timeMin < sunrise) && (sunrise < currentMS)) {
+										event.fired = diffTime;
+
+										if (event.value == 0) { // Auf
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+										}
+										if (event.value == 1) { // Zu
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+										}
+
+									} else {
+										if ((sunrise < timeMin) && (timeMin < currentMS)) {
+											event.fired = diffTime;
+
+											if (event.value == 0) { // Auf
+												self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+											}
+											if (event.value == 1) { // Zu
+												self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+											}
+										}
+									}
+								} else {
+									if (sunrise < currentMS) {
+										event.fired = diffTime;
+
+										if (event.value == 0) { // Auf
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+										}
+										if (event.value == 1) { // Zu
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+										}
+									}
+								}
+							}
 						}
 					}
 
 					// Sunset
-					if (item.type === 2) {
-						if (item.days[day] === true) {
+					if (event.type === 2) {
+						if (event.days[day] === true) {
 							let sunset = sunLight.sunset.getTime();
-							sunset += item.offset;
+							sunset += event.offset;
 
+							let timeMax = 0;
+							try {
+								timeMax = (EltakoTools.parseTime(event.timeMax)).getTime();
+							} catch (error) {
+								timeMax = midnightTime;
+							}
 
+							let timeMin = 0;
+							try {
+								timeMin = (EltakoTools.parseTime(event.timeMin)).getTime();
+							} catch (error) {
+								timeMin = midnightTime;
+							}
+
+							//self.log.info('sunset: ' + sunset  + ' midnight: ' + midnightTime);
+							//self.log.info('min: ' + timeMin + ' max: ' + timeMax + ' currentMS: ' + currentMS);
+
+							if ((timeMax < currentMS) && (midnightTime != timeMax)) {
+								event.fired = diffTime;
+
+								if (event.value == 0) { // Auf
+									self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+								}
+								if (event.value == 1) { // Zu
+									self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+								}
+
+							} else {
+								if (midnightTime != timeMin) {
+									if ((timeMin < sunset) && (sunset < currentMS)) {
+										event.fired = diffTime;
+
+										if (event.value == 0) { // Auf
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+										}
+										if (event.value == 1) { // Zu
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+										}
+
+									} else {
+										if ((sunset < timeMin) && (timeMin < currentMS)) {
+											event.fired = diffTime;
+
+											if (event.value == 0) { // Auf
+												self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+											}
+											if (event.value == 1) { // Zu
+												self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+											}
+										}
+									}
+								} else {
+									if (sunset < currentMS) {
+										event.fired = diffTime;
+
+										if (event.value == 0) { // Auf
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 1, 8);
+										}
+										if (event.value == 1) { // Zu
+											self.sendEltakoTlg(event.Id, 0x07, 0, 66, 2, 8);
+										}
+									}
+								}
+							}
 						}
 					}
 
@@ -676,10 +748,78 @@ class Eltako extends utils.Adapter {
 		this.timeoutSUN = setTimeout(this.calcSunTimes.bind(this), 3600000);
 
 		const self = this;
-		self.log.info('Calc sun time, position...');
-
+		//self.log.info('Calc sun time, position...');
 		sunLight = SunCalc2.getTimes(new Date(), 51.02, 13.71);
 	}
+
+	/*
+	* parse UZSU events
+	*/
+	parseUZSUEvents(index, id, state) {
+		//					 0     1     2     3     4     5     6
+		const  weekDays = [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'  ];
+
+		const uszu = state.val;
+		const objJSON = JSON.parse(uszu);
+
+		const events = [];
+
+		let idx = 0;
+		objJSON.list.forEach(function(item) {
+
+			events[idx] = {};
+			events[idx].days = [];
+
+			// event active
+			events[idx].fired = 0;
+			events[idx].active = item.active;
+
+			// Type
+			switch (item.event) {
+				case 'time':
+					events[idx].type = 0;
+					break;
+				case 'sunrise':
+					events[idx].type = 1;
+					break;
+				case 'sunset':
+					events[idx].type = 2;
+					break;
+				default:
+					events[idx].type = 0;
+					break;
+			}
+
+			// Zeit
+			events[idx].pot = item.timeCron;
+			events[idx].timeMin = item.timeMin;
+			events[idx].timeMax = item.timeMax;
+
+			// offset -> in ms
+			try {
+				let offset = parseInt(item.timeOffset);
+				offset = offset * 60000;
+				events[idx].offset = offset;
+			} catch (error) {
+				events[idx].offset = 0;
+			}
+
+			// Value == STRING
+			events[idx].value = item.value;
+
+			// Wochentage
+			for (let numberOfDay = 0; numberOfDay < 7; numberOfDay++) {
+				events[idx].days[numberOfDay] = (item.rrule.indexOf(weekDays[numberOfDay]) != -1 ? true : false);
+			}
+
+			events[idx].Id = id;
+			idx++;
+		});
+
+		// assign events -> devices
+		blindEvents[index] = events;
+	}
+
 
 	/*
 	* Create Eltako Devicelist
@@ -1028,6 +1168,11 @@ class Eltako extends utils.Adapter {
 
 			// subscribe
 			this.subscribeStates(subpath + '.uzsu');
+
+			// if object exists...
+			const state = await this.getStateAsync(subpath + '.uzsu');
+			this.parseUZSUEvents(i, DeviceList.Blinds[i].Options.Id, state);
+
 
 			this.setObjectNotExistsAsync(subpath + '.cmd', {
 				type: 'state',
