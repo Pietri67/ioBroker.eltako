@@ -197,6 +197,14 @@ class Eltako extends utils.Adapter {
 								this.parseUZSUEvents(obj.native.Index, obj.native.Id, state);
 							}
 							break;
+
+						case 'FTS14X':
+							if (idType == 'state') {
+								if (state.val === 1) {
+									this.simulateKeyPressed(obj.native.Id, obj.native.Mode);
+								}
+							}
+							break;
 					}
 				}
 			}
@@ -268,7 +276,7 @@ class Eltako extends utils.Adapter {
 		END_STRUCT
 	*/
 		// Logfile
-		// this.log.info('Eltako telegram: ' + EltakoTools.telegramToString(data));
+		this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data));
 
 		// update info.lastmsg
 		this.setState('info.lastmsg', EltakoTools.telegramToString(data), true);
@@ -479,6 +487,15 @@ class Eltako extends utils.Adapter {
 					}
 				}
 
+				// special keys simulation - Garage relais function
+				if (obj.native.Type === 'FTS14X') {
+					if (tlg.ORG == 5) {
+						this.setState(obj._id, 0, true);
+					} else {
+						this.log.warn('Eltako FTS14 error, id ' + senderID);
+					}
+				}
+
 			} else {
 				this.log.warn('Eltako unknown ID ' + senderID);
 			}
@@ -536,6 +553,21 @@ class Eltako extends utils.Adapter {
 	}
 
 	/*
+	* Simulate key pressed....
+	*/
+	async simulateKeyPressed(id, mode) {
+
+		const self = this;
+		// mode != 0
+		this.sendEltakoTlg(id, 0x05, mode, 0, 0, 0);
+
+		// after 160ms reset to 0
+		this.setTimeout(function() {
+			self.sendEltakoTlg(id, 0x05, 0, 0, 0, 0);
+		}, 160);
+	}
+
+	/*
 	 * Check all UZSU events
 	*/
 	checkUZSUEvents() {
@@ -566,7 +598,7 @@ class Eltako extends utils.Adapter {
 		blindEvents.forEach(function(device) {
 			device.forEach(function(event) {
 
-				//self.log.info('id: ' + item.Id + ' active: ' + item.active + ' fired: ' + item.fired);
+				//self.log.info('id: ' + event.Id + ' fired: ' + event.fired + ' diffTime: ' + diffTime + ' midnight: ' + midnightTime);
 
 				if ((event.active === true) && ((diffTime < event.fired) || (event.fired == 0))) {
 
@@ -1170,8 +1202,12 @@ class Eltako extends utils.Adapter {
 			this.subscribeStates(subpath + '.uzsu');
 
 			// if object exists...
-			const state = await this.getStateAsync(subpath + '.uzsu');
-			this.parseUZSUEvents(i, DeviceList.Blinds[i].Options.Id, state);
+			try {
+				const state = await this.getStateAsync(subpath + '.uzsu');
+				this.parseUZSUEvents(i, DeviceList.Blinds[i].Options.Id, state);
+			} catch (error) {
+				// ignore
+			}
 
 
 			this.setObjectNotExistsAsync(subpath + '.cmd', {
@@ -1238,6 +1274,59 @@ class Eltako extends utils.Adapter {
 				});
 			}
 		}
+
+
+		// Others
+		path = 'other';
+		this.setObjectNotExistsAsync(path, {
+			type: 'meta',
+			common: {
+				name: 'other'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Other) {
+
+			const subpath = path + '.' + DeviceList.Other[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'device',
+				common: {
+					name: DeviceList.Other[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Other[i].Type,
+					'Adr': DeviceList.Other[i].Adr
+				}
+			});
+
+			// remember
+			EltakoData.set(DeviceList.Other[i].Adr, subpath);
+
+			this.setObjectNotExistsAsync(subpath + '.state', {
+				type: 'state',
+				common: {
+					name: 'other state',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Other[i].Values.State,
+				},
+				native: {
+					'Type': DeviceList.Other[i].Type,
+					'Adr': DeviceList.Other[i].Adr,
+					'Id': DeviceList.Other[i].Options.Id,
+					'Mode': DeviceList.Other[i].Options.Mode
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.state');
+		}
+
+
+
 
 		// Keys
 		path = 'keys';

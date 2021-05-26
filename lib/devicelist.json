@@ -500,7 +500,7 @@
         "20": {
             "Name": "garage",
             "Desc": "Garage",
-            "Adr": 622,
+            "Adr": 62,
             "Type": "FSR14",
             "Values": {
                 "State": 1
@@ -821,8 +821,50 @@
                 "Angle": 1000
             }
         }
-     },
+    },
 
+
+    "Other": {
+        "1": {
+            "Name": "garage",
+            "Desc": "Garagentor",
+            "Adr": 2,
+            "Type": "FTS14X",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 4436,
+                "Mode": 16 
+            }
+        },
+        "2": {
+            "Name": "pump",
+            "Desc": "Umwälzpumpe",
+            "Adr": 35,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1011000002,
+                "Mode": 0
+            }
+        },
+        "3": {
+            "Name": "fire",
+            "Desc": "Feueralarm",
+            "Adr": 25,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1011000002,
+                "Mode": 0
+            }
+        }
+    },
 
    
     "CentralOff": {
@@ -993,8 +1035,6 @@
         }
     }, 
 
-
-
     "CentralOn": {
         "1": {
             "Name": "jalopen",
@@ -1046,6 +1086,8 @@
             }
         }
     },
+
+
 
     "Keys": {
         "1": {
