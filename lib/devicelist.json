@@ -266,8 +266,6 @@
         }
     }, 
 
-
-
     "Sockets": {
         "1": {
             "Name": "sleep",
@@ -522,9 +520,7 @@
             }
         }
     },
-
-
-    
+  
     "Dimmer": {
         "1": {
             "Name": "sleep",
@@ -682,8 +678,6 @@
         }
     }, 
 
-
-
     "Blinds": {
         "1": {
             "Name": "sitting",
@@ -823,13 +817,12 @@
         }
     },
 
-
-    "Other": {
+    "Garage": {
         "1": {
             "Name": "garage",
             "Desc": "Garagentor",
             "Adr": 2,
-            "Type": "FTS14X",
+            "Type": "FTS14",
             "Values": {
                 "State": 0
             },
@@ -837,8 +830,11 @@
                 "Id": 4436,
                 "Mode": 16 
             }
-        },
-        "2": {
+        } 
+    },
+
+    "Climate": {
+        "1": {
             "Name": "pump",
             "Desc": "Umwälzpumpe",
             "Adr": 35,
@@ -847,11 +843,25 @@
                 "State": 0
             },
             "Options": {                
-                "Id": 1011000002,
-                "Mode": 0
+                "Id": 1011000002
             }
-        },
-        "3": {
+        },        
+        "2": {
+            "Name": "ventilation",
+            "Desc": "Stoßlüftung",
+            "Adr": 3,
+            "Type": "FSR14",
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Id": 1011000003
+            }
+        }        
+    },
+
+    "Fire": {
+        "1": {
             "Name": "fire",
             "Desc": "Feueralarm",
             "Adr": 25,
@@ -860,12 +870,10 @@
                 "State": 0
             },
             "Options": {                
-                "Id": 1011000002,
-                "Mode": 0
+                "Id": 1011000001
             }
         }
     },
-
    
     "CentralOff": {
         "1": {
@@ -1048,8 +1056,7 @@
             }
         }
      },
-    
-    
+      
     "Sensors": {
         "1": {
             "Name": "ms",
@@ -1078,16 +1085,15 @@
         "3": {
             "Name": "temp",
             "Desc": "Temperatursensor Nord",
-            "Adr": 8453338,
+            "Adr": 8453210,
             "Type": "FAFT60",
             "Values": {
                 "temperature" : 0,
-                "humidity" : 0
+                "humidity" : 0,
+                "voltage" : 0
             }
         }
     },
-
-
 
     "Keys": {
         "1": {
@@ -1515,22 +1521,14 @@
             }
         },           
         "54": {
-            "Desc": "Cornelius Taster 4/6",
-            "Adr": 4408,
+            "Desc": "Cornelius Taster 3+4/6",
+            "Adr": 4374,
             "Type": "FTS14EM",
             "Values": {
                 "state": 0
             }
         },   
         "55": {
-            "Desc": "Cornelius Taster  3/6",
-            "Adr": 4407,
-            "Type": "FTS14EM",
-            "Values": {
-                "state": 0
-            }
-        },                  
-        "56": {
             "Desc": "Wohnzimmer Taster 4/6",
             "Adr": 4404,
             "Type": "FTS14EM",
@@ -1538,7 +1536,7 @@
                 "state": 0
             }
         },      
-        "57": {
+        "56": {
             "Desc": "Wohnzimmer Taster 3/6",
             "Adr": 4403,
             "Type": "FTS14EM",
@@ -1546,7 +1544,7 @@
                 "state": 0
             }
         },      
-        "58": {
+        "57": {
             "Desc": "Wohnzimmer Taster  1/6",
             "Adr": 4402,
             "Type": "FTS14EM",
@@ -1554,7 +1552,7 @@
                 "state": 0
             }
         }, 
-        "59": {
+        "58": {
             "Desc": "Wohnzimmer Taster  2/6",
             "Adr": 4401,
             "Type": "FTS14EM",
@@ -1562,7 +1560,7 @@
                 "state": 0
             }
         }, 
-        "60": {
+        "59": {
             "Desc": "Cornelius Taster  1+2/6",
             "Adr": 4400,
             "Type": "FTS14EM",
@@ -1570,7 +1568,7 @@
                 "state": 0
             }
         },                  
-        "61": {
+        "60": {
             "Desc": "Gästezimmer",
             "Adr": 4392,
             "Type": "FTS14EM",
@@ -1578,7 +1576,7 @@
                 "state": 0
             }
         },                  
-        "62": {
+        "61": {
             "Desc": "Bad groß Taster  1+2/6",
             "Adr": 4390,
             "Type": "FTS14EM",
@@ -1586,7 +1584,7 @@
                 "state": 0
             }
         },
-        "63": {
+        "62": {
             "Desc": "Schlafzimmer Taster  1+2/6",
             "Adr": 4386,
             "Type": "FTS14EM",
@@ -1594,7 +1592,7 @@
                 "state": 0
             }
         },           
-        "64": {
+        "63": {
             "Desc": "Wohnzimmer Taster 5+6",
             "Adr": 4376,
             "Type": "FTS14EM",
@@ -1602,7 +1600,7 @@
                 "state": 0
             }
         },                        
-        "65": {
+        "64": {
             "Desc": "Schlafzimmer Taster 6/6",
             "Adr": 4368,
             "Type": "FTS14EM",
@@ -1610,7 +1608,7 @@
                 "state": 0
             }
         },   
-        "66": {
+        "65": {
             "Desc": "Küche Taster unten  4/6",
             "Adr": 4361,
             "Type": "FTS14EM",
@@ -1618,7 +1616,7 @@
                 "state": 0
             }
         },   
-        "67": {
+        "66": {
             "Desc": "Küche Taster unten  3/6",
             "Adr": 4360,
             "Type": "FTS14EM",
@@ -1626,7 +1624,7 @@
                 "state": 0
             }
         },   
-        "68": {
+        "67": {
             "Desc": "Küche Taster unten  1/6",
             "Adr": 4358,
             "Type": "FTS14EM",
@@ -1634,7 +1632,7 @@
                 "state": 0
             }
         },                      
-        "69": {
+        "68": {
             "Desc": "Schlafzimmer Taster 5/6",
             "Adr": 4357,
             "Type": "FTS14EM",
@@ -1642,7 +1640,7 @@
                 "state": 0
             }
         },     
-        "70": {
+        "69": {
             "Desc": "Schlafzimmer Taster  4/6",
             "Adr": 4356,
             "Type": "FTS14EM",
@@ -1650,7 +1648,7 @@
                 "state": 0
             }
         },     
-        "71": {
+        "70": {
             "Desc": "Schlafzimmer Taster  3/6",
             "Adr": 4355,
             "Type": "FTS14EM",
@@ -1658,7 +1656,7 @@
                 "state": 0
             }
         },     
-        "72": {
+        "71": {
             "Desc": "Küche Taster unten  5/6",
             "Adr": 4354,
             "Type": "FTS14EM",
@@ -1666,7 +1664,7 @@
                 "state": 0
             }
         },     
-        "73": {
+        "72": {
             "Desc": "Küche Taster unten  6/6",
             "Adr": 4353,
             "Type": "FTS14EM",
