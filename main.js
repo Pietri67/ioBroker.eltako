@@ -219,7 +219,6 @@ class Eltako extends utils.Adapter {
 		}
 	}
 
-
 	/**
 	 *   serial communiation eltako
 	 */
@@ -605,11 +604,11 @@ class Eltako extends utils.Adapter {
 		FSB14Events.forEach(function(device) {
 			device.forEach(function(event) {
 
-				//self.log.info('id: ' + event.Id + ' fired: ' + event.fired + ' diffTime: ' + diffTime + ' midnight: ' + midnightTime);
+				//self.log.info('id: ' + event.Id + ' fired: ' + event.fired + ' time: ' + currentTime + ' midnight: ' + midnightTime);
 
 				if ((event.active === true) && ((currentTime > event.fired) || (event.fired == 0))) {
 
-					//self.log.info('type: ' + item.type + ' day: ' + day + ' val: ' + item.value);
+					//self.log.info('type: ' + event.type + ' day: ' + day + ' val: ' + event.value);
 
 					// POT prüfen
 					if (event.type === 0) {
@@ -632,8 +631,8 @@ class Eltako extends utils.Adapter {
 					// Sunrise
 					if ((event.type === 1) && (event.days[day] === true)) {
 
-						let sunrise = sunLight.sunrise.getTime();
-						sunrise += event.offset;
+						const sunrise = sunLight.sunrise.getTime();
+						//sunrise += event.offset;
 
 						let timeMax = 0;
 						try {
@@ -704,8 +703,8 @@ class Eltako extends utils.Adapter {
 					// Sunset
 					if ((event.type === 2) && (event.days[day] === true)) {
 
-						let sunset = sunLight.sunset.getTime();
-						sunset += event.offset;
+						const sunset = sunLight.sunset.getTime();
+						// sunset += event.offset;
 
 						let timeMax = 0;
 						try {
@@ -722,7 +721,7 @@ class Eltako extends utils.Adapter {
 						}
 
 						//self.log.info('sunset: ' + sunset  + ' midnight: ' + midnightTime);
-						//self.log.info('min: ' + timeMin + ' max: ' + timeMax + ' currentMS: ' + currentMS);
+						//self.log.info('min: ' + timeMin + ' max: ' + timeMax + ' nextday: ' + nextDay);
 
 						if ((timeMax < currentTime) && (midnightTime != timeMax)) {
 							event.fired = nextDay;
@@ -786,21 +785,31 @@ class Eltako extends utils.Adapter {
 		this.timeoutSUN = setTimeout(this.calcSunTimes.bind(this), 3600000);
 
 		const self = this;
-		//self.log.info('Calc sun time, position...');
 		sunLight = SunCalc2.getTimes(new Date(), 51.02, 13.71);
+
+		//const sunrise = sunLight.sunrise.getTime();
+		//self.log.info('sunrise ' + sunrise);
+		//const sunset = sunLight.sunset.getTime();
+		//self.log.info('sunset ' + sunset);
 	}
 
 	/*
 	* parse UZSU events
 	*/
 	parseUZSUEvents(id, state) {
-		//					 0     1     2     3     4     5     6
+		// empty events
+		const events = [];
+
+		//	weekdays				 0     1     2     3     4     5     6
 		const  weekDays = [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'  ];
 
-		const uszu = state.val;
-		const objJSON = JSON.parse(uszu);
-
-		const events = [];
+		const uzsu = state.val;
+		try {
+			JSON.parse(uzsu);
+		} catch (error) {
+			return events;
+		}
+		const objJSON = JSON.parse(uzsu);
 
 		let idx = 0;
 		objJSON.list.forEach(function(item) {
@@ -856,7 +865,6 @@ class Eltako extends utils.Adapter {
 
 		return events;
 	}
-
 
 	/*
 	* Create Eltako Devicelist
