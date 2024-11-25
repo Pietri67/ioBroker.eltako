@@ -40,8 +40,6 @@ class Eltako extends utils.Adapter {
 		// Reset the connection indicator during startup
 		await this.setStateAsync('info.connection', false, true);
 
-		this.logEnable = this.getStateAsync('info.logging');
-
 		// try to initialize communication
 		if (this.config.usbport) {
 
@@ -89,10 +87,10 @@ class Eltako extends utils.Adapter {
 	onStateChange(id, state) {
 		if (state) {
 			// The state was changed
-			if (this.logEnable) { this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);}
+			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
 			// The state was deleted
-			if (this.logEnable) { this.log.info(`state ${id} deleted`);}
+			this.log.info(`state ${id} deleted`);
 		}
 	}
 
@@ -113,7 +111,7 @@ class Eltako extends utils.Adapter {
 			});
 
 			// Logfile
-			if (this.logEnable) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' with baudrate ' + this.config.baudrate + ' opened.');}
+			this.log.info('Eltako usb/serial port ' + this.config.usbport + ' with baudrate ' + this.config.baudrate + ' opened.');
 		});
 
 		// port closed
@@ -122,13 +120,13 @@ class Eltako extends utils.Adapter {
 			this.setState('info.connection', false, true);
 
 			// Logfile
-			if (this.logEnable) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' closed.');}
+			this.log.info('Eltako usb/serial port ' + this.config.usbport + ' closed.');
 		});
 
 		// port error
 		this.commPort.on('error', (error) => {
 			// Logfile
-			if (this.logEnable) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);}
+			this.log.info('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);
 		});
 	}
 
@@ -158,7 +156,7 @@ class Eltako extends utils.Adapter {
 		*/
 
 		// Logfile
-		if (this.logEnable) { this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data)); }
+		this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data));
 
 		// update info.lastmsg
 		this.setState('info.lastmsg', EltakoTools.telegramToString(data), true);
@@ -171,7 +169,7 @@ class Eltako extends utils.Adapter {
 			//
 		} else {
 			// Logfile
-			if (this.logEnable) { this.log.warn('Eltako telegram CRC error'); }
+			this.log.warn('Eltako telegram CRC error');
 		}
 	}
 }
