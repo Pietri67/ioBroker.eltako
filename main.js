@@ -45,9 +45,9 @@ class Eltako extends utils.Adapter {
 		if (this.config.usbport) {
 
 			// create serial port
-			commPort = new SerialPort(this.config.usbport, {
-				baudRate: 57600
-			});
+			//commPort = new SerialPort(this.config.usbport, {
+		//		baudRate: 57600
+		//		});
 
 			// create parser 14Byte
 			commParser = commPort.pipe(new ByteLength({length: 14}));
