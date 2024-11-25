@@ -79,7 +79,7 @@
 		"globalDependencies": []
 	},
 	"native": {
-		"usbport": "/dev/ttyUSB1",
+		"usbport": "/dev/ttyUSB0",
 		"baudrate": 57600
 	},
 	"objects": [],
