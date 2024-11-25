@@ -40,7 +40,7 @@ class Eltako extends utils.Adapter {
 		if (this.config.usbport) {
 
 			// create serial port
-			this.commPort = new SerialPort({path:'/dev/ttyUSB0', baudRate: 57600 });
+			this.commPort = new SerialPort({path: + this.config.usbport, baudRate: + this.config.baudrate });
 
 			// initialize communication
 			if (this.commPort != null) {
