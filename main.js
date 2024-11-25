@@ -17,7 +17,7 @@ const EltakoTools = require('./lib/eltako-tools');
 
 
 // status Logging
-let logEnable = false;
+let logEnable = true;
 
 // Eltako Communication class
 class Eltako extends utils.Adapter {
