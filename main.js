@@ -10,12 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
-const SerialPort = require('serialport');
-const ByteLength = require('@serialport/parser-byte-length');
-
-// Communication Port/Parser
-let commPort = null;
-let commParser = null;
+const { SerialPort } = require('serialport')
 
 
 class Eltako extends utils.Adapter {
@@ -45,13 +40,10 @@ class Eltako extends utils.Adapter {
 		if (this.config.usbport) {
 
 			// create serial port
-			commPort = new SerialPort({path:'/dev/ttyUSB0', baudRate: 57600 });
-
-			// create parser 14Byte
-			//commParser = commPort.pipe(new ByteLength({length: 14}));
+			this.commPort = new SerialPort({path:'/dev/ttyUSB0', baudRate: 57600 });
 
 			// initialize communication
-			if (commPort != null) {
+			if (this.commPort != null) {
 				await this.communication();
 			}
 		}
@@ -65,8 +57,8 @@ class Eltako extends utils.Adapter {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
 			// stop communication
-			if (commPort != null) {
-				commPort.close();
+			if (this.commPort != null) {
+				this.commPort.close();
 			}
 
 			// update connection state.
@@ -99,11 +91,7 @@ class Eltako extends utils.Adapter {
 	async communication() {
 
 		// port opened
-		commPort.on('open', () => {
-
-			// setup parser
-			//commParser.on('data' , (data) => {
-			//});
+		this.commPort.on('open', () => {
 
 			// update connection state.
 			this.setState('info.connection', true, true);
@@ -113,7 +101,7 @@ class Eltako extends utils.Adapter {
 		});
 
 		// port closed
-		commPort.on('close', () => {
+		this.commPort.on('close', () => {
 			// update connection state.
 			this.setState('info.connection', false, true);
 
@@ -122,7 +110,7 @@ class Eltako extends utils.Adapter {
 		});
 
 		// port error
-		commPort.on('error', (error) => {
+		this.commPort.on('error', (error) => {
 			// Logfile
 			this.log.info('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);
 		});
