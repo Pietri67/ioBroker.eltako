@@ -39,21 +39,21 @@ class Eltako extends utils.Adapter {
 	async onReady() {
 		// Initialize your adapter here
 		// Reset the connection indicator during startup
-		await this.setStateAsync('info.connection', true, true);
+		await this.setStateAsync('info.connection', false, true);
 
 		// try to initialize communication
 		if (this.config.usbport) {
 
 			// create serial port
-			//commPort = new SerialPort(this.config.usbport, {
-		//		baudRate: 57600
-		//		});
+			commPort = new SerialPort({path:'/dev/ttyUSB0', baudRate: 57600 });
 
 			// create parser 14Byte
 			//commParser = commPort.pipe(new ByteLength({length: 14}));
 
 			// initialize communication
-			//await this.communication();
+			if (commPort != null) {
+				await this.communication();
+			}
 		}
 	}
 
@@ -102,8 +102,8 @@ class Eltako extends utils.Adapter {
 		commPort.on('open', () => {
 
 			// setup parser
-			commParser.on('data' , (data) => {
-			});
+			//commParser.on('data' , (data) => {
+			//});
 
 			// update connection state.
 			this.setState('info.connection', true, true);
