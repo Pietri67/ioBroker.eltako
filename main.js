@@ -16,9 +16,6 @@ const { ByteLengthParser } = require('@serialport/parser-byte-length')
 const EltakoTools = require('./lib/eltako-tools');
 
 
-// status Logging
-let logEnable = true;
-
 // Eltako Communication class
 class Eltako extends utils.Adapter {
 
@@ -42,6 +39,8 @@ class Eltako extends utils.Adapter {
 		// Initialize your adapter here
 		// Reset the connection indicator during startup
 		await this.setStateAsync('info.connection', false, true);
+
+		this.logEnable = this.getStateAsync('info.logging');
 
 		// try to initialize communication
 		if (this.config.usbport) {
@@ -90,10 +89,10 @@ class Eltako extends utils.Adapter {
 	onStateChange(id, state) {
 		if (state) {
 			// The state was changed
-			if (logEnable == true) { this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);}
+			if (this.logEnable) { this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);}
 		} else {
 			// The state was deleted
-			if (logEnable == true) { this.log.info(`state ${id} deleted`);}
+			if (this.logEnable) { this.log.info(`state ${id} deleted`);}
 		}
 	}
 
@@ -114,7 +113,7 @@ class Eltako extends utils.Adapter {
 			});
 
 			// Logfile
-			if (logEnable == true) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' with baudrate ' + this.config.baudrate + ' opened.');}
+			if (this.logEnable) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' with baudrate ' + this.config.baudrate + ' opened.');}
 		});
 
 		// port closed
@@ -123,13 +122,13 @@ class Eltako extends utils.Adapter {
 			this.setState('info.connection', false, true);
 
 			// Logfile
-			if (logEnable == true) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' closed.');}
+			if (this.logEnable) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' closed.');}
 		});
 
 		// port error
 		this.commPort.on('error', (error) => {
 			// Logfile
-			if (logEnable == true) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);}
+			if (this.logEnable) { this.log.info('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);}
 		});
 	}
 
@@ -139,7 +138,7 @@ class Eltako extends utils.Adapter {
 	async parseEltakoTlg(data) {
 		/*
 			Eltako TLG Data - A5 5A 0B 05 50 00 00 00 00 15 B7 FE 30 5A
-	
+
 			STRUCT
 				Sync0	: BYTE; - 0
 				Sync1	: BYTE;	- 1
@@ -159,7 +158,7 @@ class Eltako extends utils.Adapter {
 		*/
 
 		// Logfile
-		if (logEnable == true) { this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data)); }
+		if (this.logEnable) { this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data)); }
 
 		// update info.lastmsg
 		this.setState('info.lastmsg', EltakoTools.telegramToString(data), true);
@@ -170,10 +169,9 @@ class Eltako extends utils.Adapter {
 		// check CRC sum
 		if (EltakoTools.calcTelegramCRC(data) == tlg.CRC)  {
 			//
-		
 		} else {
 			// Logfile
-			if (logEnable == true) { this.log.warn('Eltako telegram CRC error'); }
+			if (this.logEnable) { this.log.warn('Eltako telegram CRC error'); }
 		}
 	}
 }

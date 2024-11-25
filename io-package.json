@@ -84,7 +84,7 @@
 	},
 	"objects": [],
 	"instanceObjects": [
-		{
+		 {
 			"_id": "info",
 			"type": "channel",
 			"common": {
@@ -117,6 +117,19 @@
 				"def": ""
 			  },
 			  "native": {}
-		  }  
+		  },
+		  {
+			"_id": "info.logging",
+			"type": "state",
+			"common": {
+			  "role": "indicator.logging",
+			  "name": "show log messages",
+			  "type": "boolean",
+			  "read": true,
+			  "write": true,
+			  "def": false
+			},
+			"native": {}
+		  }
 	]
 }
