@@ -39,7 +39,7 @@ class Eltako extends utils.Adapter {
 	async onReady() {
 		// Initialize your adapter here
 		// Reset the connection indicator during startup
-		await this.setStateAsync('info.connection', false, true);
+		await this.setStateAsync('info.connection', true, true);
 
 		// try to initialize communication
 		if (this.config.usbport) {
@@ -50,10 +50,10 @@ class Eltako extends utils.Adapter {
 		//		});
 
 			// create parser 14Byte
-			commParser = commPort.pipe(new ByteLength({length: 14}));
+			//commParser = commPort.pipe(new ByteLength({length: 14}));
 
 			// initialize communication
-			await this.communication();
+			//await this.communication();
 		}
 	}
 
