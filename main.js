@@ -17,6 +17,8 @@ const { ByteLengthParser } = require('@serialport/parser-byte-length');
 
 const EltakoTools = require('./lib/eltako-tools');
 const DeviceList = require('./lib/devicelist.json');
+
+// List IDs
 let EltakoData = null;
 
 // Eltako Communication class
@@ -176,15 +178,30 @@ class Eltako extends utils.Adapter {
 
 		// check CRC sum
 		if (EltakoTools.calcTelegramCRC(data) == tlg.CRC)  {
-			//
 
+			// CRC pass -> sender ID
+			const senderID = EltakoTools.senderID(data);
+			if (EltakoData.has(senderID) === true) {
 
+				const obj = await this.getObjectAsync(EltakoData.get(senderID));
+				if (obj != null)
+				{
+					this.log.info('Eltako Id:' +  senderID + ' iobroker: ' + obj._id);
 
-
-
-
-
-
+					if (obj.native.Type === 'FSR14') {
+						if (tlg.Data3 == 0x50) {
+							this.setState(obj._id + '.state', 0, true);
+						}
+						if (tlg.Data3 == 0x70) {
+							this.setState(obj._id + '.state', 1, true);
+						}
+					}
+				} else {
+					this.log.warn('Unknown ioBroker object - Eltako ID ' + senderID);
+				}
+			} else {
+				this.log.warn('Eltako unknown ID ' + senderID);
+			}
 
 		} else {
 			// Logfile
@@ -222,7 +239,8 @@ class Eltako extends utils.Adapter {
 				},
 				native: {
 					'Type': DeviceList.Lights[i].Type,
-					'Adr': DeviceList.Lights[i].Adr
+					'Adr': DeviceList.Lights[i].Adr,
+					'Id': DeviceList.Lights[i].Id
 				}
 			});
 
@@ -234,13 +252,9 @@ class Eltako extends utils.Adapter {
 					role: 'value',
 					read:  true,
 					write: true,
-					def: DeviceList.Lights[i].Values.State,
+					def: DeviceList.Lights[i].Values.State
 				},
-				native: {
-					'Type': DeviceList.Lights[i].Type,
-					'Adr': DeviceList.Lights[i].Adr,
-					'Id': DeviceList.Lights[i].Id
-				}
+				native: {}
 			});
 			// subscribe
 			this.subscribeStates(subpath + '.state');
@@ -255,11 +269,7 @@ class Eltako extends utils.Adapter {
 					read:  true,
 					write: true
 				},
-				native: {
-					'Type': DeviceList.Lights[i].Type,
-					'Adr': DeviceList.Lights[i].Adr,
-					'Id': DeviceList.Lights[i].Id
-				}
+				native: {}
 			});
 			// subscribe
 			this.subscribeStates(subpath + '.uzsu');
@@ -288,7 +298,8 @@ class Eltako extends utils.Adapter {
 				},
 				native: {
 					'Type': DeviceList.Sockets[i].Type,
-					'Adr': DeviceList.Sockets[i].Adr
+					'Adr': DeviceList.Sockets[i].Adr,
+					'Id': DeviceList.Sockets[i].Id
 				}
 			});
 
@@ -302,13 +313,8 @@ class Eltako extends utils.Adapter {
 					write: true,
 					def: DeviceList.Sockets[i].Values.State,
 				},
-				native: {
-					'Type': DeviceList.Sockets[i].Type,
-					'Adr': DeviceList.Sockets[i].Adr,
-					'Id': DeviceList.Sockets[i].Id
-				}
+				native: {}
 			});
-
 			// subscribe
 			this.subscribeStates(subpath + '.state');
 
@@ -321,11 +327,7 @@ class Eltako extends utils.Adapter {
 					read:  true,
 					write: true
 				},
-				native: {
-					'Type': DeviceList.Sockets[i].Type,
-					'Adr': DeviceList.Sockets[i].Adr,
-					'Id': DeviceList.Sockets[i].Id
-				}
+				native: {}
 			});
 
 			// subscribe
