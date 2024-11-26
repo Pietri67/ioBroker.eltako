@@ -10,7 +10,9 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
+// @ts-ignore
 const { SerialPort } = require('serialport');
+// @ts-ignore
 const { ByteLengthParser } = require('@serialport/parser-byte-length');
 
 const EltakoTools = require('./lib/eltako-tools');
@@ -264,6 +266,73 @@ class Eltako extends utils.Adapter {
 
 			// remember
 			EltakoData.set(DeviceList.Lights[i].Adr, subpath);
+		}
+
+		// Sockets
+		path = 'sockets';
+		this.setObjectNotExistsAsync(path, {
+			type: 'device',
+			common: {
+				name: 'sockets'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Sockets) {
+
+			const subpath = path + '.' + DeviceList.Sockets[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'channel',
+				common: {
+					name: DeviceList.Sockets[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Sockets[i].Type,
+					'Adr': DeviceList.Sockets[i].Adr
+				}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.state', {
+				type: 'state',
+				common: {
+					name: 'socket state',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Sockets[i].Values.State,
+				},
+				native: {
+					'Type': DeviceList.Sockets[i].Type,
+					'Adr': DeviceList.Sockets[i].Adr,
+					'Id': DeviceList.Sockets[i].Id
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.state');
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'socket timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Sockets[i].Type,
+					'Adr': DeviceList.Sockets[i].Adr,
+					'Id': DeviceList.Sockets[i].Id
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
+
+			// remember
+			EltakoData.set(DeviceList.Sockets[i].Adr, subpath);
 		}
 
 	}
