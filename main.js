@@ -337,7 +337,12 @@ class Eltako extends utils.Adapter {
 					write: true,
 					def: DeviceList.Lights[i].Values.State
 				},
-				native: {}
+				native: {
+					'Type': DeviceList.Lights[i].Type,
+					'Adr': DeviceList.Lights[i].Adr,
+					'Id': DeviceList.Lights[i].Id
+				}
+
 			});
 			// subscribe
 			this.subscribeStates(subpath + '.state');
@@ -352,7 +357,12 @@ class Eltako extends utils.Adapter {
 					read:  true,
 					write: true
 				},
-				native: {}
+				native: {
+					'Type': DeviceList.Lights[i].Type,
+					'Adr': DeviceList.Lights[i].Adr,
+					'Id': DeviceList.Lights[i].Id
+				}
+
 			});
 			// subscribe
 			this.subscribeStates(subpath + '.uzsu');
@@ -396,7 +406,11 @@ class Eltako extends utils.Adapter {
 					write: true,
 					def: DeviceList.Sockets[i].Values.State,
 				},
-				native: {}
+				native: {
+					'Type': DeviceList.Sockets[i].Type,
+					'Adr': DeviceList.Sockets[i].Adr,
+					'Id': DeviceList.Sockets[i].Id
+				}
 			});
 			// subscribe
 			this.subscribeStates(subpath + '.state');
@@ -410,7 +424,11 @@ class Eltako extends utils.Adapter {
 					read:  true,
 					write: true
 				},
-				native: {}
+				native: {
+					'Type': DeviceList.Sockets[i].Type,
+					'Adr': DeviceList.Sockets[i].Adr,
+					'Id': DeviceList.Sockets[i].Id
+				}
 			});
 
 			// subscribe
@@ -419,9 +437,7 @@ class Eltako extends utils.Adapter {
 			// remember
 			EltakoData.set(DeviceList.Sockets[i].Adr, subpath);
 		}
-
 	}
-
 }
 
 if (require.main !== module) {
