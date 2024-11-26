@@ -96,8 +96,8 @@
 			"_id": "info.connection",
 			"type": "state",
 			"common": {
-			  "role": "indicator.connected",
-			  "name": "If connected to Eltako",
+			  "role": "indicator",
+			  "name": "connected to eltako bus",
 			  "type": "boolean",
 			  "read": true,
 			  "write": false,

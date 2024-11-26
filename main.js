@@ -10,11 +10,12 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
-const { SerialPort } = require('serialport')
-const { ByteLengthParser } = require('@serialport/parser-byte-length')
+const { SerialPort } = require('serialport');
+const { ByteLengthParser } = require('@serialport/parser-byte-length');
 
 const EltakoTools = require('./lib/eltako-tools');
-
+const DeviceList = require('./lib/devicelist.json');
+let EltakoData = null;
 
 // Eltako Communication class
 class Eltako extends utils.Adapter {
@@ -39,6 +40,13 @@ class Eltako extends utils.Adapter {
 		// Initialize your adapter here
 		// Reset the connection indicator during startup
 		await this.setStateAsync('info.connection', false, true);
+
+		// new Eltako Data
+		EltakoData = new Map();
+
+		// create eltako devices
+		this.createDeviceList();
+
 
 		// try to initialize communication
 		if (this.config.usbport) {
@@ -167,11 +175,61 @@ class Eltako extends utils.Adapter {
 		// check CRC sum
 		if (EltakoTools.calcTelegramCRC(data) == tlg.CRC)  {
 			//
+
+
+
+
+
+
+
+
+
 		} else {
 			// Logfile
 			this.log.warn('Eltako telegram CRC error');
 		}
 	}
+
+	/*
+	* Create Eltako Devicelist
+	*/
+	async createDeviceList() {
+
+		// Path
+		let path = '';
+
+		// Create tree structure
+
+		// Lights
+		path = 'lights';
+
+
+		await this.setObjectNotExistsAsync(path, {
+
+			type: 'state',
+
+			common: {
+				name: 'Lights',
+				type: 'string',
+				role: 'indicator',
+				read: true,
+				write: false
+			},
+
+			native: {}
+
+		});
+
+		for (const i in DeviceList.Lights) {
+
+			const subpath = path + '.' + DeviceList.Lights[i].Name;
+
+			// remember
+			EltakoData.set(DeviceList.Lights[i].Adr, subpath);
+		}
+
+	}
+
 }
 
 if (require.main !== module) {
