@@ -202,27 +202,65 @@ class Eltako extends utils.Adapter {
 
 		// Lights
 		path = 'lights';
-
-
 		await this.setObjectNotExistsAsync(path, {
-
-			type: 'state',
-
+			type: 'device',
 			common: {
-				name: 'Lights',
-				type: 'string',
-				role: 'indicator',
-				read: true,
-				write: false
+				name: 'Lights'
 			},
-
 			native: {}
-
 		});
 
 		for (const i in DeviceList.Lights) {
 
 			const subpath = path + '.' + DeviceList.Lights[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'channel',
+				common: {
+					name: DeviceList.Lights[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Lights[i].Type,
+					'Adr': DeviceList.Lights[i].Adr
+				}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.state', {
+				type: 'state',
+				common: {
+					name: 'light state',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Lights[i].Values.State,
+				},
+				native: {
+					'Type': DeviceList.Lights[i].Type,
+					'Adr': DeviceList.Lights[i].Adr,
+					'Id': DeviceList.Lights[i].Id
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.state');
+
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'light timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Lights[i].Type,
+					'Adr': DeviceList.Lights[i].Adr,
+					'Id': DeviceList.Lights[i].Id
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
 
 			// remember
 			EltakoData.set(DeviceList.Lights[i].Adr, subpath);
