@@ -96,7 +96,9 @@ class Eltako extends utils.Adapter {
 	 * @param {string} id
 	 * @param {ioBroker.State | null | undefined} state
 	 */
-	onStateChange(id, state) {
+	async onStateChange(id, state) {
+
+		const obj = await this.getObjectAsync(id);
 
 		if (state) {
 			// The state was changed
@@ -108,29 +110,28 @@ class Eltako extends utils.Adapter {
 				// example: system.adapter.eltako.0.
 				const adaptTmp = state.from.split('.');
 				const adaptFrom = adaptTmp.slice(0,3).join('.');
-	
+
 				if (adaptFrom !== 'system.adapter.eltako') {
-	
+
 					// The state was changed
 					this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack}) from: ${state.from}`);
-	
+
 					// state eltako.0.lights.floor3.state changed: true (ack = false) from: system.adapter.admin.0
 					// state eltako.0.lights.floor2.state changed: true (ack = false) from: system.adapter.socketio.0
 					// state eltako.0.lights.floor3.state changed: false (ack = true) from: system.adapter.eltako.0
-	
+
 					const idTmp = id.split('.');
-					const idFrom = idTmp.slice(0,-1).join('.');
+					//const idFrom = idTmp.slice(0,-1).join('.');
 					const idType = (idTmp.slice(idTmp.length - 1, idTmp.length)).toString();
-	
-					const obj = await this.getObjectAsync(id);
+
 					if (obj)  {
 						switch (obj.native.Type) {
 							case 'FSR14':	// Light, Sockets
 								if (idType == 'state') {
 									// Light on 0x09, off 0x08
-									//this.sendEltakoTlg(obj.native.Id, 0x07, 1, 0, 0, ((state.val == 1) ? 0x09 : 0x08));
+									this.sendEltakoTlg(obj.native.Id, 0x07, 1, 0, 0, ((state.val == 1) ? 0x09 : 0x08));
 								}
-							break;
+								break;
 						}
 					}
 				}
@@ -177,7 +178,7 @@ class Eltako extends utils.Adapter {
 		});
 	}
 
-/*
+	/*
 	* Send eltako telegram
 	*/
 	async sendEltakoTlg(id, org, data3, data2, data1, data0) {
@@ -214,9 +215,9 @@ class Eltako extends utils.Adapter {
 					return;
 				}
 			});
-		
+
 			// Logfile
-			this.log.info('Eltako telegram sent: ' + EltakoTools.telegramToString(tlg));			
+			this.log.info('Eltako telegram sent: ' + EltakoTools.telegramToString(tlg));
 
 		} catch (e) {
 			// Logfile
