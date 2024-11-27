@@ -114,13 +114,13 @@ class Eltako extends utils.Adapter {
 				// The state was changed
 				this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack}) from: ${state.from}`);
 
-				// state eltako.0.lights.floor3.state changed: true (ack = false) from: system.adapter.admin.0
-				// state eltako.0.lights.floor2.state changed: true (ack = false) from: system.adapter.socketio.0
-				// state eltako.0.lights.floor3.state changed: false (ack = true) from: system.adapter.eltako.0
+				// state -> eltako.0.lights.floor3.on changed: true (ack = false) from: system.adapter.admin.0
+				// state -> eltako.0.lights.floor2.on changed: true (ack = false) from: system.adapter.socketio.0
+				// state -> eltako.0.lights.floor3.on changed: false (ack = true) from: system.adapter.eltako.0
 
-				const idTmp = id.split('.');
-				const idFrom = idTmp.slice(0,-1).join('.');
-				const idType = (idTmp.slice(idTmp.length - 1, idTmp.length)).toString();
+				const idTmp = id.split('.');												// split into new array
+				const idChannel = idTmp.slice(0,-1).join('.');  								// result: eltako.0.lights.floor3
+				const idType = (idTmp.slice(idTmp.length - 1, idTmp.length)).toString(); 	// result: on
 
 				if (obj)  {
 					switch (obj.native.Type) {
@@ -136,15 +136,44 @@ class Eltako extends utils.Adapter {
 
 						case 'FSG14':
 						case 'FUD14':	// Dimmmer
-							if ((idType == 'on') || (idType == 'speed') || (idType == 'brightness')) {
-								const speed = await this.getStateAsync(idFrom + '.speed');
-								const brightness = await this.getStateAsync(idFrom + '.brightness');
+							/*
+								ORG = 0x07
+								Data_byte3 = 0x02
+								Data_byte2 = Dimmwert in % von 0-100 dez.
+								Data_byte1 = Dimmgeschwindigkeit
+											 0x00 = die am Dimmer eingestellte
+											 Dimmgeschwindigkeit wird verwendet.
+											 0x01 = sehr schnelle Dimmspeed …. Bis …
+											 0xFF = sehr langsame Dimmspeed
+								Data_byte0 = DB0_Bit3 = LRN Button
+							*/
+
+							if (idType == 'on') {
+								const speed = await this.getStateAsync(idChannel + '.speed');
+								const brightness = await this.getStateAsync(idChannel + '.brightness');
 								if ((speed != null) && (brightness != null)) {
 									this.sendEltakoTlg(obj.native.Id, 0x07, 2, brightness.val, speed.val, ((state.val == 1) ? 0x09 : 0x08));
 								} else {
-									this.sendEltakoTlg(obj.native.Id, 0x07, 2, 100, 100, ((state.val == 1) ? 0x09 : 0x08));
+									this.sendEltakoTlg(obj.native.Id, 0x07, 2, 100, 0, ((state.val == 1) ? 0x09 : 0x08));
 								}
 							}
+
+							if (idType == 'speed') {
+								const on = await this.getStateAsync(idChannel + '.on');
+								const brightness = await this.getStateAsync(idChannel + '.brightness');
+								if ((on != null) && (brightness != null)) {
+									this.sendEltakoTlg(obj.native.Id, 0x07, 2, brightness.val, state.val, ((on.val == 1) ? 0x09 : 0x08));
+								}
+							}
+
+							if (idType == 'brightness') {
+								const on = await this.getStateAsync(idChannel + '.on');
+								const speed = await this.getStateAsync(idChannel + '.speed');
+								if ((on != null) && (speed != null)) {
+									this.sendEltakoTlg(obj.native.Id, 0x07, 2, state.val, speed.val, ((on.val == 1) ? 0x09 : 0x08));
+								}
+							}
+
 							if (idType == 'uzsu') {
 								//
 							}
@@ -296,6 +325,77 @@ class Eltako extends utils.Adapter {
 							this.setState(obj._id + '.on', 1, true);
 						}
 					}
+
+					/*
+						ORG = 0x07
+						Data_byte3 = 0x02
+						Data_byte2 = Dimmwert in % von 0-100 dez.
+						Data_byte1 = Dimmgeschwindigkeit
+									 0x00 = die am Dimmer eingestellte
+									 Dimmgeschwindigkeit wird verwendet.
+									 0x01 = sehr schnelle Dimmspeed …. Bis …
+									 0xFF = sehr langsame Dimmspeed
+						Data_byte0 = DB0_Bit3 = LRN Button
+					*/
+
+					if ((obj.native.Type === 'FUD14') || (obj.native.Type === 'FSG14'))  {
+						if (tlg.ORG == 5) {
+							if (tlg.Data3 == 0x50) {
+								this.setState(obj._id + '.on', 0, true);
+							}
+							if (tlg.Data3 == 0x70) {
+								this.setState(obj._id + '.on', 1, true);
+							}
+						}
+						if (tlg.ORG == 7) {
+							if (tlg.Data0 == 0x08) {
+								this.setState(obj._id + '.on', 0, true);
+							}
+							if (tlg.Data0 == 0x09) {
+								this.setState(obj._id + '.on', 1, true);
+							}
+
+							// speed
+							this.setState(obj._id + '.speed', tlg.Data1, true);
+
+							// speed
+							this.setState(obj._id + '.brightness', tlg.Data2, true);
+						}
+					}
+
+					if (obj.native.Type === 'FWS61') {
+						if (tlg.Data0 == 40) {
+							this.setState(obj._id + '.sunwest', (tlg.Data3 * 150/255 * 1000), true);
+							this.setState(obj._id + '.sunsouth', (tlg.Data2 * 150/255 * 1000), true);
+							this.setState(obj._id + '.suneast', (tlg.Data1 * 150/255 * 1000), true);
+						} else {
+							this.setState(obj._id + '.brightness', tlg.Data3 * 1000/255, true);
+
+							if ((tlg.ata2 * 120/255) < 40) {
+								this.setState(obj._id + '.temperature', (-40 + tlg.Data2 * 120/255), true);
+							} else {
+								this.setState(obj._id + '.temperature', (tlg.Data2 * 120/255 - 40), true);
+							}
+
+							this.setState(obj._id + '.windspeed', (tlg.Data1 * 70/255), true);
+							this.setState(obj._id + '.rain', ((tlg.Data0 == 26) ? 1 : 0), true);
+						}
+					}
+
+					if (obj.native.Type === 'FAH60') {
+						if (tlg.Data2 == 0) {
+							this.setState(obj._id + '.brightness', ((tlg.Data3 * 100)/255), true);
+						} else {
+							this.setState(obj._id + '.brightness', (300 + (tlg.Data2 * 29700)/255), true);
+						}
+					}
+
+					if (obj.native.Type === 'FAFT60') {
+						this.setState(obj._id + '.temperature', (-20.0 + (tlg.Data1 * 80.0)/250.0), true);
+						this.setState(obj._id + '.humidity', (tlg.Data2 * 100.0/250.0), true);
+						this.setState(obj._id + '.voltage', (tlg.Data3 * 5.1/255.0), true);
+					}
+
 				} else {
 					this.log.warn('Unknown ioBroker object - Eltako ID ' + senderID);
 				}
@@ -562,6 +662,115 @@ class Eltako extends utils.Adapter {
 		}
 
 
+		// Blinds
+		path = 'blinds';
+		this.setObjectNotExistsAsync(path, {
+			type: 'device',
+			common: {
+				name: 'blinds'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Blinds) {
+
+			const subpath = path + '.' + DeviceList.Blinds[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'channel',
+				common: {
+					name: DeviceList.Blinds[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Blinds[i].Type,
+					'Adr': DeviceList.Blinds[i].Adr,
+					'Id': DeviceList.Blinds[i].Id,
+					'UpDown': DeviceList.Blinds[i].Options.UpDown,
+					'Angle': DeviceList.Blinds[i].Options.Angle,
+					'LastAngle': 0,
+					'LastPosition': 0
+				}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.position', {
+				type: 'state',
+				common: {
+					name: 'blind position',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Blinds[i].Values.Position
+				},
+				native: {
+					'Type': DeviceList.Blinds[i].Type,
+					'Adr': DeviceList.Blinds[i].Adr,
+					'Id': DeviceList.Blinds[i].Id,
+					'UpDown': DeviceList.Blinds[i].Options.UpDown,
+				}
+			});
+
+			// subscribe
+			this.subscribeStates(subpath + '.position');
+
+			this.setObjectNotExistsAsync(subpath + '.angle', {
+				type: 'state',
+				common: {
+					name: 'blind angle',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Blinds[i].Values.Angle
+				},
+				native: {
+					'Type': DeviceList.Blinds[i].Type,
+					'Adr': DeviceList.Blinds[i].Adr,
+					'Id': DeviceList.Blinds[i].Id,
+					'Angle': DeviceList.Blinds[i].Options.Angle,
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.angle');
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'blind timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Blinds[i].Type,
+					'Adr': DeviceList.Blinds[i].Adr,
+					'Id': DeviceList.Blinds[i].Id,
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
+
+			this.setObjectNotExistsAsync(subpath + '.cmd', {
+				type: 'state',
+				common: {
+					name: 'blind cmd',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Blinds[i].Type,
+					'Adr': DeviceList.Blinds[i].Adr,
+					'Id': DeviceList.Blinds[i].Id
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.cmd');
+
+			// remember
+			EltakoData.set(DeviceList.Blinds[i].Adr, subpath);
+		}
 	}
 }
 
