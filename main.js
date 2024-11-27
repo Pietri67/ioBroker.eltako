@@ -190,6 +190,13 @@ class Eltako extends utils.Adapter {
 							}
 							break;
 
+						case 'FTS14':	// Garage
+							if (idType == 'open') {
+								if (state.val === 1) {
+									this.simulateKeyPressed(obj.native.Id, obj.native.Mode);
+								}
+							}
+							break;
 					}
 				}
 			}
@@ -283,7 +290,8 @@ class Eltako extends utils.Adapter {
 	}
 
 	/**
-	 *   parse eltako telegram
+	 * parse eltako telegram
+	 * @param {any[]} data
 	 */
 	async parseEltakoTlg(data) {
 		/*
@@ -407,6 +415,15 @@ class Eltako extends utils.Adapter {
 						this.setState(obj._id + '.voltage', (tlg.Data3 * 5.1/255.0), true);
 					}
 
+					// special keys simulation - Garage relais function
+					if (obj.native.Type === 'FTS14') {
+						if (tlg.ORG == 5) {
+							this.setState(obj._id + '.open', 0, true);
+						} else {
+							this.log.warn('Eltako FTS14 error, id ' + senderID);
+						}
+					}
+
 				} else {
 					this.log.warn('Unknown ioBroker object - Eltako ID ' + senderID);
 				}
@@ -418,6 +435,23 @@ class Eltako extends utils.Adapter {
 			// Logfile
 			this.log.warn('Eltako telegram CRC error');
 		}
+	}
+
+	/**
+	 * Simulate key pressed....
+	 * @param {any} id
+	 * @param {any} mode
+	 */
+	async simulateKeyPressed(id, mode) {
+
+		const self = this;
+		// mode != 0
+		this.sendEltakoTlg(id, 0x05, mode, 0, 0, 0);
+
+		// after 160ms reset to 0
+		this.setTimeout(function() {
+			self.sendEltakoTlg(id, 0x05, 0, 0, 0, 0);
+		}, 160);
 	}
 
 	/*
@@ -826,6 +860,55 @@ class Eltako extends utils.Adapter {
 			// remember
 			EltakoData.set(DeviceList.Sensors[i].Adr, subpath);
 		}
+
+		// Garage
+		path = 'other';
+		this.setObjectNotExistsAsync(path, {
+			type: 'device',
+			common: {
+				name: 'other'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Garage) {
+
+			const subpath = path + '.' + DeviceList.Garage[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'channel',
+				common: {
+					name: DeviceList.Garage[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Garage[i].Type,
+					'Adr': DeviceList.Garage[i].Adr
+				}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.open', {
+				type: 'state',
+				common: {
+					name: 'garage state',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Garage[i].Values.State,
+				},
+				native: {
+					'Type': DeviceList.Garage[i].Type,
+					'Adr': DeviceList.Garage[i].Adr,
+					'Id': DeviceList.Garage[i].Id,
+					'Mode': DeviceList.Garage[i].Mode
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.open');
+
+			// remember
+			EltakoData.set(DeviceList.Garage[i].Adr, subpath);
+		}
+
 	}
 }
 
