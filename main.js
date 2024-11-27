@@ -74,19 +74,18 @@ class Eltako extends utils.Adapter {
 	 */
 	onUnload(callback) {
 		try {
+			// update connection state.
+			this.setState('info.connection', false, true);
+
 			// Here you must clear all timeouts or intervals that may still be active
 			// stop communication
 			if (this.commPort != null) {
 				this.commPort.close();
 			}
 
-			// update connection state.
-			this.setState('info.connection', false, true);
+		}  finally  {
 
 			// and finish...
-			callback();
-
-		} catch (e) {
 			callback();
 		}
 	}
