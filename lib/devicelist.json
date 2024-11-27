@@ -448,7 +448,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "2": {
@@ -460,7 +460,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "3": {
@@ -472,7 +472,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "4": {
@@ -484,7 +484,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "5": {
@@ -496,7 +496,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "6": {
@@ -508,7 +508,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "7": {
@@ -520,7 +520,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "8": {
@@ -532,7 +532,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "9": {
@@ -544,7 +544,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "10": {
@@ -556,7 +556,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         },
         "11": {
@@ -568,7 +568,7 @@
             "Values": {
                 "State": 0,
                 "Bright": 100,   
-                "Speed": 100
+                "Speed": 0
             }
         }
     }, 
@@ -909,7 +909,7 @@
             }
         },
         "14": {
-            "Name": "coff14",
+            "Name": "Coff14",
             "Desc": "Steckdosen Flur",
             "Id": 1010000014,
             "Values": {

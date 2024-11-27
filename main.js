@@ -124,6 +124,18 @@ class Eltako extends utils.Adapter {
 				if (obj)  {
 					switch (obj.native.Type) {
 						case 'FSR14':	// Light, Sockets
+							/*
+							ORG = 0x07
+							Data_byte3 = 0x01
+							Data_byte2 = no used
+							Data_byte1 = no used
+							Data_byte0 = DB0_Bit3 = LRN Button
+										(0 = Lerntelegramm, 1 = Datentelegramm)
+										DBO_Bit2 = 1: Schaltzustand blockieren,
+										0: Schaltzustand nicht blockieren
+										DBO_Bit0 = 1: Schaltausgang AN,
+										0: Schaltausgang AUS
+							*/
 							if (idType == 'on') {
 								// Light on 0x09, off 0x08
 								this.sendEltakoTlg(obj.native.Id, 0x07, 1, 0, 0, ((state.val == 1) ? 0x09 : 0x08));
@@ -652,7 +664,6 @@ class Eltako extends utils.Adapter {
 					'Id': DeviceList.Dimmer[i].Id
 				}
 			});
-
 			// subscribe
 			this.subscribeStates(subpath + '.uzsu');
 
@@ -707,7 +718,6 @@ class Eltako extends utils.Adapter {
 					'UpDown': DeviceList.Blinds[i].Options.UpDown,
 				}
 			});
-
 			// subscribe
 			this.subscribeStates(subpath + '.position');
 
@@ -769,6 +779,52 @@ class Eltako extends utils.Adapter {
 
 			// remember
 			EltakoData.set(DeviceList.Blinds[i].Adr, subpath);
+		}
+
+		// Sensoren
+		path = 'sensors';
+		this.setObjectNotExistsAsync(path, {
+			type: 'device',
+			common: {
+				name: 'sensors'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Sensors) {
+
+			const subpath = path + '.' + DeviceList.Sensors[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'channel',
+				common: {
+					name: DeviceList.Sensors[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Sensors[i].Type,
+					'Adr': DeviceList.Sensors[i].Adr
+				}
+			});
+
+			for (const [key, value] of Object.entries(DeviceList.Sensors[i].Values)) {
+				this.setObjectNotExistsAsync(subpath + '.' + key, {
+					type: 'state',
+					common: {
+						name: key,
+						type: 'number',
+						role: 'value',
+						read:  true,
+						write: false,
+						def: value
+					},
+					native: {
+					}
+				});
+				// subscribe
+				this.subscribeStates(subpath + '.' + key);
+			}
+
+			// remember
+			EltakoData.set(DeviceList.Sensors[i].Adr, subpath);
 		}
 	}
 }
