@@ -899,7 +899,7 @@ class Eltako extends utils.Adapter {
 					'Type': DeviceList.Garage[i].Type,
 					'Adr': DeviceList.Garage[i].Adr,
 					'Id': DeviceList.Garage[i].Id,
-					'Mode': DeviceList.Garage[i].Mode
+					'Mode': DeviceList.Garage[i].Options.Mode
 				}
 			});
 			// subscribe
