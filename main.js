@@ -36,8 +36,6 @@ class Eltako extends utils.Adapter {
 		this.on('ready', this.onReady.bind(this));
 		this.on('stateChange', this.onStateChange.bind(this));
 		this.on('unload', this.onUnload.bind(this));
-
-		this.logEnable = false;
 	}
 
 	/**
@@ -47,9 +45,6 @@ class Eltako extends utils.Adapter {
 		// Initialize your adapter here
 		// Reset the connection indicator during startup
 		await this.setStateAsync('info.connection', false, true);
-		const log = await this.getStateAsync('info.logging');
-		// @ts-ignore
-		if (log) { this.logEnable = log.val; }
 
 		// new Eltako Data
 		EltakoData = new Map();
@@ -107,7 +102,7 @@ class Eltako extends utils.Adapter {
 
 		if (state) {
 			// The state was changed
-			if (this.logEnable == true) this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 
 			// state.from
 			// example: system.adapter.eltako.0.
@@ -218,15 +213,11 @@ class Eltako extends utils.Adapter {
 							}
 							break;
 					}
-
-					// @ts-ignore
-					if (idType == 'logging') { this.logEnable = state.val; }
-
 				}
 			}
 		} else {
 			// The state was deleted
-			if (this.logEnable == true) this.log.info(`state ${id} deleted`);
+			this.log.info(`state ${id} deleted`);
 		}
 	}
 
@@ -305,7 +296,7 @@ class Eltako extends utils.Adapter {
 			});
 
 			// Logfile
-			if (this.logEnable == true) this.log.info('Eltako telegram sent: ' + EltakoTools.telegramToString(tlg));
+			this.log.info('Eltako telegram sent: ' + EltakoTools.telegramToString(tlg));
 
 		} catch (e) {
 			// Logfile
