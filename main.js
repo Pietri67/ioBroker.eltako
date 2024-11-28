@@ -196,6 +196,12 @@ class Eltako extends utils.Adapter {
 							}
 							break;
 
+						case 'FTS14EM':	// nur Keys
+							if (state.val === 1) {
+								this.simulateKeyPressed(obj.native.Id, obj.native.Mode);
+							}
+							break;
+
 						case 'FSB14':	// Blinds
 							if (idType == 'cmd') {
 								if (state.val === 0) {
