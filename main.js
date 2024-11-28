@@ -197,6 +197,24 @@ class Eltako extends utils.Adapter {
 								}
 							}
 							break;
+
+						case 'FSB14':	// Blinds
+							if (idType == 'cmd') {
+								if (state.val === 0) {
+									// Stop
+									this.sendEltakoTlg(obj.native.Id, 0x07, 0, 0, 0, 8);
+								}
+								if (state.val === 1) {
+									// Auf
+									this.sendEltakoTlg(obj.native.Id, 0x07, 0, 66, 1, 8);
+								}
+								if (state.val === 2) {
+									// Ab
+									this.sendEltakoTlg(obj.native.Id, 0x07, 0, 66, 2, 8);
+								}
+							}
+							break;
+
 					}
 				}
 			}
@@ -907,6 +925,119 @@ class Eltako extends utils.Adapter {
 
 			// remember
 			EltakoData.set(DeviceList.Garage[i].Adr, subpath);
+		}
+
+		// Fire
+		path = 'other';
+		this.setObjectNotExistsAsync(path, {
+			type: 'device',
+			common: {
+				name: 'other'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Fire) {
+
+			const subpath = path + '.' + DeviceList.Fire[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'channel',
+				common: {
+					name: DeviceList.Fire[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Fire[i].Type,
+					'Adr': DeviceList.Fire[i].Adr
+				}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.on', {
+				type: 'state',
+				common: {
+					name: 'fire state',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Fire[i].Values.State,
+				},
+				native: {
+					'Type': DeviceList.Fire[i].Type,
+					'Adr': DeviceList.Fire[i].Adr,
+					'Id': DeviceList.Fire[i].Id,
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.on');
+
+			// remember
+			EltakoData.set(DeviceList.Fire[i].Adr, subpath);
+		}
+
+		// Climate
+		path = 'climate';
+		this.setObjectNotExistsAsync(path, {
+			type: 'device',
+			common: {
+				name: 'climate'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Climate) {
+
+			const subpath = path + '.' + DeviceList.Climate[i].Name;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'channel',
+				common: {
+					name: DeviceList.Climate[i].Desc
+				},
+				native: {
+					'Type': DeviceList.Climate[i].Type,
+					'Adr': DeviceList.Climate[i].Adr
+				}
+			});
+
+			this.setObjectNotExistsAsync(subpath + '.on', {
+				type: 'state',
+				common: {
+					name: 'climate state',
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+					def: DeviceList.Climate[i].Values.State,
+				},
+				native: {
+					'Type': DeviceList.Climate[i].Type,
+					'Adr': DeviceList.Climate[i].Adr,
+					'Id': DeviceList.Climate[i].Id,
+
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.on');
+
+			this.setObjectNotExistsAsync(subpath + '.uzsu', {
+				type: 'state',
+				common: {
+					name: 'climate timer',
+					type: 'string',
+					role: 'json',
+					read:  true,
+					write: true
+				},
+				native: {
+					'Type': DeviceList.Climate[i].Type,
+					'Adr': DeviceList.Climate[i].Adr,
+					'Id': DeviceList.Climate[i].Id
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath + '.uzsu');
+
+			// remember
+			EltakoData.set(DeviceList.Climate[i].Adr, subpath);
 		}
 
 	}
