@@ -1036,6 +1036,38 @@ class Eltako extends utils.Adapter {
 			EltakoData.set(DeviceList.Climate[i].Adr, subpath);
 		}
 
+		// Keys
+		path = 'keys';
+		this.setObjectNotExistsAsync(path, {
+			type: 'device',
+			common: {
+				name: 'keys'
+			},
+			native: {}
+		});
+
+		for (const i in DeviceList.Keys) {
+			const subpath = path + '.key_' + DeviceList.Keys[i].Adr;
+			this.setObjectNotExistsAsync(subpath, {
+				type: 'state',
+				common: {
+					name: DeviceList.Keys[i].Desc,
+					type: 'number',
+					role: 'value',
+					read:  true,
+					write: true,
+				},
+				native: {
+					'Type': DeviceList.Keys[i].Type,
+					'Adr': DeviceList.Keys[i].Adr,
+				}
+			});
+			// subscribe
+			this.subscribeStates(subpath);
+
+			// remember
+			EltakoData.set(DeviceList.Keys[i].Adr, subpath);
+		}
 	}
 }
 
