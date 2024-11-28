@@ -116,15 +116,12 @@ class Eltako extends utils.Adapter {
 
 			if (adaptFrom !== 'system.adapter.eltako') {
 
-				// The state was changed
-				this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack}) from: ${state.from}`);
-
 				// state -> eltako.0.lights.floor3.on changed: true (ack = false) from: system.adapter.admin.0
 				// state -> eltako.0.lights.floor2.on changed: true (ack = false) from: system.adapter.socketio.0
 				// state -> eltako.0.lights.floor3.on changed: false (ack = true) from: system.adapter.eltako.0
 
 				const idTmp = id.split('.');												// split into new array
-				const idChannel = idTmp.slice(0,-1).join('.');  								// result: eltako.0.lights.floor3
+				const idChannel = idTmp.slice(0,-1).join('.');  							// result: eltako.0.lights.floor3
 				const idType = (idTmp.slice(idTmp.length - 1, idTmp.length)).toString(); 	// result: on
 
 				if (obj)  {
@@ -220,8 +217,11 @@ class Eltako extends utils.Adapter {
 								}
 							}
 							break;
-
 					}
+
+					// @ts-ignore
+					if (idType == 'logging') { this.logEnable = state.val; }
+
 				}
 			}
 		} else {
