@@ -21,6 +21,7 @@ const DeviceList = require('./lib/devicelist.json');
 // List IDs
 let EltakoData = null;
 
+
 // Eltako Communication class
 class Eltako extends utils.Adapter {
 
@@ -35,6 +36,8 @@ class Eltako extends utils.Adapter {
 		this.on('ready', this.onReady.bind(this));
 		this.on('stateChange', this.onStateChange.bind(this));
 		this.on('unload', this.onUnload.bind(this));
+
+		this.logEnable = false;
 	}
 
 	/**
@@ -44,6 +47,9 @@ class Eltako extends utils.Adapter {
 		// Initialize your adapter here
 		// Reset the connection indicator during startup
 		await this.setStateAsync('info.connection', false, true);
+		const log = await this.getStateAsync('info.logging');
+		// @ts-ignore
+		if (log) { this.logEnable = log.val; }
 
 		// new Eltako Data
 		EltakoData = new Map();
@@ -101,7 +107,7 @@ class Eltako extends utils.Adapter {
 
 		if (state) {
 			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+			if (this.logEnable == true) this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 
 			// state.from
 			// example: system.adapter.eltako.0.

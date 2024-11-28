@@ -117,6 +117,20 @@
 				"def": ""
 			  },
 			  "native": {}
-		  }
+		  },
+		  {
+			"_id": "info.logging",
+			"type": "state",
+			"common": {
+			  "role": "indicator",
+			  "name": "logging eltako bus enable",
+			  "type": "boolean",
+			  "read": true,
+			  "write": true,
+			  "def": false
+			},
+			"native": {}
+		  },
+
 	]
 }
