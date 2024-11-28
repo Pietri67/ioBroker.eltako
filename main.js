@@ -340,7 +340,7 @@ class Eltako extends utils.Adapter {
 		*/
 
 		// Logfile
-		if (this.logEnable == true) this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data));
+		this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data));
 
 		// update info.lastmsg
 		this.setState('info.lastmsg', EltakoTools.telegramToString(data), true);
@@ -454,7 +454,6 @@ class Eltako extends utils.Adapter {
 			} else {
 				this.log.warn('Eltako unknown ID ' + senderID);
 			}
-
 		} else {
 			// Logfile
 			this.log.warn('Eltako telegram CRC error');
