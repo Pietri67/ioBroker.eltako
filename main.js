@@ -226,7 +226,7 @@ class Eltako extends utils.Adapter {
 			}
 		} else {
 			// The state was deleted
-			this.log.info(`state ${id} deleted`);
+			if (this.logEnable == true) this.log.info(`state ${id} deleted`);
 		}
 	}
 
@@ -262,7 +262,7 @@ class Eltako extends utils.Adapter {
 		// port error
 		this.commPort.on('error', (error) => {
 			// Logfile
-			this.log.info('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);
+			this.log.error('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);
 		});
 	}
 
@@ -305,7 +305,7 @@ class Eltako extends utils.Adapter {
 			});
 
 			// Logfile
-			this.log.info('Eltako telegram sent: ' + EltakoTools.telegramToString(tlg));
+			if (this.logEnable == true) this.log.info('Eltako telegram sent: ' + EltakoTools.telegramToString(tlg));
 
 		} catch (e) {
 			// Logfile
@@ -340,7 +340,7 @@ class Eltako extends utils.Adapter {
 		*/
 
 		// Logfile
-		this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data));
+		if (this.logEnable == true) this.log.info('Eltako telegram receive: ' + EltakoTools.telegramToString(data));
 
 		// update info.lastmsg
 		this.setState('info.lastmsg', EltakoTools.telegramToString(data), true);
