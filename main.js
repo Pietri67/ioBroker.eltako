@@ -399,7 +399,7 @@ class Eltako extends utils.Adapter {
 							// speed
 							this.setState(obj._id + '.speed', tlg.Data1, true);
 
-							// speed
+							// brightness
 							this.setState(obj._id + '.brightness', tlg.Data2, true);
 						}
 					}
