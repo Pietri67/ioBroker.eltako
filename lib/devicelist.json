@@ -573,10 +573,22 @@
         },
         "12": {
             "Name": "basebig1",
-            "Desc": "großer Keller Deckenlicht",
+            "Desc": "großer Keller",
             "Adr": 87,
             "Type": "FDG14",
-            "Id": 4277082360,
+            "Id": 1110000012,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "13": {
+            "Name": "basebig2",
+            "Desc": "großer Keller",
+            "Adr": 87,
+            "Type": "FDG14",
+            "Id": 1110000013,
             "Values": {
                 "State": 0,
                 "Bright": 100,   
