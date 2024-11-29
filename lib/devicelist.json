@@ -570,7 +570,21 @@
                 "Bright": 100,   
                 "Speed": 0
             }
+        },
+        "12": {
+            "Name": "basebig1",
+            "Desc": "großer Keller Deckenlicht",
+            "Adr": 87,
+            "Type": "FDG14",
+            "Id": 4277082121,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
         }
+
+
     }, 
 
     "Blinds": {
@@ -1556,6 +1570,14 @@
         "72": {
             "Desc": "Küche Taster unten  6/6",
             "Adr": 4353,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "73": {
+            "Desc": "Keller groß  3/6",
+            "Adr": 4405,
             "Type": "FTS14EM",
             "Values": {
                 "state": 0

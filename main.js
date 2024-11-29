@@ -143,6 +143,7 @@ class Eltako extends utils.Adapter {
 							}
 							break;
 
+						case 'FDG14':
 						case 'FSG14':
 						case 'FUD14':	// Dimmmer
 							/*
@@ -378,7 +379,7 @@ class Eltako extends utils.Adapter {
 						Data_byte0 = DB0_Bit3 = LRN Button
 					*/
 
-					if ((obj.native.Type === 'FUD14') || (obj.native.Type === 'FSG14'))  {
+					if ((obj.native.Type === 'FUD14') || (obj.native.Type === 'FSG14') || (obj.native.Type === 'FDG14'))  {
 						if (tlg.ORG == 5) {
 							if (tlg.Data3 == 0x50) {
 								this.setState(obj._id + '.on', 0, true);
