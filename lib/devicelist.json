@@ -1171,7 +1171,7 @@
         },     
         "24": {
             "Desc": "Keller Heizung",
-            "Adr": 4466,
+            "Adr": 4485,
             "Type": "FTS14EM",
             "Values": {
                 "state": 0
