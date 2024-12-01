@@ -1592,7 +1592,16 @@
             "Values": {
                 "state": 0
             }
+        },
+        "74": {
+            "Desc": "unbekannt_1",
+            "Adr": 4384,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
         }
+
     }
 }
 

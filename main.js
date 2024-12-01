@@ -234,12 +234,14 @@ class Eltako extends utils.Adapter {
 	async communication() {
 
 		// port opened
+		// @ts-ignore
 		this.commPort.on('open', () => {
 
 			// update connection state.
 			this.setState('info.connection', true, true);
 
 			// setup parser
+			// @ts-ignore
 			this.commParser.on('data' , (data) => {
 				this.parseEltakoTlg(data);
 			});
@@ -249,6 +251,7 @@ class Eltako extends utils.Adapter {
 		});
 
 		// port closed
+		// @ts-ignore
 		this.commPort.on('close', () => {
 			// update connection state.
 			this.setState('info.connection', false, true);
@@ -258,6 +261,7 @@ class Eltako extends utils.Adapter {
 		});
 
 		// port error
+		// @ts-ignore
 		this.commPort.on('error', (error) => {
 			// Logfile
 			this.log.error('Eltako usb/serial port ' + this.config.usbport + ' error: ' + error);
@@ -295,6 +299,7 @@ class Eltako extends utils.Adapter {
 			tlg[13] = EltakoTools.calcTelegramCRC(tlg);
 
 			// send Eltako telegram
+			// @ts-ignore
 			this.commPort.write(tlg, (err) => {
 				if (err) {
 					this.log.warn('Eltako telegram error sending data: ' + err);
