@@ -526,7 +526,7 @@
         "8": {
             "Name": "sitting2",
             "Desc": "Spot Eingang",
-            "Adr": 12,
+            "Adr": 11,
             "Type": "FSG14",
             "Id": 1110000008,
             "Values": {
@@ -538,7 +538,7 @@
         "9": {
             "Name": "sitting3",
             "Desc": "Spot Fenster",
-            "Adr": 11,
+            "Adr": 12,
             "Type": "FSG14",
             "Id": 1110000009,
             "Values": {
