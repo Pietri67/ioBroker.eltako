@@ -1,0 +1,97 @@
+2024-12-01 17:26:37.385  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message getLogs
+2024-12-01 17:26:39.244  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message readBaseSettings
+2024-12-01 17:26:40.308  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message getInstalled
+2024-12-01 17:26:40.324  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message getRepository
+2024-12-01 17:26:41.913  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message readBaseSettings
+2024-12-01 17:26:43.781  - [32minfo[39m: admin.0 (2528) ==> Connected system.user.admin from 127.0.0.1
+2024-12-01 17:26:49.211  - [32minfo[39m: admin.0 (2528) <== Disconnect system.user.admin from 127.0.0.1 
+2024-12-01 17:26:52.408  - [34mdebug[39m: host.dev-eltako-Develop object change system.adapter.eltako.0 (from: system.adapter.admin.0)
+2024-12-01 17:26:52.409  - [32minfo[39m: host.dev-eltako-Develop stopInstance system.adapter.eltako.0 (force=false, process=true)
+2024-12-01 17:26:52.413  - [32minfo[39m: eltako.0 (2544) Got terminate signal TERMINATE_YOURSELF
+2024-12-01 17:26:52.414  - [32minfo[39m: eltako.0 (2563) Got terminate signal TERMINATE_YOURSELF
+2024-12-01 17:26:52.416  - [32minfo[39m: eltako.0 (2544) terminating
+2024-12-01 17:26:52.416  - [32minfo[39m: eltako.0 (2544) Terminated (ADAPTER_REQUESTED_TERMINATION): Without reason
+2024-12-01 17:26:52.419  - [31merror[39m: eltako.0 (2544) Eltako usb/serial port /dev/ttyUSB1 error: Error: Port is not open
+2024-12-01 17:26:52.453  - [32minfo[39m: host.dev-eltako-Develop stopInstance system.adapter.eltako.0 send kill signal
+2024-12-01 17:26:52.920  - [32minfo[39m: eltako.0 (2544) terminating
+2024-12-01 17:26:52.941  - [32minfo[39m: host.dev-eltako-Develop instance system.adapter.eltako.0 terminated with code 11 (ADAPTER_REQUESTED_TERMINATION)
+2024-12-01 17:26:54.775  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message getLogFiles
+2024-12-01 17:26:54.793  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message getLogs
+2024-12-01 17:26:56.183  - [34mdebug[39m: host.dev-eltako-Develop added notifications configuration of system.adapter.eltako.0
+2024-12-01 17:26:56.184  - [34mdebug[39m: host.dev-eltako-Develop startInstance eltako.0 loglevel=info, compact=false
+2024-12-01 17:26:56.187  - [33mwarn[39m: eltako.0 (2563) Got terminate signal. Checking desired PID: 0 vs own PID 2563
+2024-12-01 17:26:56.199  - [32minfo[39m: host.dev-eltako-Develop instance system.adapter.eltako.0 in version "0.0.1" started with pid 2617
+2024-12-01 17:26:56.203  - [33mwarn[39m: eltako.0 (2563) Got terminate signal. Checking desired PID: 2617 vs own PID 2563
+2024-12-01 17:26:57.224  - [32minfo[39m: eltako.0 (2617) starting. Version 0.0.1 in /home/passauer13/ioBroker.eltako/.dev-server/default/node_modules/iobroker.eltako, node: v23.2.0, js-controller: 7.0.3
+2024-12-01 17:26:57.264  - [32minfo[39m: eltako.0 (2617) Eltako usb/serial port /dev/ttyUSB1 with baudrate 57600 opened.
+2024-12-01 17:27:04.399  - [32minfo[39m: eltako.0 (2617) Eltako telegram receive: 165,90,11,5,48,0,0,0,0,0,17,115,48,244
+2024-12-01 17:27:04.402  - [32minfo[39m: eltako.0 (2617) Eltako Id:4467 iobroker: eltako.0.keys.key_4467
+2024-12-01 17:27:04.569  - [32minfo[39m: eltako.0 (2617) Eltako telegram receive: 165,90,11,5,0,0,0,0,0,0,17,115,32,180
+2024-12-01 17:27:04.572  - [32minfo[39m: eltako.0 (2617) Eltako Id:4467 iobroker: eltako.0.keys.key_4467
+2024-12-01 17:27:07.030  - [32minfo[39m: eltako.0 (2617) Eltako telegram receive: 165,90,11,7,0,82,3,24,0,0,24,0,0,151
+2024-12-01 17:27:07.032  - [32minfo[39m: eltako.0 (2617) Eltako Id:6144 iobroker: eltako.0.sensors.ms
+2024-12-01 17:27:07.080  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.brightness changed: 0 (ack = true)
+2024-12-01 17:27:07.121  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.brightness changed: 0 (ack = true)
+2024-12-01 17:27:07.123  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.temperature changed: -1.411764705882355 (ack = true)
+2024-12-01 17:27:07.127  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.windspeed changed: 0.8235294117647058 (ack = true)
+2024-12-01 17:27:07.128  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.temperature changed: -1.411764705882355 (ack = true)
+2024-12-01 17:27:07.168  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.windspeed changed: 0.8235294117647058 (ack = true)
+2024-12-01 17:27:07.168  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.rain changed: 0 (ack = true)
+2024-12-01 17:27:07.169  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.rain changed: 0 (ack = true)
+2024-12-01 17:27:08.627  - [32minfo[39m: eltako.0 (2617) Eltako telegram receive: 165,90,139,5,80,0,0,0,0,0,0,53,48,69
+2024-12-01 17:27:08.629  - [32minfo[39m: eltako.0 (2617) Eltako Id:53 iobroker: eltako.0.lights.basesmall
+2024-12-01 17:27:08.674  - [32minfo[39m: eltako.0 (2617) state eltako.0.lights.basesmall.on changed: 0 (ack = true)
+2024-12-01 17:27:08.675  - [32minfo[39m: eltako.0 (2563) state eltako.0.lights.basesmall.on changed: 0 (ack = true)
+2024-12-01 17:27:13.714  - [34mdebug[39m: host.dev-eltako-Develop Incoming Host message readBaseSettings
+2024-12-01 17:27:32.993  - [32minfo[39m: eltako.0 (2617) Eltako telegram receive: 165,90,11,7,0,82,7,24,0,0,24,0,0,155
+2024-12-01 17:27:32.996  - [32minfo[39m: eltako.0 (2617) Eltako Id:6144 iobroker: eltako.0.sensors.ms
+2024-12-01 17:27:33.041  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.brightness changed: 0 (ack = true)
+2024-12-01 17:27:33.081  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.brightness changed: 0 (ack = true)
+2024-12-01 17:27:33.088  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.temperature changed: -1.411764705882355 (ack = true)
+2024-12-01 17:27:33.089  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.windspeed changed: 1.9215686274509804 (ack = true)
+2024-12-01 17:27:33.088  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.temperature changed: -1.411764705882355 (ack = true)
+2024-12-01 17:27:33.089  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.windspeed changed: 1.9215686274509804 (ack = true)
+2024-12-01 17:27:33.090  - [32minfo[39m: eltako.0 (2563) state eltako.0.sensors.ms.rain changed: 0 (ack = true)
+2024-12-01 17:27:33.130  - [32minfo[39m: eltako.0 (2617) state eltako.0.sensors.ms.rain changed: 0 (ack = true)
+2024-12-01 17:27:34.308  - [34mdebug[39m: host.dev-eltako-Develop object change system.adapter.eltako.0 (from: system.adapter.admin.0)
+2024-12-01 17:27:34.311  - [32minfo[39m: eltako.0 (2563) Got terminate signal TERMINATE_YOURSELF
+2024-12-01 17:27:34.315  - [32minfo[39m: eltako.0 (2617) Got terminate signal TERMINATE_YOURSELF
+2024-12-01 17:27:34.308  - [32minfo[39m: host.dev-eltako-Develop "system.adapter.eltako.0" disabled
+2024-12-01 17:27:34.308  - [32minfo[39m: host.dev-eltako-Develop stopInstance system.adapter.eltako.0 (force=false, process=true)
+2024-12-01 17:27:34.318  - [32minfo[39m: eltako.0 (2617) terminating
+2024-12-01 17:27:34.319  - [32minfo[39m: eltako.0 (2617) Terminated (ADAPTER_REQUESTED_TERMINATION): Without reason
+2024-12-01 17:27:34.350  - [32minfo[39m: host.dev-eltako-Develop stopInstance system.adapter.eltako.0 send kill signal
+2024-12-01 17:27:34.420  - [32minfo[39m: eltako.0 (2617) Eltako usb/serial port /dev/ttyUSB1 closed.
+2024-12-01 17:27:34.820  - [32minfo[39m: eltako.0 (2617) terminating
+2024-12-01 17:27:34.842  - [32minfo[39m: host.dev-eltako-Develop instance system.adapter.eltako.0 terminated with code 11 (ADAPTER_REQUESTED_TERMINATION)
+2024-12-01 17:28:02.920  - [32minfo[39m: admin.0 (2528) <== Disconnect system.user.admin from 127.0.0.1 admin
+2024-12-01 17:28:08.829  - [31merror[39m: eltako.0 (2563) Eltako usb/serial port /dev/ttyUSB1 error: Error: Port is not open
+2024-12-01 17:28:08.821  - [32minfo[39m: host.dev-eltako-Develop received SIGINT
+2024-12-01 17:28:08.827  - [32minfo[39m: admin.0 (2528) terminating http server on port 20426
+2024-12-01 17:28:08.822  - [34mdebug[39m: host.dev-eltako-Develop stop isStopping=0 isDaemon=false allInstancesStopped=false
+2024-12-01 17:28:08.822  - [32minfo[39m: host.dev-eltako-Develop stopInstance system.adapter.admin.0 (force=false, process=true)
+2024-12-01 17:28:08.822  - [32minfo[39m: host.dev-eltako-Develop stopInstance system.adapter.eltako.0 (force=false, process=false)
+2024-12-01 17:28:08.847  - [33mwarn[39m: host.dev-eltako-Develop Error while trying to update capabilities after detecting new Node.js version: Command failed: sudo setcap cap_net_admin,cap_net_bind_service,cap_net_raw+epi /usr/bin/node
+sudo: a password is required
+
+2024-12-01 17:28:08.960  - [32minfo[39m: host.dev-eltako-Develop received SIGINT
+2024-12-01 17:28:08.996  - [34mdebug[39m: host.dev-eltako-Develop-Server States 127.0.0.1:44478 Redis Socket error: Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+2024-12-01 17:28:09.072  - [32minfo[39m: host.dev-eltako-Develop stopInstance system.adapter.admin.0 send kill signal
+2024-12-01 17:28:09.120  - [33mwarn[39m: host.dev-eltako-Develop instance system.adapter.admin.0 terminated due to SIGINT
+2024-12-01 17:28:09.120  - [32minfo[39m: host.dev-eltako-Develop instance system.adapter.admin.0 terminated with code null ()
+2024-12-01 17:28:09.120  - [32minfo[39m: host.dev-eltako-Develop All instances are stopped.
+2024-12-01 17:28:09.273  - [34mdebug[39m: host.dev-eltako-Develop Plugin sentry destroyed
+2024-12-01 17:28:09.426  - [32minfo[39m: host.dev-eltako-Develop terminated
+2024-12-01 17:28:09.862  - [33mwarn[39m: host.dev-eltako-Develop redis get system.host.dev-eltako-Develop.osPackageUpdates, error - Connection is closed.
+2024-12-01 17:28:09.863  - [33mwarn[39m: host.dev-eltako-Develop get state error: Connection is closed.
+2024-12-01 17:28:09.864  - [34mdebug[39m: host.dev-eltako-Develop redis get system.repositories, error - Connection is closed.
+2024-12-01 17:28:09.868  - [31merror[39m: host.dev-eltako-Develop Could not check if blocklisted adapters need to be disabled: DB closed
+2024-12-01 17:28:09.876  - [33mwarn[39m: host.dev-eltako-Develop redis get system.host.dev-eltako-Develop.osPackageUpdates, error - Connection is closed.
+2024-12-01 17:28:09.876  - [33mwarn[39m: host.dev-eltako-Develop get state error: Connection is closed.
+2024-12-01 17:28:09.877  - [34mdebug[39m: host.dev-eltako-Develop redis get system.repositories, error - Connection is closed.
+2024-12-01 17:28:09.877  - [31merror[39m: host.dev-eltako-Develop Could not check if blocklisted adapters need to be disabled: DB closed
+2024-12-01 17:28:09.880  - [33mwarn[39m: host.dev-eltako-Develop redis get system.host.dev-eltako-Develop.osPackageUpdates, error - Connection is closed.
+2024-12-01 17:28:09.880  - [33mwarn[39m: host.dev-eltako-Develop get state error: Connection is closed.
+2024-12-01 17:28:09.881  - [34mdebug[39m: host.dev-eltako-Develop redis get system.repositories, error - Connection is closed.
+2024-12-01 17:28:09.881  - [31merror[39m: host.dev-eltako-Develop Could not check if blocklisted adapters need to be disabled: DB closed

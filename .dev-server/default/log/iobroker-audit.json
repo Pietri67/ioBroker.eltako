@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "/home/passauer13/ioBroker.eltako/.dev-server/default/log/iobroker-audit.json",
+    "files": [
+        {
+            "date": 1733073029113,
+            "name": "/home/passauer13/ioBroker.eltako/.dev-server/default/log/iobroker.2024-12-01.log",
+            "hash": "0a7edd3e1e507de5f7412ba3687fce3b773def3b6aab23f1bbc8b22d0efb6207"
+        }
+    ],
+    "hashType": "sha256"
+}

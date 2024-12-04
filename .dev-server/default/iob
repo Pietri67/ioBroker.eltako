@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+require('/home/passauer13/ioBroker.eltako/.dev-server/default/node_modules/@iobroker/js-controller-cli/build/esm/lib/setup').execute();

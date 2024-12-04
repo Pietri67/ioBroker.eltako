@@ -1,0 +1,1613 @@
+{
+    "Lights": {
+        "1": {
+            "Name": "kittchen1",
+            "Desc": "Küche Fenster",
+            "Adr": 28,
+            "Type": "FSR14",
+            "Id": 1100000001,
+            "Values": {
+                "State": 0
+            }
+        },
+        "2": {
+            "Name": "kittchen2",
+            "Desc": "Küche Spüle",
+            "Adr": 27,
+            "Type": "FSR14",
+            "Id": 1100000002,
+            "Values": {
+                "State": 0
+            }
+         },
+        "3": {
+            "Name": "droplight",
+            "Desc": "Hängeleuchte",
+            "Adr": 37,
+            "Type": "FSR14",
+            "Id": 1100000003,
+            "Values": {
+                "State": 0
+            }
+         },
+        "4": {
+            "Name": "staircase",
+            "Desc": "Notlicht Treppe",
+            "Adr": 47,
+            "Type": "FSR14",
+            "Id": 1100000004,
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                
+            }
+        },
+        "5": {
+            "Name": "flentrance",
+            "Desc": "Flur Eingang",
+            "Adr": 32,
+            "Type": "FSR14",
+            "Id": 1100000005,
+            "Values": {
+                "State": 0
+            }
+        },
+        "6": {
+            "Name": "flkittchen",
+            "Desc": "Flur Küche",
+            "Adr": 31,
+            "Type": "FSR14",
+            "Id": 1100000006,
+            "Values": {
+                "State": 0
+            }
+        },
+        "7": {
+            "Name": "flguest",
+            "Desc": "Flur Gäste",
+            "Adr": 30,
+            "Type": "FSR14",
+            "Id": 1100000007,
+            "Values": {
+                "State": 0
+            }
+        },
+        "8": {
+            "Name": "flgalerie",
+            "Desc": "Flur Galerie",
+            "Adr": 29,
+            "Type": "FSR14",
+            "Id": 1100000008,
+            "Values": {
+                "State": 0
+            }
+        },
+        "9": {
+            "Name": "flbasement",
+            "Desc": "Flur Keller",
+            "Adr": 41,
+            "Type": "FSR14",
+            "Id": 1100000009,
+            "Values": {
+                "State": 0
+            }
+         },
+        "10": {
+            "Name": "baseventil",
+            "Desc": "Keller Lüftung",
+            "Adr": 55,
+            "Type": "FSR14",
+            "Id": 1100000010,
+            "Values": {
+                "State": 0
+            }
+         },
+        "11": {
+            "Name": "baseheat",
+            "Desc": "Keller Heizung",
+            "Adr": 57,
+            "Type": "FSR14",
+            "Id": 1100000011,
+            "Values": {
+                "State": 0
+            }
+        },
+        "12": {
+            "Name": "basesmall",
+            "Desc": "kleiner Keller",
+            "Adr": 53,
+            "Type": "FSR14",
+            "Id": 1100000012,
+            "Values": {
+                "State": 0
+            }
+         },
+        "13": {
+            "Name": "basebig",
+            "Desc": "großer Keller",
+            "Adr": 51,
+            "Type": "FSR14",
+            "Id": 1100000013,
+            "Values": {
+                "State": 0
+            }
+        },
+        "14": {
+            "Name": "toilette",
+            "Desc": "Toilette",
+            "Adr": 43,
+            "Type": "FSR14",
+            "Id": 1100000014,
+            "Values": {
+                "State": 0
+            }
+        },
+        "15": {
+            "Name": "bathsmall",
+            "Desc": "kleines Bad",
+            "Adr": 44,
+            "Type": "FSR14",
+            "Id": 1100000015,
+            "Values": {
+                "State": 0
+            }
+         },
+        "16": {
+            "Name": "bathbig",
+            "Desc": "großes Bad",
+            "Adr": 33,
+            "Type": "FSR14",
+            "Id": 1100000016,
+            "Values": {
+                "State": 0
+            }
+        },
+        "17": {
+            "Name": "dresscabinet",
+            "Desc": "Ankleide Schrank",
+            "Adr": 59,
+            "Type": "FSR14",
+            "Id": 1100000017,
+            "Values": {
+                "State": 0
+            }
+        },
+        "18": {
+            "Name": "entrance",
+            "Desc": "Eingang aussen",
+            "Adr": 45,
+            "Type": "FSR14",
+            "Id": 1100000018,
+            "Values": {
+                "State": 0
+            }
+        },
+        "19": {
+            "Name": "garage",
+            "Desc": "Garage",
+            "Adr": 46,
+            "Type": "FSR14",
+            "Id": 1100000019,
+            "Values": {
+                "State": 0
+            }
+        },
+        "20": {
+            "Name": "balcon",
+            "Desc": "Balkon",
+            "Adr": 39,
+            "Type": "FSR14",
+            "Id": 1100000020,
+            "Values": {
+                "State": 0
+            }
+        },
+        "21": {
+            "Name": "terace",
+            "Desc": "Terrasse",
+            "Adr": 40,
+            "Type": "FSR14",
+            "Id": 1100000021,
+            "Values": {
+                "State": 0
+            }
+        },
+        "22": {
+            "Name": "dressfloor",
+            "Desc": "Ankleide Fussboden",
+            "Adr": 60,
+            "Type": "FSR14",
+            "Id": 1100000022,
+            "Values": {
+                "State": 0
+            }
+        }
+    }, 
+
+    "Sockets": {
+        "1": {
+            "Name": "sleep",
+            "Desc": "Schlafzimmer",
+            "Adr": 63,
+            "Type": "FSR14",
+            "Id": 1100110001,
+            "Values": {
+                "State": 1
+            }
+        },
+        "2": {
+            "Name": "valentin",
+            "Desc": "Valentin",
+            "Adr": 65,
+            "Type": "FSR14",
+            "Id": 1100110002,
+            "Values": {
+                "State": 1
+            }
+        },
+        "3": {
+            "Name": "cornelius",
+            "Desc": "Cornelius",
+            "Adr": 66,
+            "Type": "FSR14",
+            "Id": 1100110003,
+            "Values": {
+                "State": 1
+            }
+        },
+        "4": {
+            "Name": "guest",
+            "Desc": "Gästezimmer",
+            "Adr": 67,
+            "Type": "FSR14",
+            "Id": 1100110004,
+            "Values": {
+                "State": 1
+            }
+        },
+        "5": {
+            "Name": "bath1",
+            "Desc": "Bad/Waschtisch",
+            "Adr": 71,
+            "Type": "FSR14",
+            "Id": 1100110005,
+            "Values": {
+                "State": 1
+            }
+        },
+        "6": {
+            "Name": "bath2",
+            "Desc": "Bad/Heizung",
+            "Adr": 72,
+            "Type": "FSR14",
+            "Id": 1100110006,
+            "Values": {
+                "State": 1
+            }
+        },
+        "7": {
+            "Name": "sitting",
+            "Desc": "Wohnzimmer",
+            "Adr": 61,
+            "Type": "FSR14",
+            "Id": 1100110007,
+            "Values": {
+                "State": 1
+            }
+        },
+        "8": {
+            "Name": "dress",
+            "Desc": "Ankleide",
+            "Adr": 64,
+            "Type": "FSR14",
+            "Id": 1100110008,
+            "Values": {
+                "State": 1
+            }
+        },
+        "9": {
+            "Name": "tank",
+            "Desc": "Fussbodentank",
+            "Adr": 68,
+            "Type": "FSR14",
+            "Id": 1100110009,
+            "Values": {
+                "State": 1
+            }
+        },
+        "10": {
+            "Name": "galerie",
+            "Desc": "Galerie",
+            "Adr": 69,
+            "Type": "FSR14",
+            "Id": 1100110010,
+            "Values": {
+                "State": 1
+            }
+        },
+        "11": {
+            "Name": "floor",
+            "Desc": "Flur",
+            "Adr": 70,
+            "Type": "FSR14",
+            "Id": 1100110011,
+            "Values": {
+                "State": 1
+            }
+        },
+        "12": {
+            "Name": "terace",
+            "Desc": "Terasse",
+            "Adr": 75,
+            "Type": "FSR14",
+            "Id": 1100110012,
+            "Values": {
+                "State": 0
+            }
+        },
+       "13": {
+            "Name": "imow",
+            "Desc": "Rasenmäher",
+            "Adr": 76,
+            "Type": "FSR14",
+            "Id": 1100110013,
+            "Values": {
+                "State": 1
+            }
+        },
+        "14": {
+            "Name": "garden1",
+            "Desc": "Garten 1",
+            "Adr": 77,
+            "Type": "FSR14",
+            "Id": 1100110014,
+            "Values": {
+                "State": 0
+            }
+        },
+        "15": {
+            "Name": "garden2",
+            "Desc": "Garten 2",
+            "Adr": 78,
+            "Type": "FSR14",
+            "Id": 1100110015,
+            "Values": {
+                "State": 0
+            }
+        },
+        "16": {
+            "Name": "kittchen1",
+            "Desc": "Küche 1",
+            "Adr": 73,
+            "Type": "FSR14",
+            "Id": 1100110016,
+            "Values": {
+                "State": 1
+            }
+        },
+        "17": {
+            "Name": "kittchen2",
+            "Desc": "Küche 2",
+            "Adr": 74,
+            "Type": "FSR14",
+            "Id": 1100110017,
+            "Values": {
+                "State": 1
+            }
+        },
+        "18": {
+            "Name": "basesmall",
+            "Desc": "kleiner Keller",
+            "Adr": 79,
+            "Type": "FSR14",
+            "Id": 1100110018,
+            "Values": {
+                "State": 1
+            }
+        },
+        "19": {
+            "Name": "basebig",
+            "Desc": "großer Keller",
+            "Adr": 80,
+            "Type": "FSR14",
+            "Id": 1100110019,
+            "Values": {
+                "State": 1
+            }
+        },
+        "20": {
+            "Name": "garage",
+            "Desc": "Garage",
+            "Adr": 62,
+            "Type": "FSR14",
+            "Id": 1100110020,
+            "Values": {
+                "State": 1
+            }
+        },
+        "21": {
+            "Name": "wandrobe",
+            "Desc": "Garderobe",
+            "Adr": 4629,
+            "Type": "FSR14",
+            "Id": 4629,
+            "Values": {
+                "State": 1
+            }
+        }
+    },
+  
+    "Dimmer": {
+        "1": {
+            "Name": "sleep",
+            "Desc": "Schlafzimmer Deckenlicht",
+            "Adr": 9,
+            "Type": "FUD14",
+            "Id": 1110000001,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "2": {
+            "Name": "valentin",
+            "Desc": "Valentin Deckenlicht",
+            "Adr": 5,
+            "Type": "FUD14",
+            "Id": 1110000002,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "3": {
+            "Name": "cornelius",
+            "Desc": "Cornelius Deckenlicht",
+            "Adr": 4,
+            "Type": "FUD14",
+            "Id": 1110000003,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "4": {
+            "Name": "guest",
+            "Desc": "Gästezimmer Deckenlicht",
+            "Adr": 10,
+            "Type": "FUD14",
+            "Id": 1110000004,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "5": {
+            "Name": "dinning1",
+            "Desc": "Esszimmertisch",
+            "Adr": 7,
+            "Type": "FUD14",
+            "Id": 1110000005,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "6": {
+            "Name": "bigbath",
+            "Desc": "grosses Bad Deckenlicht",
+            "Adr": 8,
+            "Type": "FUD14",
+            "Id": 1110000006,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "7": {
+            "Name": "sitting1",
+            "Desc": "Vouten Wohnzimmer",
+            "Adr": 86,
+            "Type": "FSG14",
+            "Id": 1110000007,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "8": {
+            "Name": "sitting2",
+            "Desc": "Spot Eingang",
+            "Adr": 12,
+            "Type": "FSG14",
+            "Id": 1110000008,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "9": {
+            "Name": "sitting3",
+            "Desc": "Spot Fenster",
+            "Adr": 11,
+            "Type": "FSG14",
+            "Id": 1110000009,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "10": {
+            "Name": "dinning2",
+            "Desc": "Vouten Esszimmer",
+            "Adr": 7,
+            "Type": "FSG14",
+            "Id": 1110000010,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "11": {
+            "Name": "dress",
+            "Desc": "Ankleide Deckenlicht",
+            "Adr": 84,
+            "Type": "FSG14",
+            "Id": 1110000011,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "12": {
+            "Name": "basebig1",
+            "Desc": "großer Keller",
+            "Adr": 87,
+            "Type": "FDG14",
+            "Id": 1110000012,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        },
+        "13": {
+            "Name": "basebig2",
+            "Desc": "großer Keller",
+            "Adr": 87,
+            "Type": "FDG14",
+            "Id": 1110000013,
+            "Values": {
+                "State": 0,
+                "Bright": 100,   
+                "Speed": 0
+            }
+        }
+    }, 
+
+    "Blinds": {
+        "1": {
+            "Name": "sitting",
+            "Desc": "Jalousie Wohnzimmer",
+            "Adr": 15,
+            "Type": "FSB14",
+            "Id": 2000000013,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                               
+                "UpDown": 60500,
+                "Angle": 1000
+            }
+        },
+
+        "2": {
+            "Name": "dinning",
+            "Desc": "Jalousie Esszimmer",
+            "Adr": 13,
+            "Type": "FSB14",
+            "Id": 2000000011,            
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+               "UpDown": 60500,
+                "Angle": 1000
+            }
+        },
+        "3": {
+            "Name": "kittchen",
+            "Desc": "Jalousie Küche",
+            "Adr": 14,
+            "Type": "FSB14",
+            "Id": 2000000012,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "UpDown": 60500,
+                "Angle": 1000
+            }
+        },
+        "4": {
+            "Name": "cornelius",
+            "Desc": "Jalousie Cornelius",
+            "Adr": 17,
+            "Type": "FSB14",
+            "Id": 2000000014,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "UpDown": 43700,
+                "Angle": 1000
+            }
+        },
+        "5": {
+            "Name": "valentin1",
+            "Desc": "Jalousie Valentin",
+            "Adr": 19,
+            "Type": "FSB14",
+            "Id": 2000000015,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "UpDown": 54000,
+                "Angle": 1000
+            }
+        },
+        "6": {
+            "Name": "valentin2",
+            "Desc": "Jalousie Valentin",
+            "Adr": 20,
+            "Type": "FSB14",
+            "Id": 2000000016,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "UpDown": 43700,
+                "Angle": 1000
+            }
+        },
+        "7": {
+            "Name": "sleep1",
+            "Desc": "Jalousie Schlafzimmer",
+            "Adr": 21,
+            "Type": "FSB14",
+            "Id": 2000000017,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "UpDown": 54000,
+                "Angle": 1000
+            }
+        },
+        "8": {
+            "Name": "sleep2",
+            "Desc": "Jalousie Schlafzimmer",
+            "Adr": 22,
+            "Type": "FSB14",
+            "Id": 2000000018,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "UpDown": 43700,
+                "Angle": 1000
+            }
+        },
+        "9": {
+            "Name": "bath",
+            "Desc": "Jalousie Bad",
+            "Adr": 23,
+            "Type": "FSB14",
+            "Id": 2000000019,
+            "Values": {
+                "Position": 0,
+                "Angle": 0
+            },
+            "Options": {                
+                "UpDown": 43700,
+                "Angle": 1000
+            }
+        }
+    },
+
+    "Garage": {
+        "1": {
+            "Name": "garage",
+            "Desc": "Garagentor",
+            "Adr": 2,
+            "Type": "FTS14",
+            "Id": 4436,
+            "Values": {
+                "State": 0
+            },
+            "Options": {                
+                "Mode": 16 
+            }
+        } 
+    },
+
+    "Climate": {
+        "1": {
+            "Name": "pump",
+            "Desc": "Umwälzpumpe",
+            "Adr": 35,
+            "Type": "FSR14",
+            "Id": 1011000002,
+            "Values": {
+                "State": 0
+            }
+        },        
+        "2": {
+            "Name": "ventilation",
+            "Desc": "Stoßlüftung",
+            "Adr": 3,
+            "Type": "FSR14",
+            "Id": 1011000003,
+            "Values": {
+                "State": 0
+            }
+        }        
+    },
+
+    "Fire": {
+        "1": {
+            "Name": "fire",
+            "Desc": "Feueralarm",
+            "Adr": 25,
+            "Type": "FSR14",
+            "Id": 1011000001,
+            "Values": {
+                "State": 0
+            }
+        }
+    },
+   
+    "CentralOff": {
+        "1": {
+            "Name": "Coff1",
+            "Desc": "Schlafzimmer",
+            "Id": 1010000001,
+            "Values": {
+                "Trigger": 0
+            },
+            "Options": {                
+               "Mode": 48
+            }
+        },
+        "2": {
+            "Name": "Coff2",
+            "Desc": "Valentin",
+            "Id": 1010000002,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "3": {
+            "Name": "Coff3",
+            "Desc": "Cornelius",
+            "Id": 1010000003,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "4": {
+            "Name": "Coff4",
+            "Desc": "Gästezimmer",
+            "Id": 1010000004,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "5": {
+            "Name": "Coff5",
+            "Desc": "Esszimmer",
+            "Id": 1010000005,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "6": {
+            "Name": "Coff6",
+            "Desc": "grosses Bad",
+            "Id": 1010000006,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "7": {
+            "Name": "Coff7",
+            "Desc": "Wohnzimmer",
+            "Id": 1010000007,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "8": {
+            "Name": "Coff8",
+            "Desc": "kleines Bad",
+            "Id": 1010000008,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                 "Mode": 48
+            }
+        },
+        "9": {
+            "Name": "Coff9",
+            "Desc": "Keller",
+            "Id": 1010000009,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                 "Mode": 48
+            }
+        },
+        "10": {
+            "Name": "Coff10",
+            "Desc": "Flure",
+            "Id": 1010000010,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "11": {
+            "Name": "Coff11",
+            "Desc": "Aussenbereich",
+            "Id": 1010000011,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "12": {
+            "Name": "Coff12",
+            "Desc": "Ankleide",
+            "Id": 1010000012,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "13": {
+            "Name": "Coff13",
+            "Desc": "Garage",
+            "Id": 1010000013,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "14": {
+            "Name": "Coff14",
+            "Desc": "Steckdosen Flur",
+            "Id": 1010000014,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        },
+        "15": {
+            "Name": "jalclose",
+            "Desc": "alle Jalousien ZU",
+            "Id": 2000000001,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 80
+            }
+        }
+    }, 
+
+    "CentralOn": {
+        "1": {
+            "Name": "jalopen",
+            "Desc": "alle Jalousien AUF",
+            "Id": 2000000000,
+            "Values": {
+                "Trigger": 0
+            },
+           "Options": {                
+                "Mode": 48
+            }
+        }
+     },
+      
+    "Sensors": {
+        "1": {
+            "Name": "ms",
+            "Desc": "Wetterstation Dach",
+            "Adr": 6144,
+            "Type": "FWS61",
+            "Values": {
+                "sunwest" : 0,
+                "suneast" : 0,
+                "sunsouth": 0,
+                "brightness" : 0,
+                "temperature" : 0,
+                "windspeed" : 0,
+                "rain" : 0
+            }
+        },
+        "2": {
+            "Name": "bright",
+            "Desc": "Helligkeitssensor Nord",
+            "Adr": 16804305,
+            "Type": "FAH60",
+            "Values": {
+                "brightness" : 0
+            }
+        },
+        "3": {
+            "Name": "temp",
+            "Desc": "Temperatursensor Nord",
+            "Adr": 8453210,
+            "Type": "FAFT60",
+            "Values": {
+                "temperature" : 0,
+                "humidity" : 0,
+                "voltage" : 0
+            }
+        }
+    },
+
+    "Keys": {
+        "1": {
+            "Desc": "Flur Keller rechts",
+            "Adr": 4504,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "2": {
+            "Desc": "Flur 2. Ebene Taster 6/6",
+            "Adr": 4503,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "3": {
+            "Desc": "Flur 2. Ebene Taster 5/6",
+            "Adr": 4502,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "4": {
+            "Desc": "Flur Keller links",
+            "Adr": 4501,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "5": {
+            "Desc": "Flur 2. Ebene Taster 4/6",
+            "Adr": 4500,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "6": {
+            "Desc": "Flur 2. Ebene Taster  3/6",
+            "Adr": 4499,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "7": {
+            "Desc": "Flur 2. Ebene Taster  2/6",
+            "Adr": 4498,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "8": {
+            "Desc": "Flur 2. Ebene Taster  1/6",
+            "Adr": 4497,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "9": {
+            "Desc": "Flur 3. Ebene Taster 4/6",
+            "Adr": 4489,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "10": {
+            "Desc": "Flur 3. Ebene Taster  3/6",
+            "Adr": 4488,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "11": {
+            "Desc": "Flur 3. Ebene Taster  1/6",
+            "Adr": 4487,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "12": {
+            "Desc": "Flur 3. Ebene Taster  2/6",
+            "Adr": 4486,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },        
+        "13": {
+            "Desc": "Bad klein links",
+            "Adr": 4484,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },        
+        "14": {
+            "Desc": "Bad klein rechts",
+            "Adr": 4483,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "15": {
+            "Desc": "Garage",
+            "Adr": 4482,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "16": {
+            "Desc": "Keller Lüftung",
+            "Adr": 4481,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "17": {
+            "Desc": "Flur 3. Ebene Taster 6/6",
+            "Adr": 4480,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "18": {
+            "Desc": "Gästetoilette rechts",
+            "Adr": 4473,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "19": {
+            "Desc": "Gästetoilette links",
+            "Adr": 4472,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },              
+        "20": {
+            "Desc": "Ankleide links",
+            "Adr": 4471,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "21": {
+            "Desc": "Ankleide rechts",
+            "Adr": 4470,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "22": {
+            "Desc": "Flur 3. Ebene Taster 5/6",
+            "Adr": 4469,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "23": {
+            "Desc": "Keller klein",
+            "Adr": 4467,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "24": {
+            "Desc": "Keller Heizung",
+            "Adr": 4485,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "25": {
+            "Desc": "Keller groß",
+            "Adr": 4465,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "26": {
+            "Desc": "Flur 4. Ebene Taster 6/6",
+            "Adr": 4464,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "27": {
+            "Desc": "Flur 4. Ebene Taster 4/6",
+            "Adr": 4457,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },  
+        "28": {
+            "Desc": "Flur 4. Ebene Taster  3/6",
+            "Adr": 4456,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "29": {
+            "Desc": "Flur 4. Ebene Taster  1/6",
+            "Adr": 4455,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "30": {
+            "Desc": "Flur 4. Ebene Taster  2/6",
+            "Adr": 4454,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "31": {
+            "Desc": "Flur 4. Ebene Taster 5/6",
+            "Adr": 4453,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },          
+        "32": {
+            "Desc": "Flur 1. Ebene Taster  2/6",
+            "Adr": 4448,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "33": {
+            "Desc": "Küche Taster oben  6/6",
+            "Adr": 4441,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "34": {
+            "Desc": "Küche Taster oben  5/6",
+            "Adr": 4440,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },            
+        "35": {
+            "Desc": "Flur 1. Ebene Taster  6/6",
+            "Adr": 4439,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "36": {
+            "Desc": "Flur 1. Ebene Taster  1/6",
+            "Adr": 4437,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "37": {
+            "Desc": "Flur 1. Ebene Taster  5/6",
+            "Adr": 4436,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "38": {
+            "Desc": "Flur 1. Ebene Taster  3/6",
+            "Adr": 4435,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "39": {
+            "Desc": "Bad groß Taster 6/6",
+            "Adr": 4434,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "40": {
+            "Desc": "Bad groß Taster 5/6",
+            "Adr": 4433,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "41": {
+            "Desc": "Valentin Taster 6/6",
+            "Adr": 4432,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "42": {
+            "Desc": "Bad groß Taster  4/6",
+            "Adr": 4425,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "43": {
+            "Desc": "Bad groß Taster  3/6",
+            "Adr": 4424,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "44": {
+            "Desc": "Küche Taster oben  4/6",
+            "Adr": 4423,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "45": {
+            "Desc": "Küche Taster oben  3/6",
+            "Adr": 4422,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "46": {
+            "Desc": "Valentin Taster 5/6",
+            "Adr": 4421,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "47": {
+            "Desc": "Valentin Taster 4/6",
+            "Adr": 4420,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "48": {
+            "Desc": "Valentin Taster  3/6",
+            "Adr": 4419,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },    
+        "49": {
+            "Desc": "Küche Taster oben  2/6",
+            "Adr": 4418,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "50": {
+            "Desc": "Küche Taster oben  1/6",
+            "Adr": 4417,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },       
+        "51": {
+            "Desc": "Cornelius Taster 6/6",
+            "Adr": 4416,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "52": {
+            "Desc": "Cornelius Taster 5/6",
+            "Adr": 4409,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },           
+        "53": {
+            "Desc": "Cornelius Taster 3+4/6",
+            "Adr": 4374,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "54": {
+            "Desc": "Wohnzimmer Taster 4/6",
+            "Adr": 4404,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },      
+        "55": {
+            "Desc": "Wohnzimmer Taster 3/6",
+            "Adr": 4403,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },      
+        "56": {
+            "Desc": "Wohnzimmer Taster  1/6",
+            "Adr": 4402,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "57": {
+            "Desc": "Wohnzimmer Taster  2/6",
+            "Adr": 4401,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }, 
+        "58": {
+            "Desc": "Cornelius Taster  1+2/6",
+            "Adr": 4400,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "59": {
+            "Desc": "Gästezimmer",
+            "Adr": 4392,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                  
+        "60": {
+            "Desc": "Bad groß Taster  1+2/6",
+            "Adr": 4390,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "61": {
+            "Desc": "Valentin Taster  1+2/6",
+            "Adr": 4388,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "62": {
+            "Desc": "Schlafzimmer Taster  1+2/6",
+            "Adr": 4386,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },           
+        "63": {
+            "Desc": "Wohnzimmer Taster 5+6",
+            "Adr": 4376,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                        
+        "64": {
+            "Desc": "Schlafzimmer Taster 6/6",
+            "Adr": 4368,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "65": {
+            "Desc": "Küche Taster unten  4/6",
+            "Adr": 4361,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "66": {
+            "Desc": "Küche Taster unten  3/6",
+            "Adr": 4360,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },   
+        "67": {
+            "Desc": "Küche Taster unten  1/6",
+            "Adr": 4358,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },                      
+        "68": {
+            "Desc": "Schlafzimmer Taster 5/6",
+            "Adr": 4357,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "69": {
+            "Desc": "Schlafzimmer Taster  4/6",
+            "Adr": 4356,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "70": {
+            "Desc": "Schlafzimmer Taster  3/6",
+            "Adr": 4355,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "71": {
+            "Desc": "Küche Taster unten  5/6",
+            "Adr": 4354,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },     
+        "72": {
+            "Desc": "Küche Taster unten  6/6",
+            "Adr": 4353,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "73": {
+            "Desc": "Keller groß  3/6",
+            "Adr": 4405,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "74": {
+            "Desc": "unbekannt_1",
+            "Adr": 4384,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        }
+
+    }
+}
+
+
+
+
+
+
+

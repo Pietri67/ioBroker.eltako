@@ -1,0 +1,122 @@
+{
+	"common": {
+		"name": "eltako",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"uk": "Початкова версія",
+				"zh-cn": "首次出版"
+			}
+		},
+		"titleLang": {
+			"en": "Eltako",
+			"de": "Eltako",
+			"ru": "Элтако",
+			"pt": "Eltako",
+			"nl": "Eltako",
+			"fr": "Eltako",
+			"it": "Eltako",
+			"es": "Eltako",
+			"pl": "Eltako",
+			"uk": "Ельтако",
+			"zh-cn": "埃尔塔科"
+		},
+		"desc": {
+			"en": "eltako",
+			"de": "Eltako",
+			"ru": "эльтако",
+			"pt": "Eltako",
+			"nl": "eltako",
+			"fr": "eltako",
+			"it": "eltako",
+			"es": "eltako",
+			"pl": "eltako",
+			"uk": "eltako",
+			"zh-cn": "埃尔塔科"
+		},
+		"authors": [
+			"Pietri67 <torsten.voigt@nobibum.de>"
+		],
+		"keywords": [
+			"ioBroker",
+			"template",
+			"Smart Home",
+			"home automation"
+		],
+		"licenseInformation": {
+			"type": "free",
+			"license": "MIT"
+		},
+		"platform": "Javascript/Node.js",
+		"icon": "eltako.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Pietri67/ioBroker.eltako/main/admin/eltako.png",
+		"readme": "https://github.com/Pietri67/ioBroker.eltako/blob/main/README.md",
+		"loglevel": "info",
+		"tier": 3,
+		"mode": "daemon",
+		"type": "protocols",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "materialize"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=6.0.11"
+			}
+		],
+		"globalDependencies": []
+	},
+	"native": {
+		"usbport": "/dev/ttyUSB0",
+		"baudrate": 57600
+	},
+	"objects": [],
+	"instanceObjects": [
+		 {
+			"_id": "info",
+			"type": "channel",
+			"common": {
+			  "name": "Information"
+			},
+			"native": {}
+		  },
+		  {
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+			  "role": "indicator",
+			  "name": "connected to eltako bus",
+			  "type": "boolean",
+			  "read": true,
+			  "write": false,
+			  "def": false
+			},
+			"native": {}
+		  },
+		  {
+			  "_id": "info.lastmsg",
+			  "type": "state",
+			  "common": {
+				"role": "text",
+				"name": "last received eltako message",
+				"type": "string",
+				"read": true,
+				"write": false,
+				"def": ""
+			  },
+			  "native": {}
+		  }
+	]
+}
