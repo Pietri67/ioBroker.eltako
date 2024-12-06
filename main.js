@@ -411,6 +411,137 @@ class Eltako extends utils.Adapter {
 						}
 					}
 
+					if (obj.native.Type === 'FSB14') {
+						if (tlg.ORG == 5) {
+
+							if (tlg.Data3 == 0x50) {
+								// 100 - geschlossen, 0x50 Endlage unten
+								this.setState(obj._id + '.position', 100, true);
+								this.setState(obj._id + '.angle', 100, true);
+								this.setState(obj._id + '.cmd', 0, true);
+								//this.log.info('Eltako Endlage unten');
+							}
+							if (tlg.Data3 == 0x70) {
+								// 0 - offen, 0x70 Endlage oben
+								this.setState(obj._id + '.position', 0, true);
+								this.setState(obj._id + '.angle', 0, true);
+								this.setState(obj._id + '.cmd', 0, true);
+								//this.log.info('Eltako Endlage oben');
+							}
+
+							if (tlg.Data3 == 0x01) {
+								//this.log.info('Eltako start öffnen');
+								this.setState(obj._id + '.cmd', 1, true);
+							}
+							if (tlg.Data3 == 0x02) {
+								//this.log.info('Eltako start schließen');
+								this.setState(obj._id + '.cmd', 2, true);
+							}
+						}
+
+						if (tlg.ORG == 7) {
+							// Fahrtrichtung -> 1 auf/nach oben, -> 0 zu/nach unten
+							const dir = (tlg.Data1 == 1 ? 1 : 0);
+							//this.log.info('Eltako Fahrtrichtung ' + dir);
+
+							// Laufzeit in 100ms
+							const runningtime = Number((tlg.Data3 * 256) + tlg.Data2);
+							//this.log.info('Fahrzeit ' + runningtime);
+
+							// falls cmd aktiv rücksetzen
+							this.setState(obj._id + '.cmd', 0, true);
+
+							// Motor steht...
+							// Ablauf Jalousie ist immer, zuerst Angle drehen, dann Position einnehmen
+							// aktuelle Position holen und max. Verfahrzeit
+							const tmpMaxAngleTime = Number(obj.native.Angle)/100;
+							const tmpAngle = await this.getStateAsync(obj._id + '.angle');
+							if (tmpAngle === null) {
+								this.log.info('obj angle NULL');
+							}
+							else {
+								//this.log.info('obj: ' + JSON.stringify(tmpAngle));
+							}
+
+							//this.log.info('tmpMaxAngleTime: ' + tmpMaxAngleTime);
+
+							const tmpPosition = await this.getStateAsync(obj._id + '.position');
+							if (tmpPosition === null) {
+								this.log.info('obj position NULL');
+							}
+							else {
+								//this.log.info('obj: ' + JSON.stringify(tmpPosition));
+							}
+
+
+							const tmpMaxPositionTime = Number(obj.native.UpDown)/100;
+							//this.log.info('tmpMaxPositionTime: ' + tmpMaxPositionTime);
+
+
+							// in 100ms rechnet FSB
+							if (dir == 0) {
+
+								// zu fahren
+								// @ts-ignore
+								const tmpAngleTime = (100 - Number(tmpAngle.val)) * tmpMaxAngleTime / 100 ;
+								//this.log.info('AngleTime: ' +  tmpAngleTime.toString() + ' runtime: ' + runningtime);
+
+								// wurde nur der Winkel verändert
+								if (tmpAngleTime > runningtime) {
+									const diffAngle = runningtime * 100/tmpMaxAngleTime;
+									// @ts-ignore
+									const newAngle = Number(tmpAngle.val) + diffAngle;
+									obj.native.LastAngle = (newAngle > 100) ? 100 : newAngle;
+									this.setState(obj._id + '.angle', obj.native.LastAngle, true);
+								} else {
+									// Lamelle zu
+									obj.native.LastAngle = 100;
+									this.setState(obj._id + '.angle', 100, true);
+
+									// Position berechnen
+									const restPositionTime = runningtime - tmpAngleTime;
+									const diffPosition = restPositionTime * 100/tmpMaxPositionTime;
+									// @ts-ignore
+									const newPosition = tmpPosition.val + diffPosition;
+
+									//this.log.info('NewPos: ' + newPosition + ' diffPos: ' + diffPosition + ' restPos: ' + restPositionTime);
+									obj.native.LastPosition = (newPosition > 100) ? 100 : newPosition;
+									this.setState(obj._id + '.position', obj.native.LastPosition, true);
+								}
+
+							} else {
+								// auf fahren
+								// @ts-ignore
+								const tmpAngleTime = Number(tmpAngle.val) * tmpMaxAngleTime / 100;
+								//this.log.info('AngleTime: ' +  tmpAngleTime + ' runtime: ' + runningtime);
+
+								// wurde nur der Winkel verändert
+								if (tmpAngleTime > runningtime) {
+									const diffAngle = runningtime * 100/tmpMaxAngleTime;
+									// @ts-ignore
+									const newAngle = tmpAngle.val - diffAngle;
+									obj.native.LastAngle = (newAngle < 0) ? 0 : newAngle;
+									this.setState(obj._id + '.angle', obj.native.LastAngle, true);
+								} else {
+									// Lamelle auf
+									obj.native.LastAngle = 0;
+									this.setState(obj._id + '.angle', 0, true);
+
+									// Position berechnen
+									const restPositionTime = runningtime - tmpAngleTime;
+									const diffPosition = restPositionTime * 100/tmpMaxPositionTime;
+									// @ts-ignore
+									const newPosition = Number(tmpPosition.val) - diffPosition;
+
+									//this.log.info('NewPos: ' + newPosition.toString() + ' diffPos: ' + diffPosition.toString() + ' restPos: ' + restPositionTime.toString());
+									obj.native.LastPosition = (newPosition < 0) ? 0 : newPosition;
+									this.setState(obj._id + '.position', obj.native.LastPosition, true);
+								}
+
+							}
+						}
+					}
+
 					if (obj.native.Type === 'FWS61') {
 						if (tlg.Data0 == 40) {
 							this.setState(obj._id + '.sunwest', (tlg.Data3 * 150/255 * 1000), true);
