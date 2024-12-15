@@ -1594,14 +1594,29 @@
             }
         },
         "74": {
-            "Desc": "unbekannt_1",
-            "Adr": 4384,
+            "Desc": "Keller groß  5/6",
+            "Adr": 4466,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "75": {
+            "Desc": "Keller groß  4/6",
+            "Adr": 4406,
+            "Type": "FTS14EM",
+            "Values": {
+                "state": 0
+            }
+        },
+        "76": {
+            "Desc": "Keller groß  1/6",
+            "Adr": 4277082121,
             "Type": "FTS14EM",
             "Values": {
                 "state": 0
             }
         }
-
     }
 }
 
